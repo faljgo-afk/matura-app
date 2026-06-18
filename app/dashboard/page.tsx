@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase-server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
+import EditNameForm from '@/components/EditNameForm'
 
 export const dynamic = 'force-dynamic'
 
@@ -66,8 +67,9 @@ export default async function DashboardPage() {
       <div className="max-w-4xl mx-auto px-4 py-10">
 
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Moje postępy</h1>
-          <p className="text-gray-500 text-sm mt-1">{user.email}</p>
+          <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Moje postępy</p>
+          <EditNameForm currentName={user.user_metadata?.name ?? ''} />
+          <p className="text-gray-400 text-sm mt-1">{user.email}</p>
         </div>
 
         {/* Summary cards */}

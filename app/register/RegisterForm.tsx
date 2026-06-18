@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { createClient } from '@/lib/supabase-browser'
 
 export default function RegisterForm() {
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -26,6 +27,7 @@ export default function RegisterForm() {
       email,
       password,
       options: {
+        data: { name: name.trim() },
         emailRedirectTo: `${window.location.origin}/dashboard`,
       },
     })
@@ -55,6 +57,17 @@ export default function RegisterForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Imię</label>
+        <input
+          type="text"
+          value={name}
+          onChange={e => setName(e.target.value)}
+          required
+          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+          placeholder="Twoje imię"
+        />
+      </div>
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
         <input

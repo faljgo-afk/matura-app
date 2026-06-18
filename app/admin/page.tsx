@@ -71,6 +71,7 @@ export default async function AdminPage() {
             <thead className="bg-gray-50 border-b border-gray-200">
               <tr>
                 <th className="text-left px-4 py-3 text-gray-600 font-medium">Email</th>
+                <th className="text-left px-4 py-3 text-gray-600 font-medium">Imię</th>
                 <th className="text-center px-4 py-3 text-gray-600 font-medium">Testów</th>
                 <th className="text-center px-4 py-3 text-gray-600 font-medium">Sprawdzianów</th>
                 <th className="text-center px-4 py-3 text-gray-600 font-medium">Śr. (tematy)</th>
@@ -101,6 +102,9 @@ export default async function AdminPage() {
                       {u.email === ADMIN_EMAIL && (
                         <span className="ml-2 text-xs bg-purple-100 text-purple-600 px-1.5 py-0.5 rounded">admin</span>
                       )}
+                    </td>
+                    <td className="px-4 py-3 text-gray-600">
+                      {u.user_metadata?.name || <span className="text-gray-300">—</span>}
                     </td>
                     <td className="px-4 py-3 text-center text-gray-600">{topicTests.length || '—'}</td>
                     <td className="px-4 py-3 text-center text-gray-600">{mockTests.length || '—'}</td>
