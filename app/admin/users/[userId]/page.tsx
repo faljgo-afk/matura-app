@@ -39,9 +39,6 @@ function scoreColor(score: number) {
   return score >= 75 ? 'text-green-600' : score >= 50 ? 'text-yellow-600' : 'text-red-500'
 }
 
-function scoreBg(score: number) {
-  return score >= 75 ? 'bg-green-50 border-green-200' : score >= 50 ? 'bg-yellow-50 border-yellow-200' : 'bg-red-50 border-red-200'
-}
 
 export default async function AdminUserPage({ params }: { params: { userId: string } }) {
   const supabase = createClient()
@@ -61,7 +58,6 @@ export default async function AdminUserPage({ params }: { params: { userId: stri
   const mockScores = mockSessions.map(s => Math.round(((s.score ?? 0) / (s.max_score ?? 1)) * 100))
   const avgTopic = topicScores.length > 0 ? Math.round(topicScores.reduce((a, b) => a + b, 0) / topicScores.length) : null
   const avgMock = mockScores.length > 0 ? Math.round(mockScores.reduce((a, b) => a + b, 0) / mockScores.length) : null
-  const bestScore = topicScores.length > 0 ? Math.max(...topicScores) : null
 
   return (
     <main className="min-h-screen bg-gray-50">
