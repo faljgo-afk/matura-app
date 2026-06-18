@@ -32,7 +32,8 @@ async function getResults(sessionId: string, userId: string | null) {
   if (error || !session) return null
 
   const questionIds: string[] = session.questions
-  const table = session.session_type === 'mock_exam' ? 'mock_questions' : 'questions'
+  const isMock = session.session_type === 'mock_exam' || session.session_type === 'mock_exam_free'
+  const table = isMock ? 'mock_questions' : 'questions'
 
   const { data: questions } = await supabase
     .from(table)

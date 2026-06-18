@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
   let questionIds: string[] = []
   let reviewQuestionIds: string[] = []
 
-  if (sessionType === 'mock_exam') {
+  if (sessionType === 'mock_exam' || sessionType === 'mock_exam_free') {
     const { data, error } = await supabase
       .from('mock_questions')
       .select('id, subtopic')

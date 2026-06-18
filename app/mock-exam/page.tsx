@@ -1,6 +1,19 @@
+import { supabase } from '@/lib/supabase'
 import MockExamStarter from './MockExamStarter'
 
-export default function MockExamPage() {
+export const dynamic = 'force-dynamic'
+
+async function getMockQuestionCount() {
+  const { count } = await supabase
+    .from('mock_questions')
+    .select('id', { count: 'exact', head: true })
+    .eq('verified', true)
+  return count ?? 0
+}
+
+export default async function MockExamPage() {
+  const questionCount = await getMockQuestionCount()
+
   return (
     <main className="min-h-screen bg-gray-50">
       <div className="max-w-2xl mx-auto px-4 py-12">
@@ -21,15 +34,11 @@ export default function MockExamPage() {
             </div>
             <div className="flex items-center gap-3 text-sm text-gray-700">
               <span className="text-green-500 text-lg">✓</span>
-              <span><strong>45 minut</strong> na rozwiązanie</span>
-            </div>
-            <div className="flex items-center gap-3 text-sm text-gray-700">
-              <span className="text-green-500 text-lg">✓</span>
               <span>Po zakończeniu — wynik i <strong>wyjaśnienia błędów</strong></span>
             </div>
             <div className="flex items-center gap-3 text-sm text-gray-700">
-              <span className="text-yellow-500 text-lg">⚠</span>
-              <span>Czas mija automatycznie — test zostanie przesłany gdy skończy się czas</span>
+              <span className="text-blue-500 text-lg">📚</span>
+              <span>Baza zawiera <strong>{questionCount} pytań</strong> do sprawdzianu</span>
             </div>
           </div>
 
