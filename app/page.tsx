@@ -53,20 +53,6 @@ export default async function HomePage() {
             </div>
           </div>
 
-          <div className="flex gap-3 justify-center">
-            <Link
-              href="/login"
-              className="bg-green-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-green-700 transition-colors"
-            >
-              Zaloguj się
-            </Link>
-            <Link
-              href="/register"
-              className="border border-gray-300 text-gray-700 font-semibold px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors"
-            >
-              Utwórz konto
-            </Link>
-          </div>
         </div>
 
         {/* Topic list */}
