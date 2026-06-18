@@ -103,7 +103,7 @@ export default async function DashboardPage() {
                     )}
                     {topic.bestScore !== null ? (
                       <span className={`text-sm font-semibold ${topic.bestScore >= 75 ? 'text-green-600' : topic.bestScore >= 50 ? 'text-yellow-600' : 'text-red-500'}`}>
-                        {topic.bestScore}%
+                        najlepszy wynik: {topic.bestScore}%
                       </span>
                     ) : (
                       <span className="text-xs text-gray-400">nie testowano</span>
@@ -132,7 +132,7 @@ export default async function DashboardPage() {
                   {topic.attempts > 0 && (
                     <span className="text-xs text-gray-400">{topic.attempts} {topic.attempts === 1 ? 'podejście' : 'podejść'}</span>
                   )}
-                  {topic.totalQ > 0 && topic.learnedQ === 0 && topic.attempts === 0 && (
+                  {topic.totalQ > 0 && (
                     <span className="text-xs text-gray-300">{topic.totalQ} pytań</span>
                   )}
                 </div>
