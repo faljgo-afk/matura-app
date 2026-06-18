@@ -128,16 +128,27 @@ export default async function ResultsPage({ params }: { params: { sessionId: str
                     const userPicked = userAnswer.includes(option.id)
                     const isCorrectOption = correct.includes(option.id)
 
-                    let style = 'border-gray-200 text-gray-600'
-                    if (isCorrectOption) style = 'border-green-400 bg-green-50 text-green-800'
-                    if (userPicked && !isCorrectOption) style = 'border-red-400 bg-red-50 text-red-800'
+                    let style = 'border-gray-200 text-gray-500'
+                    let badge: React.ReactNode = null
+
+                    if (userPicked && isCorrectOption) {
+                      style = 'border-green-400 bg-green-50 text-green-800'
+                      badge = <span className="ml-2 text-green-600 font-medium text-xs">✓ poprawna · Twój wybór</span>
+                    } else if (userPicked && !isCorrectOption) {
+                      style = 'border-red-400 bg-red-50 text-red-800'
+                      badge = <span className="ml-2 text-red-500 font-medium text-xs">✗ Twój wybór (błędna)</span>
+                    } else if (!userPicked && isCorrectOption) {
+                      style = 'border-green-300 bg-green-50 text-green-700'
+                      badge = <span className="ml-2 text-green-500 font-medium text-xs">✓ poprawna (nie wybrano)</span>
+                    }
 
                     return (
-                      <div key={option.id} className={`px-3 py-2 rounded-lg border text-sm ${style}`}>
-                        <span className="font-semibold mr-1">{option.id}.</span>
-                        {option.text}
-                        {isCorrectOption && <span className="ml-2 text-green-600 font-medium">✓ poprawna</span>}
-                        {userPicked && !isCorrectOption && <span className="ml-2 text-red-500 font-medium">← Twoja odpowiedź</span>}
+                      <div key={option.id} className={`px-3 py-2 rounded-lg border text-sm flex items-center justify-between ${style}`}>
+                        <span>
+                          <span className="font-semibold mr-1">{option.id}.</span>
+                          {option.text}
+                        </span>
+                        {badge}
                       </div>
                     )
                   })}
