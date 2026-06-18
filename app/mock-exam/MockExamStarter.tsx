@@ -37,15 +37,15 @@ export default function MockExamStarter({ isLoggedIn }: { isLoggedIn: boolean })
         <div className="flex gap-3">
           <Link
             href="/login"
-            className="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-4 rounded-xl text-lg transition-colors text-center"
+            className="flex-1 border border-gray-300 hover:bg-gray-50 text-gray-700 font-semibold py-4 rounded-xl text-lg transition-colors text-center"
           >
             Zaloguj się
           </Link>
           <Link
             href="/register"
-            className="flex-1 border border-gray-300 hover:bg-gray-50 text-gray-700 font-semibold py-4 rounded-xl text-lg transition-colors text-center"
+            className="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-4 rounded-xl text-lg transition-colors text-center"
           >
-            Utwórz konto
+            Zarejestruj się
           </Link>
         </div>
       </div>
