@@ -127,8 +127,12 @@ export default function TestScreen({
 
         {/* Question */}
         <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 mb-4">
-          <div className="text-xs text-gray-400 mb-3 uppercase tracking-wide">
-            {isMultiple ? 'Wybierz wszystkie poprawne odpowiedzi' : 'Wybierz jedną odpowiedź'}
+          <div className={`inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full mb-4 ${
+            isMultiple
+              ? 'bg-purple-100 text-purple-700'
+              : 'bg-blue-100 text-blue-700'
+          }`}>
+            {isMultiple ? '☑ Wybierz wszystkie poprawne odpowiedzi' : '○ Wybierz jedną odpowiedź'}
           </div>
           <p className="text-lg font-medium text-gray-900 mb-6">{question.question_text}</p>
 
