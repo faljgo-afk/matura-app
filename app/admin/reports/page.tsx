@@ -55,7 +55,7 @@ export default async function ReportsPage() {
   const topicStats = topics.map(topic => {
     const tq = questions.filter(q => q.topic_id === topic.id)
     const tqVerified = tq.filter(q => q.verified)
-    const subtopics = [...new Set(tq.map(q => q.subtopic ?? 'ogólne'))]
+    const subtopics = Array.from(new Set(tq.map(q => q.subtopic ?? 'ogólne')))
     const avgDiff = tq.length > 0 ? (tq.reduce((s, q) => s + (q.difficulty ?? 2), 0) / tq.length) : 0
     return { ...topic, total: tq.length, verified: tqVerified.length, subtopics: subtopics.length, avgDiff }
   })
@@ -85,7 +85,7 @@ export default async function ReportsPage() {
   }
 
   // All subtopics from main questions
-  const allSubtopics = [...new Set(questions.map(q => q.subtopic ?? 'ogólne'))]
+  const allSubtopics = Array.from(new Set(questions.map(q => q.subtopic ?? 'ogólne')))
   const mockCoveredSubtopics = allSubtopics.filter(s => mockSubtopicMap[s] > 0).length
 
   return (
