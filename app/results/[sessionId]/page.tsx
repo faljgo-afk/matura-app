@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase-server'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import LearnButton from '@/components/LearnButton'
+import BackButton from '@/components/BackButton'
 
 export const dynamic = 'force-dynamic'
 
@@ -95,9 +96,7 @@ export default async function ResultsPage({ params }: { params: { sessionId: str
     <main className="min-h-screen bg-gray-50">
       <div className="max-w-2xl mx-auto px-4 py-10">
 
-        <Link href="/" className="text-green-600 hover:text-green-800 text-sm mb-6 inline-block">
-          ← Powrót do strony głównej
-        </Link>
+        <BackButton />
 
         {/* Score summary */}
         <div className={`rounded-xl p-6 border mb-8 text-center ${scoreBg}`}>
