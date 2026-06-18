@@ -28,16 +28,20 @@ export default function TestScreen({
   sessionId,
   questions,
   timeLimit,
+  reviewQuestionIds = [],
 }: {
   sessionId: string
   questions: Question[]
   timeLimit?: number
+  reviewQuestionIds?: string[]
 }) {
   const [current, setCurrent] = useState(0)
   const [answers, setAnswers] = useState<Answers>({})
   const [submitting, setSubmitting] = useState(false)
   const [timeLeft, setTimeLeft] = useState(timeLimit ?? null)
   const router = useRouter()
+
+  const reviewSet = new Set(reviewQuestionIds)
 
   const handleSubmit = useCallback(async (finalAnswers: Answers) => {
     if (submitting) return
@@ -58,7 +62,6 @@ export default function TestScreen({
     }
   }, [sessionId, router, submitting])
 
-  // Countdown timer
   useEffect(() => {
     if (timeLeft === null) return
     if (timeLeft <= 0) {
@@ -74,6 +77,7 @@ export default function TestScreen({
   const question = questions[current]
   const selected = answers[question.id] ?? []
   const isMultiple = question.question_type === 'multiple'
+  const isReview = reviewSet.has(question.id)
 
   function toggleOption(optionId: string) {
     const prev = answers[question.id] ?? []
@@ -113,6 +117,13 @@ export default function TestScreen({
             style={{ width: `${((current + 1) / questions.length) * 100}%` }}
           />
         </div>
+
+        {/* Review badge */}
+        {isReview && (
+          <div className="mb-3 flex items-center gap-2 text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
+            🔄 <span>Pytanie do powtórki — już je znasz, sprawdźmy czy nadal!</span>
+          </div>
+        )}
 
         {/* Question */}
         <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 mb-4">
@@ -178,21 +189,27 @@ export default function TestScreen({
 
         {/* Question dots */}
         <div className="flex gap-1.5 mt-4 flex-wrap justify-center">
-          {questions.map((q, i) => (
-            <button
-              key={q.id}
-              onClick={() => setCurrent(i)}
-              className={`w-7 h-7 rounded-full text-xs font-medium transition-all ${
-                i === current
-                  ? 'bg-green-600 text-white'
-                  : answers[q.id]
-                  ? 'bg-green-200 text-green-800'
-                  : 'bg-gray-200 text-gray-500'
-              }`}
-            >
-              {i + 1}
-            </button>
-          ))}
+          {questions.map((q, i) => {
+            const isReviewDot = reviewSet.has(q.id)
+            return (
+              <button
+                key={q.id}
+                onClick={() => setCurrent(i)}
+                title={isReviewDot ? 'Powtórka' : undefined}
+                className={`w-7 h-7 rounded-full text-xs font-medium transition-all ${
+                  i === current
+                    ? 'bg-green-600 text-white'
+                    : answers[q.id]
+                    ? 'bg-green-200 text-green-800'
+                    : isReviewDot
+                    ? 'bg-amber-200 text-amber-800'
+                    : 'bg-gray-200 text-gray-500'
+                }`}
+              >
+                {isReviewDot && !answers[q.id] && i !== current ? '🔄' : i + 1}
+              </button>
+            )
+          })}
         </div>
 
       </div>

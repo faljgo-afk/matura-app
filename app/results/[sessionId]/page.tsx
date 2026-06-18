@@ -1,6 +1,8 @@
 import { supabase } from '@/lib/supabase'
+import { createClient } from '@/lib/supabase-server'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import LearnButton from '@/components/LearnButton'
 
 export const dynamic = 'force-dynamic'
 
@@ -19,7 +21,7 @@ type Question = {
   explanation: string
 }
 
-async function getResults(sessionId: string) {
+async function getResults(sessionId: string, userId: string | null) {
   const { data: session, error } = await supabase
     .from('test_sessions')
     .select('*')
@@ -42,7 +44,6 @@ async function getResults(sessionId: string) {
     .map(id => questions.find(q => q.id === id))
     .filter(Boolean) as Question[]
 
-  // Fetch topic slug for "try again" link
   let topicSlug = ''
   if (session.topic_id) {
     const { data: topic } = await supabase
@@ -53,14 +54,28 @@ async function getResults(sessionId: string) {
     topicSlug = topic?.slug ?? ''
   }
 
-  return { session, questions: ordered, topicSlug }
+  // Fetch which questions the user has already learned
+  let learnedIds: Set<string> = new Set()
+  if (userId) {
+    const { data: learned } = await supabase
+      .from('user_learned_questions')
+      .select('question_id')
+      .eq('user_id', userId)
+      .in('question_id', questionIds)
+    learnedIds = new Set(learned?.map(q => q.question_id) ?? [])
+  }
+
+  return { session, questions: ordered, topicSlug, learnedIds }
 }
 
 export default async function ResultsPage({ params }: { params: { sessionId: string } }) {
-  const result = await getResults(params.sessionId)
+  const serverClient = createClient()
+  const { data: { user } } = await serverClient.auth.getUser()
+
+  const result = await getResults(params.sessionId, user?.id ?? null)
   if (!result) notFound()
 
-  const { session, questions, topicSlug } = result
+  const { session, questions, topicSlug, learnedIds } = result
   const answers: Record<string, string[]> = session.answers ?? {}
   const score: number = session.score ?? 0
   const maxScore: number = session.max_score ?? questions.length
@@ -158,6 +173,16 @@ export default async function ResultsPage({ params }: { params: { sessionId: str
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm text-blue-800">
                     <span className="font-semibold">Wyjaśnienie: </span>
                     {question.explanation}
+                  </div>
+                )}
+
+                {/* Learn button — only for logged-in users on correctly answered questions */}
+                {user && isCorrect && (
+                  <div className="mt-3 pt-3 border-t border-gray-100">
+                    <LearnButton
+                      questionId={question.id}
+                      initialLearned={learnedIds.has(question.id)}
+                    />
                   </div>
                 )}
               </div>

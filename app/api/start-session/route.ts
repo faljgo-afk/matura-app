@@ -29,11 +29,11 @@ function pickWithSubtopicDiversity(
 export async function POST(req: NextRequest) {
   const { topicId, sessionType, questionCount = 10 } = await req.json()
 
-  // Get current user if logged in
   const serverClient = createClient()
   const { data: { user } } = await serverClient.auth.getUser()
 
   let questionIds: string[] = []
+  let reviewQuestionIds: string[] = []
 
   if (sessionType === 'mock_exam') {
     const { data, error } = await supabase
@@ -59,7 +59,33 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No questions found' }, { status: 404 })
     }
 
-    questionIds = pickWithSubtopicDiversity(data, questionCount)
+    // For logged-in users: exclude learned questions, fill with review if needed
+    if (user) {
+      const { data: learned } = await supabase
+        .from('user_learned_questions')
+        .select('question_id')
+        .eq('user_id', user.id)
+
+      const learnedIds = new Set((learned ?? []).map(q => q.question_id))
+      const unlearned = data.filter(q => !learnedIds.has(q.id))
+      const learnedPool = data.filter(q => learnedIds.has(q.id))
+
+      if (unlearned.length >= questionCount) {
+        questionIds = pickWithSubtopicDiversity(unlearned, questionCount)
+      } else {
+        // Use all unlearned + fill with learned as review
+        questionIds = pickWithSubtopicDiversity(unlearned, unlearned.length)
+        const needed = questionCount - questionIds.length
+        const reviewPick = learnedPool
+          .sort(() => Math.random() - 0.5)
+          .slice(0, needed)
+          .map(q => q.id)
+        reviewQuestionIds = reviewPick
+        questionIds = [...questionIds, ...reviewPick]
+      }
+    } else {
+      questionIds = pickWithSubtopicDiversity(data, questionCount)
+    }
   }
 
   const { data: session, error: sessionError } = await supabase
@@ -70,6 +96,7 @@ export async function POST(req: NextRequest) {
       questions: questionIds,
       answers: {},
       user_id: user?.id ?? null,
+      review_question_ids: reviewQuestionIds,
     })
     .select('id')
     .single()

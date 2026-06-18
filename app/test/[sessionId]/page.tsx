@@ -44,7 +44,7 @@ async function getSessionWithQuestions(sessionId: string) {
 }
 
 const TIME_LIMITS: Record<string, number> = {
-  mock_exam: 45 * 60, // 45 minutes
+  mock_exam: 45 * 60,
 }
 
 export default async function TestPage({ params }: { params: { sessionId: string } }) {
@@ -67,6 +67,14 @@ export default async function TestPage({ params }: { params: { sessionId: string
   }
 
   const timeLimit = TIME_LIMITS[session.session_type] ?? undefined
+  const reviewQuestionIds: string[] = session.review_question_ids ?? []
 
-  return <TestScreen sessionId={session.id} questions={questions} timeLimit={timeLimit} />
+  return (
+    <TestScreen
+      sessionId={session.id}
+      questions={questions}
+      timeLimit={timeLimit}
+      reviewQuestionIds={reviewQuestionIds}
+    />
+  )
 }
