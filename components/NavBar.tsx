@@ -21,8 +21,9 @@ export default function NavBar({ user }: { user: User | null }) {
   return (
     <nav className="bg-white border-b border-gray-200">
       <div className="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
-        <Link href="/" className="font-bold text-green-700 text-lg">
+        <Link href="/" className="font-bold text-green-700 text-lg flex items-center gap-2">
           🧬 Biologia na 100%
+          <span className="text-xs bg-gray-100 text-gray-400 px-1.5 py-0.5 rounded font-normal">Beta</span>
         </Link>
 
         <div className="flex items-center gap-3">
