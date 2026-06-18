@@ -8,9 +8,9 @@ export default function MockExamPage() {
         <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-200">
           <div className="text-center mb-8">
             <div className="text-5xl mb-4">📝</div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Próbna Matura</h1>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Sprawdzian z całego materiału</h1>
             <p className="text-gray-500">
-              Pytania ze wszystkich tematów — jak prawdziwy egzamin maturalny
+              Pytania ze wszystkich tematów — kompleksowy test wiedzy z biologii rozszerzonej
             </p>
           </div>
 
@@ -21,7 +21,7 @@ export default function MockExamPage() {
             </div>
             <div className="flex items-center gap-3 text-sm text-gray-700">
               <span className="text-green-500 text-lg">✓</span>
-              <span><strong>45 minut</strong> na rozwiązanie (jak na prawdziwej maturze)</span>
+              <span><strong>45 minut</strong> na rozwiązanie</span>
             </div>
             <div className="flex items-center gap-3 text-sm text-gray-700">
               <span className="text-green-500 text-lg">✓</span>

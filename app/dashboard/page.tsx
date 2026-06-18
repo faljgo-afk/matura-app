@@ -68,7 +68,7 @@ export default async function DashboardPage() {
           </div>
           <div className="bg-white rounded-xl p-5 border border-gray-200 text-center">
             <div className="text-3xl font-bold text-green-600">{mockSessions.length}</div>
-            <div className="text-sm text-gray-500 mt-1">Próbnych matur</div>
+            <div className="text-sm text-gray-500 mt-1">Sprawdzianów</div>
           </div>
         </div>
 
@@ -130,7 +130,7 @@ export default async function DashboardPage() {
                   >
                     <div>
                       <span className="text-sm font-medium text-gray-700">
-                        {session.session_type === 'mock_exam' ? '📝 Próbna matura' : `📗 ${topic?.name ?? 'Temat'}`}
+                        {session.session_type === 'mock_exam' ? '📝 Sprawdzian z całego materiału' : `📗 ${topic?.name ?? 'Temat'}`}
                       </span>
                       <div className="text-xs text-gray-400">
                         {new Date(session.completed_at).toLocaleDateString('pl-PL')}

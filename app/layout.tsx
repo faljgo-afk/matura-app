@@ -4,8 +4,8 @@ import { createClient } from '@/lib/supabase-server'
 import NavBar from '@/components/NavBar'
 
 export const metadata: Metadata = {
-  title: 'Matura z Biologii',
-  description: 'Przygotuj się do matury rozszerzonej z biologii',
+  title: 'Biologia na 100%',
+  description: 'Ćwicz biologię rozszerzoną — testy tematyczne i sprawdziany z całego materiału',
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

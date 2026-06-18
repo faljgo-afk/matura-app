@@ -31,10 +31,10 @@ export default async function HomePage() {
 
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-3">
-            Matura z Biologii
+            Biologia na 100%
           </h1>
           <p className="text-lg text-gray-600">
-            Przygotuj się do matury rozszerzonej — testy tematyczne i próbne matury
+            Ćwicz biologię rozszerzoną — testy tematyczne i sprawdziany z całego materiału
           </p>
         </div>
 
@@ -63,15 +63,15 @@ export default async function HomePage() {
         </div>
 
         <div className="bg-green-600 rounded-xl p-6 text-white text-center">
-          <h2 className="text-2xl font-bold mb-2">Próbna Matura</h2>
+          <h2 className="text-2xl font-bold mb-2">Sprawdzian z całego materiału</h2>
           <p className="text-green-100 mb-4">
-            Mieszane pytania ze wszystkich tematów — jak prawdziwy egzamin
+            20 pytań ze wszystkich tematów — kompleksowy test wiedzy
           </p>
           <Link
             href="/mock-exam"
             className="inline-block bg-white text-green-700 font-semibold px-8 py-3 rounded-lg hover:bg-green-50 transition-colors"
           >
-            Rozpocznij próbną maturę
+            Rozpocznij sprawdzian
           </Link>
         </div>
 

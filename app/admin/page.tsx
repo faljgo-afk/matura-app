@@ -66,7 +66,7 @@ export default async function AdminPage() {
             <div className="text-3xl font-bold text-green-600">
               {Object.values(sessionsByUser).reduce((sum, s) => sum + (s?.filter(x => x.session_type === 'mock_exam').length ?? 0), 0)}
             </div>
-            <div className="text-sm text-gray-500 mt-1">Próbnych matur</div>
+            <div className="text-sm text-gray-500 mt-1">Sprawdzianów</div>
           </div>
         </div>
 
