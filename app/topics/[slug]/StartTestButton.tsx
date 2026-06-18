@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
-export default function StartTestButton({ topicId, topicSlug }: { topicId: string, topicSlug: string }) {
+export default function StartTestButton({ topicId }: { topicId: string }) {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
 

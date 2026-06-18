@@ -68,7 +68,7 @@ export default async function TopicPage({ params }: { params: { slug: string } }
               Brak pytań dla tego tematu. Zajrzyj później!
             </div>
           ) : (
-            <StartTestButton topicId={topic.id} topicSlug={topic.slug} />
+            <StartTestButton topicId={topic.id} />
           )}
         </div>
 
