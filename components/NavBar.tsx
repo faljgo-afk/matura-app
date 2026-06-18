@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { createClient } from '@/lib/supabase-browser'
 import type { User } from '@supabase/supabase-js'
 
@@ -9,6 +9,7 @@ const ADMIN_EMAIL = 'faljgo@gmail.com'
 
 export default function NavBar({ user }: { user: User | null }) {
   const router = useRouter()
+  const pathname = usePathname()
   const supabase = createClient()
 
   async function handleLogout() {
@@ -37,7 +38,7 @@ export default function NavBar({ user }: { user: User | null }) {
               )}
               <Link
                 href="/dashboard"
-                className="text-sm text-gray-600 hover:text-green-700"
+                className="text-sm bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 rounded-lg transition-colors"
               >
                 Moje postępy
               </Link>
@@ -51,7 +52,7 @@ export default function NavBar({ user }: { user: User | null }) {
           ) : (
             <>
               <Link
-                href="/login"
+                href={`/login?next=${encodeURIComponent(pathname)}`}
                 className="text-sm text-gray-600 hover:text-green-700"
               >
                 Zaloguj się

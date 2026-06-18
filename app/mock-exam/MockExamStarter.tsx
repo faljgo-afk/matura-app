@@ -1,13 +1,14 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
 
 export default function MockExamStarter({ isLoggedIn }: { isLoggedIn: boolean }) {
   const [timed, setTimed] = useState(true)
   const [loading, setLoading] = useState(false)
   const router = useRouter()
+  const pathname = usePathname()
 
   async function handleStart() {
     setLoading(true)
@@ -36,7 +37,7 @@ export default function MockExamStarter({ isLoggedIn }: { isLoggedIn: boolean })
         <p className="text-sm text-gray-500 mb-4">Zaloguj się, aby rozpocząć sprawdzian i śledzić swoje postępy</p>
         <div className="flex gap-3">
           <Link
-            href="/login"
+            href={`/login?next=${encodeURIComponent(pathname)}`}
             className="flex-1 border border-gray-300 hover:bg-gray-50 text-gray-700 font-semibold py-4 rounded-xl text-lg transition-colors text-center"
           >
             Zaloguj się
