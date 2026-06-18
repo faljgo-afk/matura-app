@@ -51,24 +51,41 @@ export default async function AdminPage() {
         </div>
 
         {/* Summary */}
-        <div className="grid grid-cols-3 gap-4 mb-8">
-          <div className="bg-white rounded-xl p-5 border border-gray-200 text-center">
-            <div className="text-3xl font-bold text-green-600">{users.length}</div>
-            <div className="text-sm text-gray-500 mt-1">Użytkownicy</div>
-          </div>
-          <div className="bg-white rounded-xl p-5 border border-gray-200 text-center">
-            <div className="text-3xl font-bold text-green-600">
-              {Object.values(sessionsByUser).reduce((sum, s) => sum + (s?.length ?? 0), 0)}
+        {(() => {
+          const allSessions = Object.values(sessionsByUser).flatMap(s => s ?? [])
+          const allTopic = allSessions.filter(s => s.session_type === 'topic')
+          const allMock = allSessions.filter(s => s.session_type === 'mock_exam')
+          const avgTopic = allTopic.length > 0
+            ? Math.round(allTopic.reduce((sum, s) => sum + ((s.score ?? 0) / (s.max_score ?? 1)) * 100, 0) / allTopic.length)
+            : null
+          const avgMock = allMock.length > 0
+            ? Math.round(allMock.reduce((sum, s) => sum + ((s.score ?? 0) / (s.max_score ?? 1)) * 100, 0) / allMock.length)
+            : null
+          return (
+            <div className="grid grid-cols-5 gap-4 mb-8">
+              <div className="bg-white rounded-xl p-5 border border-gray-200 text-center">
+                <div className="text-3xl font-bold text-green-600">{users.length}</div>
+                <div className="text-sm text-gray-500 mt-1">Użytkownicy</div>
+              </div>
+              <div className="bg-white rounded-xl p-5 border border-gray-200 text-center">
+                <div className="text-3xl font-bold text-green-600">{allTopic.length}</div>
+                <div className="text-sm text-gray-500 mt-1">Testów tematycznych</div>
+              </div>
+              <div className="bg-white rounded-xl p-5 border border-gray-200 text-center">
+                <div className="text-3xl font-bold text-green-600">{avgTopic !== null ? `${avgTopic}%` : '—'}</div>
+                <div className="text-sm text-gray-500 mt-1">Średni wynik (tematy)</div>
+              </div>
+              <div className="bg-white rounded-xl p-5 border border-gray-200 text-center">
+                <div className="text-3xl font-bold text-green-600">{allMock.length}</div>
+                <div className="text-sm text-gray-500 mt-1">Sprawdzianów</div>
+              </div>
+              <div className="bg-white rounded-xl p-5 border border-gray-200 text-center">
+                <div className="text-3xl font-bold text-green-600">{avgMock !== null ? `${avgMock}%` : '—'}</div>
+                <div className="text-sm text-gray-500 mt-1">Średni wynik (sprawdziany)</div>
+              </div>
             </div>
-            <div className="text-sm text-gray-500 mt-1">Testów ukończonych</div>
-          </div>
-          <div className="bg-white rounded-xl p-5 border border-gray-200 text-center">
-            <div className="text-3xl font-bold text-green-600">
-              {Object.values(sessionsByUser).reduce((sum, s) => sum + (s?.filter(x => x.session_type === 'mock_exam').length ?? 0), 0)}
-            </div>
-            <div className="text-sm text-gray-500 mt-1">Sprawdzianów</div>
-          </div>
-        </div>
+          )
+        })()}
 
         {/* Users table */}
         <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
@@ -78,7 +95,8 @@ export default async function AdminPage() {
                 <th className="text-left px-4 py-3 text-gray-600 font-medium">Email</th>
                 <th className="text-center px-4 py-3 text-gray-600 font-medium">Testów</th>
                 <th className="text-center px-4 py-3 text-gray-600 font-medium">Matur</th>
-                <th className="text-center px-4 py-3 text-gray-600 font-medium">Śr. wynik</th>
+                <th className="text-center px-4 py-3 text-gray-600 font-medium">Śr. (tematy)</th>
+                <th className="text-center px-4 py-3 text-gray-600 font-medium">Śr. (sprawdziany)</th>
                 <th className="text-center px-4 py-3 text-gray-600 font-medium">Najlepszy</th>
                 <th className="text-left px-4 py-3 text-gray-600 font-medium">Rejestracja</th>
               </tr>
@@ -89,9 +107,11 @@ export default async function AdminPage() {
                 const topicTests = userSessions.filter(s => s.session_type === 'topic')
                 const mockTests = userSessions.filter(s => s.session_type === 'mock_exam')
 
-                const scores = userSessions.map(s => Math.round(((s.score ?? 0) / (s.max_score ?? 1)) * 100))
-                const avgScore = scores.length > 0 ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : null
-                const bestScore = scores.length > 0 ? Math.max(...scores) : null
+                const topicScores = topicTests.map(s => Math.round(((s.score ?? 0) / (s.max_score ?? 1)) * 100))
+                const mockScores = mockTests.map(s => Math.round(((s.score ?? 0) / (s.max_score ?? 1)) * 100))
+                const avgTopicScore = topicScores.length > 0 ? Math.round(topicScores.reduce((a, b) => a + b, 0) / topicScores.length) : null
+                const avgMockScore = mockScores.length > 0 ? Math.round(mockScores.reduce((a, b) => a + b, 0) / mockScores.length) : null
+                const bestScore = topicScores.length > 0 ? Math.max(...topicScores) : null
 
                 const isAdmin = u.email === ADMIN_EMAIL
 
@@ -106,9 +126,16 @@ export default async function AdminPage() {
                     <td className="px-4 py-3 text-center text-gray-600">{topicTests.length}</td>
                     <td className="px-4 py-3 text-center text-gray-600">{mockTests.length}</td>
                     <td className="px-4 py-3 text-center">
-                      {avgScore !== null ? (
-                        <span className={`font-semibold ${avgScore >= 75 ? 'text-green-600' : avgScore >= 50 ? 'text-yellow-600' : 'text-red-500'}`}>
-                          {avgScore}%
+                      {avgTopicScore !== null ? (
+                        <span className={`font-semibold ${avgTopicScore >= 75 ? 'text-green-600' : avgTopicScore >= 50 ? 'text-yellow-600' : 'text-red-500'}`}>
+                          {avgTopicScore}%
+                        </span>
+                      ) : <span className="text-gray-300">—</span>}
+                    </td>
+                    <td className="px-4 py-3 text-center">
+                      {avgMockScore !== null ? (
+                        <span className={`font-semibold ${avgMockScore >= 75 ? 'text-green-600' : avgMockScore >= 50 ? 'text-yellow-600' : 'text-red-500'}`}>
+                          {avgMockScore}%
                         </span>
                       ) : <span className="text-gray-300">—</span>}
                     </td>
