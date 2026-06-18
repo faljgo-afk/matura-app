@@ -22,7 +22,13 @@ export default function RegisterForm() {
       return
     }
 
-    const { error } = await supabase.auth.signUp({ email, password })
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: `${window.location.origin}/dashboard`,
+      },
+    })
 
     if (error) {
       setError('Błąd rejestracji. Sprawdź dane i spróbuj ponownie.')
