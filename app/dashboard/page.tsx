@@ -38,10 +38,13 @@ export default async function DashboardPage() {
   const topicSessions = sessions.filter(s => s.session_type === 'topic')
   const mockSessions = sessions.filter(s => s.session_type === 'mock_exam')
 
-  const totalTests = sessions.length
-  const avgScore = sessions.length > 0
-    ? Math.round(sessions.reduce((sum, s) => sum + ((s.score ?? 0) / (s.max_score ?? 1)) * 100, 0) / sessions.length)
-    : 0
+  const totalTests = topicSessions.length
+  const avgTopicScore = topicSessions.length > 0
+    ? Math.round(topicSessions.reduce((sum, s) => sum + ((s.score ?? 0) / (s.max_score ?? 1)) * 100, 0) / topicSessions.length)
+    : null
+  const avgMockScore = mockSessions.length > 0
+    ? Math.round(mockSessions.reduce((sum, s) => sum + ((s.score ?? 0) / (s.max_score ?? 1)) * 100, 0) / mockSessions.length)
+    : null
 
   // Best score + mastery per topic
   const topicStats = topics.map(topic => {
@@ -71,15 +74,22 @@ export default async function DashboardPage() {
         <div className="grid grid-cols-4 gap-4 mb-10">
           <div className="bg-white rounded-xl p-5 border border-gray-200 text-center">
             <div className="text-3xl font-bold text-green-600">{totalTests}</div>
-            <div className="text-sm text-gray-500 mt-1">Testów ukończonych</div>
+            <div className="text-sm text-gray-500 mt-1">Testów tematycznych</div>
           </div>
           <div className="bg-white rounded-xl p-5 border border-gray-200 text-center">
-            <div className="text-3xl font-bold text-green-600">{avgScore}%</div>
-            <div className="text-sm text-gray-500 mt-1">Średni wynik</div>
+            <div className="text-3xl font-bold text-green-600">
+              {avgTopicScore !== null ? `${avgTopicScore}%` : '—'}
+            </div>
+            <div className="text-sm text-gray-500 mt-1">Średni wynik (tematy)</div>
           </div>
           <div className="bg-white rounded-xl p-5 border border-gray-200 text-center">
             <div className="text-3xl font-bold text-green-600">{mockSessions.length}</div>
-            <div className="text-sm text-gray-500 mt-1">Sprawdzianów</div>
+            <div className="text-sm text-gray-500 mt-1">
+              Sprawdzianów
+              {avgMockScore !== null && (
+                <span className="block text-xs text-gray-400">śr. {avgMockScore}%</span>
+              )}
+            </div>
           </div>
           <div className="bg-white rounded-xl p-5 border border-gray-200 text-center">
             <div className="text-3xl font-bold text-blue-600">{totalLearned}<span className="text-lg text-gray-400">/{totalQuestions}</span></div>
