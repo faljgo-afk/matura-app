@@ -73,7 +73,7 @@ export default async function DashboardPage() {
         </div>
 
         {/* Summary cards */}
-        <div className="grid grid-cols-5 gap-4 mb-10">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-10">
           <div className="bg-white rounded-xl p-5 border border-gray-200 text-center">
             <div className="text-3xl font-bold text-green-600">{totalTests}</div>
             <div className="text-sm text-gray-500 mt-1">Testów tematycznych</div>
@@ -108,18 +108,18 @@ export default async function DashboardPage() {
               <div className="flex-1">
                 <div className="flex items-center justify-between mb-1">
                   <span className="font-medium text-gray-800 text-sm">{topic.name}</span>
-                  <div className="flex items-center gap-3">
+                  <div className="flex flex-col items-end gap-0.5 sm:flex-row sm:items-center sm:gap-3">
                     {topic.learnedQ > 0 && (
                       <span className="text-xs text-blue-600 font-medium">
-                        📌 {topic.learnedQ}/{topic.totalQ} opanowanych
+                        📌 {topic.learnedQ}/{topic.totalQ}
                       </span>
                     )}
                     {topic.bestScore !== null ? (
                       <span className={`text-sm font-semibold ${topic.bestScore >= 75 ? 'text-green-600' : topic.bestScore >= 50 ? 'text-yellow-600' : 'text-red-500'}`}>
-                        najlepszy wynik: {topic.bestScore}%
+                        {topic.bestScore}%
                       </span>
                     ) : (
-                      <span className="text-xs text-gray-400">nie testowano</span>
+                      <span className="text-xs text-gray-400">—</span>
                     )}
                   </div>
                 </div>

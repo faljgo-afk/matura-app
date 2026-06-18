@@ -25,7 +25,7 @@ export default async function MockExamPage() {
         <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-200">
           <div className="text-center mb-8">
             <div className="text-5xl mb-4">📝</div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Sprawdzian z całego materiału</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Sprawdzian z całego materiału</h1>
             <p className="text-gray-500">
               Pytania ze wszystkich tematów — kompleksowy test wiedzy z biologii rozszerzonej
             </p>

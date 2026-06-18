@@ -98,11 +98,13 @@ export default function TestScreen({
 
         {/* Header with timer */}
         <div className="flex items-center justify-between mb-4">
-          <div className="text-sm text-gray-500">
-            Pytanie {current + 1} z {questions.length} &nbsp;·&nbsp; Odpowiedziano: {answeredCount}/{questions.length}
+          <div className="text-xs sm:text-sm text-gray-500">
+            <span className="font-medium">{current + 1}/{questions.length}</span>
+            <span className="hidden sm:inline"> &nbsp;·&nbsp; Odpowiedziano: {answeredCount}/{questions.length}</span>
+            <span className="sm:hidden text-gray-400"> · {answeredCount} odp.</span>
           </div>
           {timeLeft !== null && (
-            <div className={`font-mono font-bold text-lg px-3 py-1 rounded-lg ${
+            <div className={`font-mono font-bold text-base sm:text-lg px-2.5 py-1 rounded-lg ${
               isTimeLow ? 'bg-red-100 text-red-600 animate-pulse' : 'bg-gray-100 text-gray-700'
             }`}>
               ⏱ {formatTime(timeLeft)}
@@ -192,7 +194,7 @@ export default function TestScreen({
         </div>
 
         {/* Question dots */}
-        <div className="flex gap-1.5 mt-4 flex-wrap justify-center">
+        <div className="flex gap-1 sm:gap-1.5 mt-4 flex-wrap justify-center">
           {questions.map((q, i) => {
             const isReviewDot = reviewSet.has(q.id)
             return (
@@ -200,7 +202,7 @@ export default function TestScreen({
                 key={q.id}
                 onClick={() => setCurrent(i)}
                 title={isReviewDot ? 'Powtórka' : undefined}
-                className={`w-7 h-7 rounded-full text-xs font-medium transition-all ${
+                className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full text-xs font-medium transition-all ${
                   i === current
                     ? 'bg-green-600 text-white'
                     : answers[q.id]
@@ -210,7 +212,7 @@ export default function TestScreen({
                     : 'bg-gray-200 text-gray-500'
                 }`}
               >
-                {isReviewDot && !answers[q.id] && i !== current ? '🔄' : i + 1}
+                {isReviewDot && !answers[q.id] && i !== current ? '↺' : i + 1}
               </button>
             )
           })}

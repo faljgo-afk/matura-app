@@ -101,7 +101,7 @@ export default async function ResultsPage({ params }: { params: { sessionId: str
 
         {/* Score summary */}
         <div className={`rounded-xl p-6 border mb-8 text-center ${scoreBg}`}>
-          <div className={`text-6xl font-bold mb-1 ${scoreColor}`}>{percent}%</div>
+          <div className={`text-4xl sm:text-6xl font-bold mb-1 ${scoreColor}`}>{percent}%</div>
           <div className="text-gray-600 text-lg">
             {score} / {maxScore} poprawnych odpowiedzi
           </div>
