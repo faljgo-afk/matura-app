@@ -71,7 +71,7 @@ export default async function DashboardPage() {
         </div>
 
         {/* Summary cards */}
-        <div className="grid grid-cols-4 gap-4 mb-10">
+        <div className="grid grid-cols-5 gap-4 mb-10">
           <div className="bg-white rounded-xl p-5 border border-gray-200 text-center">
             <div className="text-3xl font-bold text-green-600">{totalTests}</div>
             <div className="text-sm text-gray-500 mt-1">Testów tematycznych</div>
@@ -84,12 +84,13 @@ export default async function DashboardPage() {
           </div>
           <div className="bg-white rounded-xl p-5 border border-gray-200 text-center">
             <div className="text-3xl font-bold text-green-600">{mockSessions.length}</div>
-            <div className="text-sm text-gray-500 mt-1">
-              Sprawdzianów
-              {avgMockScore !== null && (
-                <span className="block text-xs text-gray-400">śr. {avgMockScore}%</span>
-              )}
+            <div className="text-sm text-gray-500 mt-1">Sprawdzianów</div>
+          </div>
+          <div className="bg-white rounded-xl p-5 border border-gray-200 text-center">
+            <div className="text-3xl font-bold text-green-600">
+              {avgMockScore !== null ? `${avgMockScore}%` : '—'}
             </div>
+            <div className="text-sm text-gray-500 mt-1">Średni wynik (sprawdziany)</div>
           </div>
           <div className="bg-white rounded-xl p-5 border border-gray-200 text-center">
             <div className="text-3xl font-bold text-blue-600">{totalLearned}<span className="text-lg text-gray-400">/{totalQuestions}</span></div>
