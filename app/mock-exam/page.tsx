@@ -1,4 +1,5 @@
 import { supabase } from '@/lib/supabase'
+import { createClient } from '@/lib/supabase-server'
 import MockExamStarter from './MockExamStarter'
 
 export const dynamic = 'force-dynamic'
@@ -13,6 +14,9 @@ async function getMockQuestionCount() {
 
 export default async function MockExamPage() {
   const questionCount = await getMockQuestionCount()
+  const serverClient = createClient()
+  const { data: { user } } = await serverClient.auth.getUser()
+  const isLoggedIn = !!user
 
   return (
     <main className="min-h-screen bg-gray-50">
@@ -42,7 +46,7 @@ export default async function MockExamPage() {
             </div>
           </div>
 
-          <MockExamStarter />
+          <MockExamStarter isLoggedIn={isLoggedIn} />
         </div>
 
       </div>

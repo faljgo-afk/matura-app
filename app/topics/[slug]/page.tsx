@@ -1,4 +1,5 @@
 import { supabase } from '@/lib/supabase'
+import { createClient } from '@/lib/supabase-server'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import StartTestButton from './StartTestButton'
@@ -37,6 +38,10 @@ export default async function TopicPage({ params }: { params: { slug: string } }
 
   const questionCount = await getQuestionCount(topic.id)
 
+  const serverClient = createClient()
+  const { data: { user } } = await serverClient.auth.getUser()
+  const isLoggedIn = !!user
+
   return (
     <main className="min-h-screen bg-gray-50">
       <div className="max-w-2xl mx-auto px-4 py-12">
@@ -68,7 +73,7 @@ export default async function TopicPage({ params }: { params: { slug: string } }
               Brak pytań dla tego tematu. Zajrzyj później!
             </div>
           ) : (
-            <StartTestButton topicId={topic.id} />
+            <StartTestButton topicId={topic.id} isLoggedIn={isLoggedIn} />
           )}
         </div>
 

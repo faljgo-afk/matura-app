@@ -15,10 +15,7 @@ async function getTopics(): Promise<Topic[]> {
     .select('*')
     .order('order_index')
 
-  if (error) {
-    console.error('Error fetching topics:', error)
-    return []
-  }
+  if (error) return []
   return data ?? []
 }
 
@@ -29,15 +26,51 @@ export default async function HomePage() {
     <main className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 py-12">
 
+        {/* Hero */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-3">
             Biologia na 100%
           </h1>
-          <p className="text-lg text-gray-600">
-            Ćwicz biologię rozszerzoną — testy tematyczne i sprawdziany z całego materiału
+          <p className="text-lg text-gray-600 mb-8">
+            Platforma do przygotowania do matury rozszerzonej z biologii
           </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left mb-8">
+            <div className="bg-white rounded-xl p-5 border border-gray-200">
+              <div className="text-2xl mb-2">📗</div>
+              <h3 className="font-semibold text-gray-800 mb-1">Testy tematyczne</h3>
+              <p className="text-sm text-gray-500">Ćwicz konkretne tematy z programu CKE — genetyka, ekologia, fizjologia i więcej</p>
+            </div>
+            <div className="bg-white rounded-xl p-5 border border-gray-200">
+              <div className="text-2xl mb-2">📝</div>
+              <h3 className="font-semibold text-gray-800 mb-1">Próbny sprawdzian</h3>
+              <p className="text-sm text-gray-500">Kompleksowy test ze wszystkich tematów — z limitem czasu lub we własnym tempie</p>
+            </div>
+            <div className="bg-white rounded-xl p-5 border border-gray-200">
+              <div className="text-2xl mb-2">📈</div>
+              <h3 className="font-semibold text-gray-800 mb-1">Śledzenie postępów</h3>
+              <p className="text-sm text-gray-500">Oznaczaj opanowane pytania i śledź swój postęp w każdym temacie</p>
+            </div>
+          </div>
+
+          <div className="flex gap-3 justify-center">
+            <Link
+              href="/login"
+              className="bg-green-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-green-700 transition-colors"
+            >
+              Zaloguj się
+            </Link>
+            <Link
+              href="/register"
+              className="border border-gray-300 text-gray-700 font-semibold px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              Utwórz konto
+            </Link>
+          </div>
         </div>
 
+        {/* Topic list */}
+        <h2 className="text-xl font-bold text-gray-800 mb-4">Testy tematyczne</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
           {topics.map((topic) => (
             <Link
