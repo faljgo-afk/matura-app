@@ -58,7 +58,12 @@ export default async function AdminPage() {
             <h1 className="text-3xl font-bold text-gray-900">Panel Administratora</h1>
             <p className="text-gray-500 text-sm mt-1">{users.length} zarejestrowanych użytkowników</p>
           </div>
-          <span className="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">Admin</span>
+          <div className="flex items-center gap-3">
+            <Link href="/admin/reports" className="text-sm text-green-600 hover:text-green-800 font-medium border border-green-200 px-3 py-1.5 rounded-lg hover:bg-green-50 transition-colors">
+              📊 Raporty
+            </Link>
+            <span className="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">Admin</span>
+          </div>
         </div>
 
         <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
