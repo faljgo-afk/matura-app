@@ -196,12 +196,19 @@ export default async function ResultsPage({ params }: { params: { sessionId: str
           >
             Wybierz inny temat
           </Link>
-          {topicSlug && (
+          {topicSlug ? (
             <Link
               href={`/topics/${topicSlug}`}
               className="flex-1 text-center py-3 rounded-lg bg-green-600 text-white font-semibold hover:bg-green-700"
             >
               Spróbuj ponownie
+            </Link>
+          ) : (
+            <Link
+              href="/mock-exam"
+              className="flex-1 text-center py-3 rounded-lg bg-green-600 text-white font-semibold hover:bg-green-700"
+            >
+              Nowy sprawdzian
             </Link>
           )}
         </div>
