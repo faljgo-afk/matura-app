@@ -58,8 +58,8 @@ export default async function TopicPage({ params }: { params: { slug: string } }
 
           <div className="bg-gray-50 rounded-lg p-4 mb-8 flex items-center gap-4">
             <div className="text-center shrink-0">
-              <div className="text-2xl sm:text-3xl font-bold text-green-600">{questionCount}</div>
-              <div className="text-xs text-gray-500">pytań w bazie</div>
+              <div className="text-xl font-semibold text-gray-600">{questionCount}</div>
+              <div className="text-xs text-gray-400">pytań w bazie</div>
             </div>
             <div className="text-gray-300 text-xl hidden sm:block">|</div>
             <div className="text-sm text-gray-600">
