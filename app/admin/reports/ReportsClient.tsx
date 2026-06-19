@@ -101,7 +101,7 @@ export default function ReportsClient({ questions, mockQuestions, topics }: {
   function toggleTopic(id: string) {
     setExpandedTopics(prev => {
       const next = new Set(prev)
-      next.has(id) ? next.delete(id) : next.add(id)
+      if (next.has(id)) { next.delete(id) } else { next.add(id) }
       return next
     })
   }
