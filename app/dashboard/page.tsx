@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase-server'
 import { redirect } from 'next/navigation'
-import Link from 'next/link'
 import EditNameForm from '@/components/EditNameForm'
+import DashboardTabs from '@/components/DashboardTabs'
 
 export const dynamic = 'force-dynamic'
 
@@ -100,107 +100,7 @@ export default async function DashboardPage() {
           </div>
         </div>
 
-        {/* Topic progress */}
-        <h2 className="text-xl font-bold text-gray-800 mb-4">Postęp w tematach</h2>
-        <div className="space-y-3 mb-10">
-          {topicStats.map(topic => (
-            <div key={topic.id} className="bg-white rounded-xl p-4 border border-gray-200 flex items-center gap-4">
-              <div className="flex-1">
-                <div className="flex items-center justify-between mb-1">
-                  <span className="font-medium text-gray-800 text-sm">{topic.name}</span>
-                  <div className="flex flex-col items-end gap-0.5 sm:flex-row sm:items-center sm:gap-3">
-                    {topic.learnedQ > 0 && (
-                      <span className="text-xs text-blue-600 font-medium">
-                        📌 {topic.learnedQ}/{topic.totalQ}
-                      </span>
-                    )}
-                    {topic.bestScore !== null ? (
-                      <span className={`text-sm font-semibold ${topic.bestScore >= 75 ? 'text-green-600' : topic.bestScore >= 50 ? 'text-yellow-600' : 'text-red-500'}`}>
-                        {topic.bestScore}%
-                      </span>
-                    ) : (
-                      <span className="text-xs text-gray-400">—</span>
-                    )}
-                  </div>
-                </div>
-                <div className="h-2 bg-gray-100 rounded-full relative overflow-hidden">
-                  {/* Best score bar */}
-                  <div
-                    className={`h-2 rounded-full transition-all absolute top-0 left-0 ${
-                      topic.bestScore === null ? 'w-0' :
-                      topic.bestScore >= 75 ? 'bg-green-200' :
-                      topic.bestScore >= 50 ? 'bg-yellow-200' : 'bg-red-200'
-                    }`}
-                    style={{ width: `${topic.bestScore ?? 0}%` }}
-                  />
-                  {/* Mastery bar on top */}
-                  {topic.totalQ > 0 && (
-                    <div
-                      className="h-2 rounded-full transition-all absolute top-0 left-0 bg-blue-400"
-                      style={{ width: `${Math.round((topic.learnedQ / topic.totalQ) * 100)}%` }}
-                    />
-                  )}
-                </div>
-                <div className="flex gap-3 mt-1">
-                  {topic.attempts > 0 && (
-                    <span className="text-xs text-gray-400">{topic.attempts} {topic.attempts === 1 ? 'podejście' : 'podejść'}</span>
-                  )}
-                  {topic.totalQ > 0 && (
-                    <span className="text-xs text-gray-300">{topic.totalQ} pytań</span>
-                  )}
-                </div>
-              </div>
-              <Link
-                href={`/topics/${topic.slug}`}
-                className="text-xs text-green-600 hover:underline whitespace-nowrap"
-              >
-                Ćwicz →
-              </Link>
-            </div>
-          ))}
-        </div>
-
-        {/* Recent tests */}
-        {sessions.length > 0 && (
-          <>
-            <h2 className="text-xl font-bold text-gray-800 mb-4">Ostatnie testy</h2>
-            <div className="space-y-2">
-              {sessions.slice(0, 5).map(session => {
-                const percent = Math.round(((session.score ?? 0) / (session.max_score ?? 1)) * 100)
-                const topic = topics.find(t => t.id === session.topic_id)
-                return (
-                  <Link
-                    key={session.id}
-                    href={`/results/${session.id}`}
-                    className="bg-white rounded-xl px-4 py-3 border border-gray-200 flex items-center justify-between hover:border-green-300 transition-colors"
-                  >
-                    <div>
-                      <span className="text-sm font-medium text-gray-700">
-                        {session.session_type === 'mock_exam' ? '📝 Sprawdzian z całego materiału' : `📗 ${topic?.name ?? 'Temat'}`}
-                      </span>
-                      <div className="text-xs text-gray-400">
-                        {new Date(session.completed_at).toLocaleDateString('pl-PL')}
-                      </div>
-                    </div>
-                    <span className={`font-bold text-lg ${percent >= 75 ? 'text-green-600' : percent >= 50 ? 'text-yellow-600' : 'text-red-500'}`}>
-                      {percent}%
-                    </span>
-                  </Link>
-                )
-              })}
-            </div>
-          </>
-        )}
-
-        {sessions.length === 0 && (
-          <div className="text-center py-12 text-gray-400">
-            <div className="text-4xl mb-3">📚</div>
-            <p>Nie ukończyłeś jeszcze żadnego testu.</p>
-            <Link href="/" className="text-green-600 hover:underline text-sm mt-2 inline-block">
-              Zacznij naukę →
-            </Link>
-          </div>
-        )}
+        <DashboardTabs topicStats={topicStats} sessions={sessions} topics={topics} />
 
       </div>
     </main>
