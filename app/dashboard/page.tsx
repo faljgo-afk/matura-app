@@ -66,10 +66,24 @@ export default async function DashboardPage() {
     <main className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 py-10">
 
-        <div className="mb-8">
-          <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Moje postępy</p>
-          <EditNameForm currentName={user.user_metadata?.name ?? ''} />
-          <p className="text-gray-400 text-sm mt-1">{user.email}</p>
+        {/* Profile card */}
+        <div className="bg-white rounded-2xl border border-gray-200 p-6 mb-8 flex items-center gap-5">
+          <div className="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center shrink-0 select-none">
+            <span className="text-2xl font-bold text-green-600">
+              {((user.user_metadata?.name || user.email || '?')[0]).toUpperCase()}
+            </span>
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-xs text-gray-400 uppercase tracking-wide font-medium mb-1">Moje konto</p>
+            <EditNameForm currentName={user.user_metadata?.name ?? ''} />
+            <p className="text-sm text-gray-400 truncate mt-0.5">{user.email}</p>
+          </div>
+          <div className="text-right text-xs text-gray-400 shrink-0 hidden sm:block">
+            <p>Uczestnik od</p>
+            <p className="font-semibold text-gray-600 mt-0.5">
+              {new Date(user.created_at).toLocaleDateString('pl-PL', { year: 'numeric', month: 'long' })}
+            </p>
+          </div>
         </div>
 
         {/* Summary cards */}

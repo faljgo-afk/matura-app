@@ -12,10 +12,12 @@ async function getReportData() {
     { data: questions },
     { data: mockQuestions },
     { data: topics },
+    { data: subtopics },
   ] = await Promise.all([
     supabaseAdmin.from('questions').select('id, topic_id, subtopic_id, subtopics(name), difficulty, question_type, verified, question_text'),
     supabaseAdmin.from('mock_questions').select('id, subtopic_id, subtopics(id, name, topic_id), difficulty, question_type, verified, question_text'),
     supabaseAdmin.from('topics').select('id, name, order_index').order('order_index'),
+    supabaseAdmin.from('subtopics').select('id, name, topic_id, order_index').order('order_index'),
   ])
 
   return {
@@ -25,6 +27,7 @@ async function getReportData() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mockQuestions: (mockQuestions ?? []) as unknown as any,
     topics: topics ?? [],
+    subtopics: subtopics ?? [],
   }
 }
 
@@ -35,5 +38,10 @@ export default async function ReportsPage() {
 
   const data = await getReportData()
 
-  return <ReportsClient {...data} />
+  return <ReportsClient
+    questions={data.questions}
+    mockQuestions={data.mockQuestions}
+    topics={data.topics}
+    subtopics={data.subtopics}
+  />
 }

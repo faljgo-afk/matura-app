@@ -30,6 +30,13 @@ type Topic = {
   order_index: number
 }
 
+type Subtopic = {
+  id: string
+  name: string
+  topic_id: string
+  order_index: number
+}
+
 type SidebarData = {
   title: string
   questions: { text: string; subtopic: string; difficulty: number; type: string }[]
@@ -51,7 +58,7 @@ function Sidebar({ data, onClose }: { data: SidebarData; onClose: () => void }) 
   return (
     <>
       <div className="fixed inset-0 bg-black/20 z-40" onClick={onClose} />
-      <div className="fixed right-0 top-0 h-full w-full max-w-lg bg-white shadow-2xl z-50 flex flex-col">
+      <div className="fixed right-0 top-0 h-full w-1/2 min-w-96 bg-white shadow-2xl z-50 flex flex-col">
         <div className="flex items-center justify-between px-5 py-4 border-b border-gray-200">
           <h3 className="font-semibold text-gray-800 text-sm">{data.title}</h3>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-xl leading-none">&times;</button>
@@ -79,12 +86,13 @@ function Sidebar({ data, onClose }: { data: SidebarData; onClose: () => void }) 
   )
 }
 
-const TABS = ['Przegląd bazy', 'Pokrycie tematów', 'Pokrycie podtematów', 'Sprawdzian']
+const TABS = ['Przegląd bazy', 'Pokrycie tematów', 'Sprawdzian']
 
-export default function ReportsClient({ questions, mockQuestions, topics }: {
+export default function ReportsClient({ questions, mockQuestions, topics, subtopics }: {
   questions: Question[]
   mockQuestions: MockQuestion[]
   topics: Topic[]
+  subtopics: Subtopic[]
 }) {
   const [tab, setTab] = useState(0)
   const [sidebar, setSidebar] = useState<SidebarData>(null)
@@ -139,54 +147,75 @@ export default function ReportsClient({ questions, mockQuestions, topics }: {
   const byType = ['single', 'multiple', 'true_false'].map(t => ({ t, count: questions.filter(q => q.question_type === t).length }))
   const mockVerified = mockQuestions.filter(q => q.verified).length
 
-  const topicStats = topics.map(topic => {
+  // Topic coverage table — uses all predefined subtopics (including 0-question ones)
+  const topicTableData = topics.map(topic => {
     const tq = questions.filter(q => q.topic_id === topic.id)
-    const subtopicIds = new Set(tq.map(q => q.subtopic_id).filter(Boolean))
-    const avgDiff = tq.length > 0 ? tq.reduce((s, q) => s + (q.difficulty ?? 2), 0) / tq.length : 0
-    return { ...topic, total: tq.length, verifiedCount: tq.filter(q => q.verified).length, subtopicCount: subtopicIds.size, avgDiff }
-  })
+    const topicSubs = subtopics.filter(s => s.topic_id === topic.id).sort((a, b) => a.order_index - b.order_index)
 
-  const topicSubtopics = topics.map(topic => {
-    const tq = questions.filter(q => q.topic_id === topic.id)
-    const subtopicMap: Record<string, { id: string; total: number; verified: number; avgDiff: number }> = {}
-    for (const q of tq) {
-      const name = subtopicName(q)
-      const id = q.subtopic_id ?? name
-      if (!subtopicMap[name]) subtopicMap[name] = { id, total: 0, verified: 0, avgDiff: 0 }
-      subtopicMap[name].total++
-      if (q.verified) subtopicMap[name].verified++
-      subtopicMap[name].avgDiff += q.difficulty ?? 2
-    }
-    for (const sub of Object.keys(subtopicMap)) {
-      subtopicMap[sub].avgDiff /= subtopicMap[sub].total
-    }
-    return { ...topic, subtopicMap }
-  })
+    const subtopicRows = topicSubs.map(sub => {
+      const subQs = tq.filter(q => q.subtopic_id === sub.id)
+      const avgDiff = subQs.length > 0
+        ? subQs.reduce((s, q) => s + (q.difficulty ?? 2), 0) / subQs.length
+        : 0
+      return {
+        id: sub.id,
+        name: sub.name,
+        total: subQs.length,
+        verified: subQs.filter(q => q.verified).length,
+        avgDiff,
+      }
+    })
 
-  const mockByTopic = topics.map(topic => {
-    const topicQs = questions.filter(q => q.topic_id === topic.id)
-    const topicSubtopicIds = new Set(topicQs.map(q => q.subtopic_id).filter(Boolean) as string[])
-    const topicSubtopicNames = new Map(
-      topicQs
-        .filter(q => q.subtopic_id && q.subtopics)
-        .map(q => [q.subtopic_id!, q.subtopics!.name])
-    )
-    const mockQsForTopic = mockQuestions.filter(q => q.subtopics?.topic_id === topic.id)
-    const coveredSubtopicIds = new Set(mockQsForTopic.map(q => q.subtopic_id).filter(Boolean))
+    const avgDiff = tq.length > 0
+      ? tq.reduce((s, q) => s + (q.difficulty ?? 2), 0) / tq.length
+      : 0
 
     return {
       ...topic,
-      topicSubtopicIds,
-      topicSubtopicNames,
-      mockCount: mockQsForTopic.length,
-      covered: coveredSubtopicIds.size,
-      total: topicSubtopicIds.size,
+      total: tq.length,
+      verifiedCount: tq.filter(q => q.verified).length,
+      subtopicCount: topicSubs.length,
+      avgDiff,
+      subtopicRows,
     }
   })
 
-  const totalSubtopicIds = new Set(questions.map(q => q.subtopic_id).filter(Boolean))
-  const coveredByMock = new Set(mockQuestions.map(q => q.subtopic_id).filter(Boolean))
-  const totalCovered = Array.from(totalSubtopicIds).filter(id => coveredByMock.has(id)).length
+  // Sprawdzian tab data — uses all predefined subtopics (shows uncovered ones too)
+  const mockByTopic = topics.map(topic => {
+    const topicSubs = subtopics.filter(s => s.topic_id === topic.id).sort((a, b) => a.order_index - b.order_index)
+    const mockQsForTopic = mockQuestions.filter(q => q.subtopics?.topic_id === topic.id)
+
+    const subtopicRows = topicSubs.map(sub => {
+      const subMockQs = mockQuestions.filter(q => q.subtopic_id === sub.id)
+      const avgDiff = subMockQs.length > 0
+        ? subMockQs.reduce((s, q) => s + (q.difficulty ?? 2), 0) / subMockQs.length
+        : 0
+      return {
+        id: sub.id,
+        name: sub.name,
+        total: subMockQs.length,
+        verified: subMockQs.filter(q => q.verified).length,
+        avgDiff,
+      }
+    })
+
+    const coveredCount = subtopicRows.filter(s => s.total > 0).length
+    const avgDiff = mockQsForTopic.length > 0
+      ? mockQsForTopic.reduce((s, q) => s + (q.difficulty ?? 2), 0) / mockQsForTopic.length
+      : 0
+
+    return {
+      ...topic,
+      mockCount: mockQsForTopic.length,
+      verifiedCount: mockQsForTopic.filter(q => q.verified).length,
+      covered: coveredCount,
+      subtopicTotal: topicSubs.length,
+      avgDiff,
+      subtopicRows,
+    }
+  })
+
+  const totalCovered = subtopics.filter(s => mockQuestions.some(q => q.subtopic_id === s.id)).length
 
   return (
     <main className="min-h-screen bg-gray-50">
@@ -204,7 +233,7 @@ export default function ReportsClient({ questions, mockQuestions, topics }: {
           <span className="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">Admin</span>
         </div>
 
-        <div className="flex border-b border-gray-200 mb-8 overflow-x-auto">
+        <div className="flex border-b border-gray-200 mb-8">
           {TABS.map((label, i) => (
             <button
               key={i}
@@ -256,151 +285,222 @@ export default function ReportsClient({ questions, mockQuestions, topics }: {
           </div>
         )}
 
-        {/* Tab 1: Pokrycie tematów */}
+        {/* Tab 1: Pokrycie tematów — expandable table */}
         {tab === 1 && (
           <div>
             <div className="bg-white rounded-xl border border-gray-200 overflow-hidden mb-3">
               <table className="w-full text-sm">
                 <thead className="bg-gray-50 border-b border-gray-200">
                   <tr>
-                    <th className="text-left px-4 py-3 text-gray-600 font-medium">Temat</th>
-                    <th className="text-center px-4 py-3 text-gray-600 font-medium">Pytań</th>
-                    <th className="text-center px-4 py-3 text-gray-600 font-medium">Verified</th>
-                    <th className="text-center px-4 py-3 text-gray-600 font-medium">Podtematów</th>
-                    <th className="text-center px-4 py-3 text-gray-600 font-medium">Śr. trudność</th>
-                    <th className="px-4 py-3"></th>
+                    <th className="text-left px-4 py-3 text-gray-600 font-medium">Temat / Podtemat</th>
+                    <th className="text-center px-3 py-3 text-gray-600 font-medium">Pytań</th>
+                    <th className="text-center px-3 py-3 text-gray-600 font-medium">Verified</th>
+                    <th className="text-center px-3 py-3 text-gray-600 font-medium">Podtematów</th>
+                    <th className="text-center px-3 py-3 text-gray-600 font-medium">Śr. trudność</th>
+                    <th className="px-3 py-3"></th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100">
-                  {topicStats.map(t => (
-                    <tr key={t.id} className="hover:bg-gray-50">
-                      <td className="px-4 py-3 text-gray-700 font-medium">{t.order_index}. {t.name}</td>
-                      <td className="px-4 py-3 text-center"><CountBadge n={t.total} warn={10} danger={5} /></td>
-                      <td className="px-4 py-3 text-center text-gray-600">{t.verifiedCount}</td>
-                      <td className="px-4 py-3 text-center text-gray-600">{t.subtopicCount}</td>
-                      <td className="px-4 py-3 text-center">
-                        {t.avgDiff > 0 ? <DifficultyBadge d={Math.round(t.avgDiff)} /> : <span className="text-gray-300">—</span>}
-                      </td>
-                      <td className="px-4 py-3 text-right">
-                        <button
-                          onClick={() => openTopicSidebar(t)}
-                          className="text-xs text-green-600 hover:text-green-800 hover:underline whitespace-nowrap"
+                <tbody>
+                  {topicTableData.map(topic => {
+                    const isExpanded = expandedTopics.has(topic.id)
+                    return (
+                      <>
+                        {/* Topic row */}
+                        <tr
+                          key={topic.id}
+                          className="border-t border-gray-100 hover:bg-gray-50 cursor-pointer"
+                          onClick={() => toggleTopic(topic.id)}
                         >
-                          Lista pytań →
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                          <td className="px-4 py-3">
+                            <div className="flex items-center gap-2">
+                              <span className="text-gray-400 text-xs w-4 shrink-0 select-none">
+                                {isExpanded ? '▼' : '▶'}
+                              </span>
+                              <span className="font-semibold text-gray-800">
+                                {topic.order_index}. {topic.name}
+                              </span>
+                            </div>
+                          </td>
+                          <td className="px-3 py-3 text-center">
+                            <CountBadge n={topic.total} warn={10} danger={5} />
+                          </td>
+                          <td className="px-3 py-3 text-center text-gray-600 font-medium">
+                            {topic.verifiedCount}
+                          </td>
+                          <td className="px-3 py-3 text-center text-gray-500">
+                            {topic.subtopicCount}
+                          </td>
+                          <td className="px-3 py-3 text-center">
+                            {topic.avgDiff > 0
+                              ? <DifficultyBadge d={Math.round(topic.avgDiff)} />
+                              : <span className="text-gray-300">—</span>}
+                          </td>
+                          <td className="px-3 py-3 text-right">
+                            <button
+                              onClick={e => { e.stopPropagation(); openTopicSidebar(topic) }}
+                              className="text-xs text-green-600 hover:text-green-800 hover:underline whitespace-nowrap"
+                            >
+                              Lista →
+                            </button>
+                          </td>
+                        </tr>
+
+                        {/* Subtopic rows — expanded inline */}
+                        {isExpanded && topic.subtopicRows.map(sub => (
+                          <tr key={sub.id} className="bg-gray-50/60 border-t border-gray-50">
+                            <td className="pl-10 pr-4 py-2">
+                              <span className={`text-sm ${sub.total === 0 ? 'text-red-400' : 'text-gray-600'}`}>
+                                {sub.total === 0
+                                  ? <span className="mr-1.5">○</span>
+                                  : <span className="mr-1.5 text-green-400">●</span>}
+                                {sub.name}
+                              </span>
+                            </td>
+                            <td className="px-3 py-2 text-center">
+                              {sub.total > 0
+                                ? <CountBadge n={sub.total} warn={5} danger={2} />
+                                : <span className="text-xs text-red-300 font-semibold">0</span>}
+                            </td>
+                            <td className="px-3 py-2 text-center text-gray-500 text-sm">
+                              {sub.verified > 0 ? sub.verified : <span className="text-gray-300">—</span>}
+                            </td>
+                            <td className="px-3 py-2 text-center text-gray-300 text-sm">—</td>
+                            <td className="px-3 py-2 text-center">
+                              {sub.avgDiff > 0
+                                ? <DifficultyBadge d={Math.round(sub.avgDiff)} />
+                                : <span className="text-gray-300 text-xs">—</span>}
+                            </td>
+                            <td className="px-3 py-2"></td>
+                          </tr>
+                        ))}
+                      </>
+                    )
+                  })}
                 </tbody>
               </table>
             </div>
-            <div className="flex gap-4 text-xs text-gray-400">
+            <div className="flex gap-4 text-xs text-gray-400 flex-wrap">
               <span><span className="inline-block w-3 h-3 bg-red-100 rounded mr-1"></span>≤ 5 pytań</span>
               <span><span className="inline-block w-3 h-3 bg-yellow-100 rounded mr-1"></span>6–10 pytań</span>
               <span><span className="inline-block w-3 h-3 bg-green-100 rounded mr-1"></span>&gt; 10 pytań</span>
+              <span><span className="text-green-400 mr-1">●</span>podtemat pokryty</span>
+              <span><span className="text-red-300 mr-1">○</span>brak pytań</span>
             </div>
           </div>
         )}
 
-        {/* Tab 2: Pokrycie podtematów */}
+        {/* Tab 2: Sprawdzian */}
         {tab === 2 && (
-          <div className="space-y-4">
-            {topicSubtopics.map(topic => {
-              const entries = Object.entries(topic.subtopicMap).sort((a, b) => b[1].total - a[1].total)
-              if (entries.length === 0) return null
-              return (
-                <div key={topic.id} className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-                  <div className="bg-gray-50 px-4 py-2.5 border-b border-gray-200 flex items-center justify-between">
-                    <span className="text-sm font-semibold text-gray-700">{topic.order_index}. {topic.name}</span>
-                    <span className="text-xs text-gray-400">{entries.length} podtematów</span>
-                  </div>
-                  <div className="divide-y divide-gray-50">
-                    {entries.map(([sub, stats]) => (
-                      <div key={sub} className="px-4 py-2 flex items-center justify-between">
-                        <span className={`text-sm ${stats.total < 3 ? 'text-red-600 font-medium' : 'text-gray-600'}`}>
-                          {stats.total < 3 && '⚠ '}{sub}
-                        </span>
-                        <div className="flex items-center gap-3">
-                          <DifficultyBadge d={Math.round(stats.avgDiff)} />
-                          <CountBadge n={stats.total} warn={5} danger={2} />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        )}
-
-        {/* Tab 3: Sprawdzian */}
-        {tab === 3 && (
           <div>
             <p className="text-sm text-gray-500 mb-4">
-              Pokryto {totalCovered} z {totalSubtopicIds.size} podtematów (
-              {totalSubtopicIds.size > 0 ? Math.round(totalCovered / totalSubtopicIds.size * 100) : 0}%)
+              Pokryto {totalCovered} z {subtopics.length} podtematów (
+              {subtopics.length > 0 ? Math.round(totalCovered / subtopics.length * 100) : 0}%)
             </p>
-            <div className="space-y-3">
-              {mockByTopic.map(topic => {
-                const isExpanded = expandedTopics.has(topic.id)
-                const allCovered = topic.covered === topic.total && topic.total > 0
-                const noneCovered = topic.covered === 0
-                return (
-                  <div key={topic.id} className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-                    <div className="px-4 py-3 flex items-center gap-3">
-                      <button
-                        onClick={() => toggleTopic(topic.id)}
-                        className="text-gray-400 hover:text-gray-600 text-xs w-5 text-center shrink-0"
-                      >
-                        {isExpanded ? '▼' : '▶'}
-                      </button>
-                      <span className="font-medium text-gray-800 text-sm flex-1">
-                        {topic.order_index}. {topic.name}
-                      </span>
-                      <span className={`text-xs px-2 py-0.5 rounded font-semibold ${
-                        allCovered ? 'bg-green-100 text-green-700' :
-                        noneCovered ? 'bg-red-100 text-red-600' :
-                        'bg-yellow-100 text-yellow-700'
-                      }`}>
-                        {topic.covered}/{topic.total} podtematów
-                      </span>
-                      <span className="text-xs text-gray-400">{topic.mockCount} pyt.</span>
-                      <button
-                        onClick={() => openMockTopicSidebar(topic)}
-                        className="text-xs text-green-600 hover:text-green-800 hover:underline whitespace-nowrap"
-                      >
-                        Lista →
-                      </button>
-                    </div>
-
-                    {isExpanded && (
-                      <div className="border-t border-gray-100 divide-y divide-gray-50">
-                        {Array.from(topic.topicSubtopicIds).map(subId => {
-                          const subName = topic.topicSubtopicNames.get(subId) ?? subId
-                          const inMock = mockQuestions.filter(q => q.subtopic_id === subId).length
-                          const inMain = questions.filter(q => q.subtopic_id === subId && q.topic_id === topic.id).length
-                          return (
-                            <div key={subId} className={`px-10 py-2 flex items-center justify-between text-sm ${inMock === 0 ? 'bg-red-50' : ''}`}>
-                              <span className="text-gray-600">
-                                {inMock === 0
-                                  ? <span className="text-red-400 mr-1.5">✗</span>
-                                  : <span className="text-green-500 mr-1.5">✓</span>}
-                                {subName}
+            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden mb-3">
+              <table className="w-full text-sm">
+                <thead className="bg-gray-50 border-b border-gray-200">
+                  <tr>
+                    <th className="text-left px-4 py-3 text-gray-600 font-medium">Temat / Podtemat</th>
+                    <th className="text-center px-3 py-3 text-gray-600 font-medium">Pytań</th>
+                    <th className="text-center px-3 py-3 text-gray-600 font-medium">Verified</th>
+                    <th className="text-center px-3 py-3 text-gray-600 font-medium">Pokrycie</th>
+                    <th className="text-center px-3 py-3 text-gray-600 font-medium">Śr. trudność</th>
+                    <th className="px-3 py-3"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {mockByTopic.map(topic => {
+                    const isExpanded = expandedTopics.has(topic.id + '_mock')
+                    const allCovered = topic.covered === topic.subtopicTotal && topic.subtopicTotal > 0
+                    const noneCovered = topic.covered === 0
+                    return (
+                      <>
+                        {/* Topic row */}
+                        <tr
+                          key={topic.id}
+                          className="border-t border-gray-100 hover:bg-gray-50 cursor-pointer"
+                          onClick={() => toggleTopic(topic.id + '_mock')}
+                        >
+                          <td className="px-4 py-3">
+                            <div className="flex items-center gap-2">
+                              <span className="text-gray-400 text-xs w-4 shrink-0 select-none">
+                                {isExpanded ? '▼' : '▶'}
                               </span>
-                              <div className="flex items-center gap-4">
-                                <span className="text-xs text-gray-400">baza: {inMain}</span>
-                                <span className={`text-xs font-semibold ${inMock > 0 ? 'text-green-600' : 'text-red-400'}`}>
-                                  sprawdzian: {inMock || '—'}
-                                </span>
-                              </div>
+                              <span className="font-semibold text-gray-800">
+                                {topic.order_index}. {topic.name}
+                              </span>
                             </div>
-                          )
-                        })}
-                      </div>
-                    )}
-                  </div>
-                )
-              })}
+                          </td>
+                          <td className="px-3 py-3 text-center">
+                            <CountBadge n={topic.mockCount} warn={5} danger={2} />
+                          </td>
+                          <td className="px-3 py-3 text-center text-gray-600 font-medium">
+                            {topic.verifiedCount}
+                          </td>
+                          <td className="px-3 py-3 text-center">
+                            <span className={`text-xs px-2 py-0.5 rounded font-semibold ${
+                              allCovered ? 'bg-green-100 text-green-700' :
+                              noneCovered ? 'bg-red-100 text-red-600' :
+                              'bg-yellow-100 text-yellow-700'
+                            }`}>
+                              {topic.covered}/{topic.subtopicTotal}
+                            </span>
+                          </td>
+                          <td className="px-3 py-3 text-center">
+                            {topic.avgDiff > 0
+                              ? <DifficultyBadge d={Math.round(topic.avgDiff)} />
+                              : <span className="text-gray-300">—</span>}
+                          </td>
+                          <td className="px-3 py-3 text-right">
+                            <button
+                              onClick={e => { e.stopPropagation(); openMockTopicSidebar(topic) }}
+                              className="text-xs text-green-600 hover:text-green-800 hover:underline whitespace-nowrap"
+                            >
+                              Lista →
+                            </button>
+                          </td>
+                        </tr>
+
+                        {/* Subtopic rows — expanded inline */}
+                        {isExpanded && topic.subtopicRows.map(sub => (
+                          <tr key={sub.id} className="bg-gray-50/60 border-t border-gray-50">
+                            <td className="pl-10 pr-4 py-2">
+                              <span className={`text-sm ${sub.total === 0 ? 'text-red-400' : 'text-gray-600'}`}>
+                                {sub.total === 0
+                                  ? <span className="mr-1.5">○</span>
+                                  : <span className="mr-1.5 text-green-400">●</span>}
+                                {sub.name}
+                              </span>
+                            </td>
+                            <td className="px-3 py-2 text-center">
+                              {sub.total > 0
+                                ? <CountBadge n={sub.total} warn={3} danger={1} />
+                                : <span className="text-xs text-red-300 font-semibold">0</span>}
+                            </td>
+                            <td className="px-3 py-2 text-center text-gray-500 text-sm">
+                              {sub.verified > 0 ? sub.verified : <span className="text-gray-300">—</span>}
+                            </td>
+                            <td className="px-3 py-2 text-center text-gray-300 text-sm">—</td>
+                            <td className="px-3 py-2 text-center">
+                              {sub.avgDiff > 0
+                                ? <DifficultyBadge d={Math.round(sub.avgDiff)} />
+                                : <span className="text-gray-300 text-xs">—</span>}
+                            </td>
+                            <td className="px-3 py-2"></td>
+                          </tr>
+                        ))}
+                      </>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+            <div className="flex gap-4 text-xs text-gray-400 flex-wrap">
+              <span><span className="inline-block w-3 h-3 bg-red-100 rounded mr-1"></span>≤ 2 pytania</span>
+              <span><span className="inline-block w-3 h-3 bg-yellow-100 rounded mr-1"></span>3–5 pytań</span>
+              <span><span className="inline-block w-3 h-3 bg-green-100 rounded mr-1"></span>&gt; 5 pytań</span>
+              <span><span className="text-green-400 mr-1">●</span>podtemat pokryty</span>
+              <span><span className="text-red-300 mr-1">○</span>brak pytań</span>
             </div>
           </div>
         )}

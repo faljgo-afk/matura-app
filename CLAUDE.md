@@ -144,13 +144,59 @@ Dla każdego pytania zwróć JSON w tym formacie:
   "source_reference": "Podręcznik biologii, zakres rozszerzony"
 }
 
-ZASADY:
-- Pytania muszą być zgodne z aktualną podstawą programową CKE
+ZASADY MERYTORYCZNE:
+- Pytania muszą być zgodne z aktualną podstawą programową CKE (poziom rozszerzony)
 - Dystraktorы (błędne odpowiedzi) muszą być wiarygodne i typowe dla błędów uczniów
 - Wyjaśnienie musi być merytoryczne i edukacyjne
 - Unikaj pytań trywialnych lub zbyt prostych sformułowań
 - confidence < 0.85 oznacza że pytanie wymaga weryfikacji przez eksperta
 - Zwróć TYLKO tablicę JSON, bez dodatkowego tekstu
+
+STYL I KIERUNEK PYTAŃ — WZORUJ SIĘ NA PRAWDZIWEJ MATURZE CKE:
+
+Matura rozszerzona z biologii CKE sprawdza głównie ROZUMIENIE i ZASTOSOWANIE wiedzy, nie samo zapamiętywanie.
+Pytania zamknięte na maturze mają konkretny charakter — oto wytyczne:
+
+1. PYTAJ O MECHANIZMY I PROCESY, nie definicje
+   - Nie: "Co to jest fotosynteza?"
+   - Tak: "W której fazie fotosyntezy dochodzi do fotolizy wody i jaki jest jej produkt uboczny?"
+
+2. OSADZAJ PYTANIA W KONTEKŚCIE (dane, schemat, opis doświadczenia)
+   - "Na podstawie poniższego opisu: Badacz zaobserwował, że... — wskaż prawidłowe wyjaśnienie"
+   - "Rysunek przedstawia komórkę po umieszczeniu w roztworze hipertonicznym. Które stwierdzenie jest prawdziwe?"
+
+3. SPRAWDZAJ UMIEJĘTNOŚĆ PORÓWNYWANIA I WNIOSKOWANIA
+   - "Które z poniższych stwierdzeń POPRAWNIE opisuje różnicę między mitozą a mejozą?"
+   - "Które procesy zachodzą ZARÓWNO w mitochondriach, jak i w chloroplastach?"
+
+4. UŻYWAJ TYPOWYCH DLA CKE SFORMUŁOWAŃ PYTAŃ:
+   - "Wskaż prawidłowe dokończenie zdania:"
+   - "Które z poniższych stwierdzeń jest PRAWDZIWE / FAŁSZYWE?"
+   - "Zaznacz, które cechy są charakterystyczne dla..."
+   - "Oceń prawdziwość poniższych stwierdzeń:"
+   - "Które procesy zachodzą w..."
+   - "W wyniku [...] dochodzi do..."
+
+5. TEMATY Z NAJWIĘKSZYM AKCENTEM NA MATURZE:
+   - Genetyka molekularna: replikacja, transkrypcja, translacja, mutacje, regulacja ekspresji genów
+   - Fizjologia komórki: transport przez błony, oddychanie komórkowe, fotosynteza
+   - Fizjologia człowieka: homeostaza, mechanizmy regulacji hormonalnej i nerwowej
+   - Ewolucja: dobór naturalny, specjacja, dowody ewolucji
+   - Ekologia: zależności między organizmami, przepływ energii, cykle biogeochemiczne
+   - Genetyka klasyczna: krzyżówki, dziedziczenie, grupy krwi, sprzężenie z płcią
+
+6. PYTANIA TRUE/FALSE — WZORUJ NA CKE:
+   - Podaj 3 stwierdzenia do oceny (P/F każde), np.:
+     "Oceń prawdziwość poniższych stwierdzeń dotyczących syntezy białek:
+      A. Rybosomy są miejscem translacji — P/F
+      B. Kodon stop koduje aminokwas — P/F
+      C. mRNA powstaje w wyniku transkrypcji — P/F"
+
+7. UNIKAJ:
+   - Pytań czysto definicyjnych ("Co to jest...")
+   - Banalnych sformułowań, które nie wymagają głębszego rozumienia
+   - Odpowiedzi "wszystkie powyższe" lub "żadne z powyższych"
+   - Dystraktorów absurdalnych, które uczeń odrzuca bez wiedzy biologicznej
 ```
 
 ---
@@ -166,8 +212,10 @@ PYTANIE DO WERYFIKACJI:
 Oceń pytanie pod kątem:
 1. Poprawność merytoryczna — czy odpowiedź jest faktycznie poprawna?
 2. Zgodność z programem CKE — czy temat jest na maturze?
-3. Jakość dystraktorów — czy błędne odpowiedzi są wiarygodne?
+3. Jakość dystraktorów — czy błędne odpowiedzi są wiarygodne i typowe dla błędów uczniów?
 4. Jakość wyjaśnienia — czy jest kompletne i edukacyjne?
+5. Styl CKE — czy pytanie sprawdza ROZUMIENIE i ZASTOSOWANIE wiedzy (nie tylko definicje)?
+   Czy sformułowanie jest podobne do stylu zadań maturalnych (konkretne, precyzyjne, bez trywialności)?
 
 Zwróć JSON:
 {
