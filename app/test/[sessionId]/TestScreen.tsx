@@ -14,6 +14,7 @@ type Question = {
   question_text: string
   question_type: string
   options: Option[]
+  image_url?: string | null
 }
 
 type Answers = Record<string, string[]>
@@ -136,7 +137,17 @@ export default function TestScreen({
           }`}>
             {isMultiple ? '☑ Wybierz wszystkie poprawne odpowiedzi' : '○ Wybierz jedną odpowiedź'}
           </div>
-          <p className="text-lg font-medium text-gray-900 mb-6">{question.question_text}</p>
+          <p className="text-lg font-medium text-gray-900 mb-4">{question.question_text}</p>
+
+          {question.image_url && (
+            <div className="mb-5 rounded-lg overflow-hidden border border-gray-200 bg-gray-50">
+              <img
+                src={question.image_url}
+                alt="Ilustracja do pytania"
+                className="w-full max-h-64 object-contain p-2"
+              />
+            </div>
+          )}
 
           <div className="space-y-3">
             {question.options.map((option) => {

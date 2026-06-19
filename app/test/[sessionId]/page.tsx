@@ -15,6 +15,7 @@ type Question = {
   question_text: string
   question_type: string
   options: Option[]
+  image_url?: string | null
 }
 
 async function getSessionWithQuestions(sessionId: string) {
@@ -32,7 +33,7 @@ async function getSessionWithQuestions(sessionId: string) {
 
   const { data: questions } = await supabase
     .from(table)
-    .select('id, question_text, question_type, options')
+    .select('id, question_text, question_type, options, image_url')
     .in('id', questionIds)
 
   if (!questions) return null

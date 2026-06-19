@@ -23,6 +23,7 @@ type Question = {
   options: Option[]
   correct_answer: string[]
   explanation: string
+  image_url?: string | null
 }
 
 async function getResults(sessionId: string, userId: string | null) {
@@ -40,7 +41,7 @@ async function getResults(sessionId: string, userId: string | null) {
 
   const { data: questions } = await supabase
     .from(table)
-    .select('id, question_text, question_type, options, correct_answer, explanation')
+    .select('id, question_text, question_type, options, correct_answer, explanation, image_url')
     .in('id', questionIds)
 
   if (!questions) return null
@@ -148,6 +149,16 @@ export default async function ResultsPage({ params }: { params: { sessionId: str
                     {index + 1}. {question.question_text}
                   </p>
                 </div>
+
+                {question.image_url && (
+                  <div className="mb-3 rounded-lg overflow-hidden border border-gray-200 bg-gray-50">
+                    <img
+                      src={question.image_url}
+                      alt="Ilustracja do pytania"
+                      className="w-full max-h-52 object-contain p-2"
+                    />
+                  </div>
+                )}
 
                 <div className="space-y-2 mb-4">
                   {question.options.map((option) => {
