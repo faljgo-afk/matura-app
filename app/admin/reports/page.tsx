@@ -18,11 +18,12 @@ async function getReportData() {
     supabaseAdmin.from('topics').select('id, name, order_index').order('order_index'),
   ])
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return {
-    questions: (questions ?? []) as unknown as any[],
+    // Supabase infers embedded selects as arrays but runtime returns objects — cast needed
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    mockQuestions: (mockQuestions ?? []) as unknown as any[],
+    questions: (questions ?? []) as unknown as any,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    mockQuestions: (mockQuestions ?? []) as unknown as any,
     topics: topics ?? [],
   }
 }
