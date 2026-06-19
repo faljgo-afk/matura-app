@@ -18,9 +18,11 @@ async function getReportData() {
     supabaseAdmin.from('topics').select('id, name, order_index').order('order_index'),
   ])
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return {
-    questions: questions ?? [],
-    mockQuestions: mockQuestions ?? [],
+    questions: (questions ?? []) as unknown as any[],
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    mockQuestions: (mockQuestions ?? []) as unknown as any[],
     topics: topics ?? [],
   }
 }
