@@ -1,0 +1,308 @@
+[
+  {
+    "topic_id": "715e2a2c-9cf3-4f9f-93f9-ce3f73c6e92d",
+    "subtopic_id": "9ec87867-e7fd-445f-9df4-dd309c78f156",
+    "image_url": null,
+    "question_text": "Tkanka miękiszowa asymilacyjna (chlorenchyma) różni się od miękiszu magazynującego przede wszystkim:",
+    "question_type": "single",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.95,
+    "options": [
+      {"id": "A", "text": "Obecnością dużych wakuoli zajmujących większość objętości komórki", "is_correct": false},
+      {"id": "B", "text": "Dużą liczbą chloroplastów umożliwiającą prowadzenie fotosyntezy", "is_correct": true},
+      {"id": "C", "text": "Brakiem ściany komórkowej i zdolnością do aktywnych podziałów", "is_correct": false},
+      {"id": "D", "text": "Obecnością grubej ściany wtórnej impregnowanej ligniną", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Chlorenchyma to wyspecjalizowana tkanka miękiszowa zawierająca dużą liczbę chloroplastów, co umożliwia prowadzenie fotosyntezy. Miękisz magazynujący charakteryzuje się dużymi wakuolami służącymi do gromadzenia substancji zapasowych (np. skrobi, wody, cukrów), ale zawiera mało chloroplastów. Gruba ściana wtórna z ligniną to cecha tkanki mechanicznej — sklerenchymy, nie miękiszu. Wszystkie tkanki roślinne posiadają ścianę komórkową, zatem brak ściany nie charakteryzuje żadnej z nich."
+  },
+  {
+    "topic_id": "715e2a2c-9cf3-4f9f-93f9-ce3f73c6e92d",
+    "subtopic_id": "9ec87867-e7fd-445f-9df4-dd309c78f156",
+    "image_url": null,
+    "question_text": "Wskaż prawidłowe dokończenie zdania: Sklerenchyma różni się od kolenchymy tym, że:",
+    "question_type": "single",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.95,
+    "options": [
+      {"id": "A", "text": "Jej komórki są żywe i mają zdolność do dalszych podziałów w razie uszkodzenia organu", "is_correct": false},
+      {"id": "B", "text": "Tworzy wyłącznie włókna łykowe otaczające wiązki przewodzące u roślin jednoliściennych", "is_correct": false},
+      {"id": "C", "text": "Ma komórki martwe z grubą ścianą wtórną impregnowaną ligniną, nadającą organom sztywność", "is_correct": true},
+      {"id": "D", "text": "Wchodzi w skład epidermy i tworzy pierwszą barierę ochronną organów roślinnych", "is_correct": false}
+    ],
+    "correct_answer": ["C"],
+    "explanation": "Sklerenchyma to tkanka mechaniczna zbudowana z martwych komórek (fibry i skleredy) z grubą, równomiernie zgrubiałą ścianą wtórną zawierającą ligninę. Dzięki ligninie komórki są twarde i sztywne — stanowią trwałe mechaniczne rusztowanie organu. Kolenchyma natomiast zbudowana jest z żywych komórek, których ściany są nierównomiernie zgrubiałe (bez ligniny) — co czyni ją elastycznym wzmocnieniem rosnących organów. Obie tkanki pełnią funkcję mechaniczną, lecz sklerenchyma działa w organach w pełni wykształconych, a kolenchyma — w rosnących."
+  },
+  {
+    "topic_id": "715e2a2c-9cf3-4f9f-93f9-ce3f73c6e92d",
+    "subtopic_id": "af3b084b-a1ed-492e-abed-ed136e095415",
+    "image_url": null,
+    "question_text": "W której części wiązki przewodzącej rośliny naczyniowej transportowana jest woda i sole mineralne?",
+    "question_type": "single",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.97,
+    "options": [
+      {"id": "A", "text": "W łyku (floemie), zbudowanym z rurek sitowych i komórek towarzyszących", "is_correct": false},
+      {"id": "B", "text": "W drewnie (ksylemie), zbudowanym głównie z naczyń i cewek", "is_correct": true},
+      {"id": "C", "text": "W kambium, które wytwarza nowe elementy przewodzące po obu stronach", "is_correct": false},
+      {"id": "D", "text": "W miękiszu drzewnym wypełniającym przestrzenie między naczyniami", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Drewno (ksylem) pełni funkcję transportu wody i soli mineralnych od korzeni ku górze rośliny — jest to tzw. prąd transpiracyjny, napędzany głównie przez transpirację liści. Ksylem zbudowany jest z martwych elementów przewodzących: naczyń (o perforowanych ścianach końcowych) i cewek (wrzecionowatych). Łyko (floem) transportuje asymilaty — głównie sacharozę — od liści do pozostałych organów i zbudowane jest z żywych rurek sitowych oraz komórek towarzyszących. Kambium to tkanka twórcza wytwarzająca wtórnie ksylem i floem, a nie transportująca wodę."
+  },
+  {
+    "topic_id": "715e2a2c-9cf3-4f9f-93f9-ce3f73c6e92d",
+    "subtopic_id": "af3b084b-a1ed-492e-abed-ed136e095415",
+    "image_url": null,
+    "question_text": "Oceń prawdziwość poniższych stwierdzeń dotyczących tkanek przewodzących roślin:\nI. Elementy naczyniowe ksylemu są komórkami martwymi w chwili pełnienia funkcji przewodzenia.\nII. Kambium naczyniowe wytwarza drewno wtórne od strony zewnętrznej i łyko wtórne od wewnętrznej.\nIII. Rurki sitowe floemu transportują asymilaty zgodnie z gradientem ciśnienia.",
+    "question_type": "single",
+    "difficulty": 3,
+    "verified": true,
+    "ai_confidence": 0.92,
+    "options": [
+      {"id": "A", "text": "Tylko I i III są prawdziwe", "is_correct": true},
+      {"id": "B", "text": "Tylko II i III są prawdziwe", "is_correct": false},
+      {"id": "C", "text": "Wszystkie trzy stwierdzenia są prawdziwe", "is_correct": false},
+      {"id": "D", "text": "Tylko I jest prawdziwe", "is_correct": false}
+    ],
+    "correct_answer": ["A"],
+    "explanation": "Stwierdzenie I jest PRAWDZIWE — elementy naczyniowe ksylemu (naczynia, cewki) tracą zawartość komórkową i giną, tworząc puste, zdrewniałe przewody dla wody. Stwierdzenie II jest FAŁSZYWE — kambium naczyniowe wytwarza drewno wtórne od strony wewnętrznej (do centrum łodygi/korzenia) i łyko wtórne od strony zewnętrznej — odwrotnie niż podano. Stwierdzenie III jest PRAWDZIWE — transport w floemie opisuje model ciśnieniowy Müncha: asymilaty ładowane w liściach zwiększają ciśnienie osmotyczne, powodując napływ wody z ksylemu i przepływ treści do organów spichrzających o niższym ciśnieniu."
+  },
+  {
+    "topic_id": "715e2a2c-9cf3-4f9f-93f9-ce3f73c6e92d",
+    "subtopic_id": "7412b8c7-d272-4d2e-b7fd-2c476174fa8b",
+    "image_url": null,
+    "question_text": "Strefa włośnikowa korzenia pełni przede wszystkim funkcję:",
+    "question_type": "single",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.97,
+    "options": [
+      {"id": "A", "text": "Ochronną — pokryta jest warstwą kutyny zapobiegającą wnikaniu patogenów do korzenia", "is_correct": false},
+      {"id": "B", "text": "Chłonną — włośniki korzeniowe wielokrotnie zwiększają powierzchnię kontaktu z glebą", "is_correct": true},
+      {"id": "C", "text": "Merystematyczną — komórki tej strefy aktywnie się dzielą, wydłużając korzeń", "is_correct": false},
+      {"id": "D", "text": "Mechaniczną — sklerenchyma tej strefy wzmacnia korzeń przed złamaniem", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Strefa włośnikowa jest odpowiedzialna za pobieranie wody i soli mineralnych z roztworu glebowego. Włośniki korzeniowe to długie, rurkowate wypustki komórek ryzodermy (epidermy korzenia), które kilkudziesięciokrotnie zwiększają powierzchnię chłonną korzenia — jest to kluczowe dla zaopatrzenia rośliny w wodę. Aktywne podziały komórkowe zachodzą w strefie merystematycznej, położonej bliżej wierzchołka korzenia. Kutyna pokrywa organy nadziemne rośliny, a nie korzenie. W korzeniu brak sklerenchymy jako dominującej tkanki strefy włośnikowej."
+  },
+  {
+    "topic_id": "715e2a2c-9cf3-4f9f-93f9-ce3f73c6e92d",
+    "subtopic_id": "7412b8c7-d272-4d2e-b7fd-2c476174fa8b",
+    "image_url": null,
+    "question_text": "Endoderma korzenia z pasemkami Caspary'ego pełni funkcję:",
+    "question_type": "single",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.93,
+    "options": [
+      {"id": "A", "text": "Fotosyntetyczną — komórki endodermy zawierają chloroplasty produkujące glukozę", "is_correct": false},
+      {"id": "B", "text": "Magazynowania skrobi jako rezerwuaru energii dla stref wzrostu korzenia", "is_correct": false},
+      {"id": "C", "text": "Kontrolowania składu jonowego soku ksylemowego przez blokowanie transportu apoplastem", "is_correct": true},
+      {"id": "D", "text": "Wytwarzania auksyny regulującej wzrost korzenia na długość", "is_correct": false}
+    ],
+    "correct_answer": ["C"],
+    "explanation": "Pasemka Caspary'ego to hydrofobowe (suberynowe) struktury w ścianach komórek endodermy, całkowicie nieprzepuszczalne dla wody i jonów w przestrzeni apoplastycznej. Zmuszają one substancje do przejścia przez symplast (cytoplazmy połączone plazmodesmami), gdzie roślina może aktywnie regulować transport jonów przez pompy i kanały jonowe. Dzięki temu walec osiowy i ksylem są izolowane od swobodnego napływu jonów z gleby — roślina selektywnie kontroluje skład mineralny transportowanej wody. Endoderma nie pełni funkcji fotosyntetycznej ani nie jest miejscem syntezy hormonów wzrostu."
+  },
+  {
+    "topic_id": "715e2a2c-9cf3-4f9f-93f9-ce3f73c6e92d",
+    "subtopic_id": "127bb517-9e07-44a3-821c-1c811ffe356e",
+    "image_url": null,
+    "question_text": "Czym różni się rozmieszczenie wiązek przewodzących w łodydze rośliny jednoliściennej od dwuliściennej?",
+    "question_type": "single",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.96,
+    "options": [
+      {"id": "A", "text": "U jednoliściennych wiązki tworzą jeden regularny pierścień z kambium, a u dwuliściennych — dwa pierścienie", "is_correct": false},
+      {"id": "B", "text": "U jednoliściennych wiązki są rozmieszczone nieregularnie w miękiszu bez kambium, a u dwuliściennych — tworzą pierścień z kambium umożliwiającym wtórny przyrost", "is_correct": true},
+      {"id": "C", "text": "U dwuliściennych brak wiązek przewodzących w łodydze — transport odbywa się przez miękisz", "is_correct": false},
+      {"id": "D", "text": "U jednoliściennych i dwuliściennych rozmieszczenie wiązek jest identyczne, różnią się tylko budową liści", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Kluczowa różnica anatomiczna łodyg obu grup dotyczy układu wiązek przewodzących i obecności kambium. U dwuliściennych wiązki otwarte (z paskiem kambium) tworzą regularny pierścień — kambium naczyniowe zapewnia wtórny przyrost na grubość (drewnienie). U jednoliściennych wiązki zamknięte (bez kambium) są rozsiane nieregularnie w całym miękiszu — brak kambium waskularnego oznacza brak wtórnego przyrostu, dlatego np. palmy czy trawy nie grubieją jak drzewa dwuliścienne. Obie grupy posiadają wiązki przewodzące z ksylemem i floemem."
+  },
+  {
+    "topic_id": "715e2a2c-9cf3-4f9f-93f9-ce3f73c6e92d",
+    "subtopic_id": "127bb517-9e07-44a3-821c-1c811ffe356e",
+    "image_url": null,
+    "question_text": "Peryderma (korek) jako tkanka okrywająca zastępuje epidermę w:",
+    "question_type": "single",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.94,
+    "options": [
+      {"id": "A", "text": "Liściach wszystkich roślin lądowych po zakończeniu sezonu wegetacyjnego", "is_correct": false},
+      {"id": "B", "text": "Korzeniach roślin zielnych, gdy intensywnie pobierają wodę ze strefy włośnikowej", "is_correct": false},
+      {"id": "C", "text": "Łodygach i korzeniach roślin drzewiastych po wtórnym przyroście na grubość", "is_correct": true},
+      {"id": "D", "text": "Strefie merystematycznej korzenia jako ochrona delikatnego wierzchołka wzrostu", "is_correct": false}
+    ],
+    "correct_answer": ["C"],
+    "explanation": "Peryderma tworzona jest przez fellogen (kambium korkotwórcze) i zastępuje epidermę w organach, które uległy wtórnemu przyrostowi na grubość — łodygach i korzeniach roślin drzewiastych. Komórki fellem (korka właściwego) są martwe i impregnowane suberyną, czyniąc je nieprzepuszczalnymi dla wody i gazów. Peryderma zastępuje epidermę, gdy ta pęka wskutek wzmożonego przyrostu. Liście i rośliny zielne zachowują epidermę przez cały okres wegetacji. Wierzchołek korzenia chroni czapeczka korzeniowa (kolumelka), nie peryderma."
+  },
+  {
+    "topic_id": "715e2a2c-9cf3-4f9f-93f9-ce3f73c6e92d",
+    "subtopic_id": "9a12bb4f-29e7-4946-a454-3ddd83af0cd0",
+    "image_url": null,
+    "question_text": "Miękisz gąbczasty liścia, w odróżnieniu od miękiszu palisadowego:",
+    "question_type": "single",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.96,
+    "options": [
+      {"id": "A", "text": "Zawiera więcej chloroplastów i jest głównym miejscem procesu fotosyntezy", "is_correct": false},
+      {"id": "B", "text": "Leży bezpośrednio pod górną epidermą i jest silnie eksponowany na promieniowanie słoneczne", "is_correct": false},
+      {"id": "C", "text": "Zbudowany jest z luźno ułożonych komórek z dużymi przestworami, ułatwiającymi wymianę gazową", "is_correct": true},
+      {"id": "D", "text": "Pozbawiony jest chloroplastów i pełni wyłącznie funkcję magazynowania wody i skrobi", "is_correct": false}
+    ],
+    "correct_answer": ["C"],
+    "explanation": "Miękisz gąbczasty (lacunar) leży w dolnej części mezofilu liścia i charakteryzuje się luźno upakowanymi komórkami oraz dużymi przestworami międzykomórkowymi. Sieć przestworów tworzy system wentylacyjny łączący szparki z wnętrzem liścia i ułatwia dyfuzję CO₂ i O₂ podczas fotosyntezy i oddychania. Miękisz palisadowy leży pod górną epidermą — jego komórki mają kolumnowy układ i największą liczbę chloroplastów, co czyni go głównym miejscem fotosyntezy. Oba typy miękiszu zawierają chloroplasty, choć palisadowy jest efektywniejszy fotosyntetycznie."
+  },
+  {
+    "topic_id": "715e2a2c-9cf3-4f9f-93f9-ce3f73c6e92d",
+    "subtopic_id": "9a12bb4f-29e7-4946-a454-3ddd83af0cd0",
+    "image_url": null,
+    "question_text": "Aparaty szparkowe liścia otwierają się, gdy:",
+    "question_type": "single",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.95,
+    "options": [
+      {"id": "A", "text": "Stężenie CO₂ w przestworach liścia wzrasta, sygnalizując nadmiar produktów oddychania", "is_correct": false},
+      {"id": "B", "text": "Komórki szparkowe pobierają jony K⁺, co powoduje napływ wody osmozą i wzrost turgoru", "is_correct": true},
+      {"id": "C", "text": "Nastaje zmrok, ponieważ noc jest bezpiecznym momentem ograniczenia transpiracji", "is_correct": false},
+      {"id": "D", "text": "Roślina jest narażona na suszę, by umożliwić pobieranie pary wodnej z powietrza", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Otwieranie aparatów szparkowych jest inicjowane przez aktywny transport jonów K⁺ do komórek szparkowych (stymulowany przez światło i niskie stężenie CO₂). Wzrost stężenia K⁺ obniża potencjał osmotyczny, co powoduje napływ wody osmozą do komórek szparkowych — wzrasta ich turgor. Asymetryczna budowa ściany komórkowej powoduje, że przy wzroście turgoru komórki wyginają się, tworząc otwartą szparkę. W ciemności, przy wysokim CO₂ i w warunkach suszy (pod wpływem ABA — kwasu abscysynowego) aparaty zamykają się, ograniczając transpirację."
+  },
+  {
+    "topic_id": "715e2a2c-9cf3-4f9f-93f9-ce3f73c6e92d",
+    "subtopic_id": "2f534143-8c2e-493a-8040-f4f5008765b4",
+    "image_url": null,
+    "question_text": "Kwiat okrytonasiennych jest homologiem pędu. Które stwierdzenie poprawnie opisuje budowę kwiatu?",
+    "question_type": "single",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.95,
+    "options": [
+      {"id": "A", "text": "Działki kielicha i płatki korony są zmodyfikowanymi liśćmi (liśćmi okwiatowymi)", "is_correct": true},
+      {"id": "B", "text": "Słupek powstał z przekształconych łusek nasiennych charakterystycznych dla nagonasiennych", "is_correct": false},
+      {"id": "C", "text": "Pręciki są ewolucyjnymi odpowiednikami korzeni bocznych, a nie liści", "is_correct": false},
+      {"id": "D", "text": "Dno kwiatowe jest skróconą łodygą, ale okwiat nie ma homologów wśród organów wegetatywnych", "is_correct": false}
+    ],
+    "correct_answer": ["A"],
+    "explanation": "Kwiat jest przekształconym pędem o ograniczonym wzroście i zmodyfikowanych liściach. Działki kielicha (sepale) i płatki korony (petale) to liście okwiatowe — sterylne elementy okwiatu, ewolucyjnie i ontogenetycznie homologiczne do liści wegetatywnych. Pręciki (andreceum) są odpowiednikami mikrosporofili, a owocolistki tworzące słupek (gyneceum) — megasporofili. Tę homologię potwierdzają geny MADS-box (model ABC) regulujące tożsamość organów kwiatowych — ich mutacje powodują zamianę jednego typu organu kwiatowego w inny."
+  },
+  {
+    "topic_id": "715e2a2c-9cf3-4f9f-93f9-ce3f73c6e92d",
+    "subtopic_id": "2f534143-8c2e-493a-8040-f4f5008765b4",
+    "image_url": null,
+    "question_text": "Rośliny wiatropylne (anemogamiczne) różnią się od owadopylnych (entomogamicznych) tym, że:",
+    "question_type": "single",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.96,
+    "options": [
+      {"id": "A", "text": "Wytwarzają duże, barwne kwiaty z obfitymi nektarnikami i intensywnym zapachem", "is_correct": false},
+      {"id": "B", "text": "Produkują małe ilości ciężkiego, lepkiego pyłku dobrze przylegającego do ciała owadów", "is_correct": false},
+      {"id": "C", "text": "Mają niepozorne kwiaty bez nektarników i wytwarzają ogromne ilości lekkiego, suchego pyłku", "is_correct": true},
+      {"id": "D", "text": "Posiadają krótkie, gładkie znamiona słupka wyraźnie widoczne wewnątrz płatków korony", "is_correct": false}
+    ],
+    "correct_answer": ["C"],
+    "explanation": "Rośliny wiatropylne (trawy, drzewa liściaste — dąb, brzoza) są przystosowane do przenoszenia pyłku przez powietrze. Wytwarzają ogromne ilości drobnego, lekkiego, suchego pyłku — strategia 'masowej produkcji' rekompensująca losowość wiatru. Ich kwiaty są niepozorne (brak nektarników i zapachu), a znamiona słupka są długie, pierzaste lub lepkie, eksponowane na zewnątrz, by maksymalnie chwytać pyłek. Rośliny owadopylne inwestują energię w atrakcyjne kwiaty i nektar wabiące zapylacze; ich pyłek jest zazwyczaj większy i lepki, z ornamentacją ułatwiającą przyleganie do ciała owada."
+  },
+  {
+    "topic_id": "715e2a2c-9cf3-4f9f-93f9-ce3f73c6e92d",
+    "subtopic_id": "2f534143-8c2e-493a-8040-f4f5008765b4",
+    "image_url": null,
+    "question_text": "W procesie podwójnego zapłodnienia u okrytonasiennych:",
+    "question_type": "single",
+    "difficulty": 3,
+    "verified": true,
+    "ai_confidence": 0.96,
+    "options": [
+      {"id": "A", "text": "Jeden plemnik łączy się z komórką jajową (n), a drugi z jedną z synergid (n), tworząc dwa niezależne zarodki (2n)", "is_correct": false},
+      {"id": "B", "text": "Jeden plemnik tworzy zygotę (2n) z komórką jajową, a drugi łączy się z centralną komórką (2n), tworząc triploidalne endosperm (3n)", "is_correct": true},
+      {"id": "C", "text": "Oba plemniki łączą się kolejno z tą samą komórką jajową, co skutkuje powstaniem poliploidalnego zarodka", "is_correct": false},
+      {"id": "D", "text": "Podwójne zapłodnienie polega na wnikaniu dwóch łagiewek pyłkowych do jednego zalążka", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Podwójne zapłodnienie jest cechą wyłącznie okrytonasiennych. Ziarnko pyłku wytwarza dwa plemniki (n). Pierwszy łączy się z komórką jajową (n) → tworzy zygotę (2n), z której rozwija się zarodek. Drugi łączy się z diploidalną centralną komórką woreczka zalążkowego (2n) → tworzy triploidalną (3n) komórkę, z której powstaje endosperm (bielmo) — tkanka odżywcza dla zarodka. Synergidy wspomagają kiełkowanie łagiewki pyłkowej, ale nie biorą udziału w zapłodnieniu. Odkrycie podwójnego zapłodnienia u okrytonasiennych przypisuje się Nawaścinowi i Guerignardowi (1898)."
+  },
+  {
+    "topic_id": "715e2a2c-9cf3-4f9f-93f9-ce3f73c6e92d",
+    "subtopic_id": "78b9339f-9ce4-4e22-9842-584ab100daf9",
+    "image_url": null,
+    "question_text": "Nasiono rośliny okrytonasiennej składa się z:",
+    "question_type": "single",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.97,
+    "options": [
+      {"id": "A", "text": "Owocni, łupiny nasiennej i gametofitu żeńskiego z archegoniami", "is_correct": false},
+      {"id": "B", "text": "Łupiny nasiennej, tkanki odżywczej (bielma) i zarodka z korzonkiem, łodygą i liścieniami", "is_correct": true},
+      {"id": "C", "text": "Wyłącznie zarodka otoczonego bezpośrednio owocnią, bez oddzielnej tkanki zapasowej", "is_correct": false},
+      {"id": "D", "text": "Mikrospor i megaspor zamkniętych we wspólnej ścianie sporangium", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Nasiono okrytonasiennych posiada trójwarstwową budowę: (1) łupina nasienna (testa) — powstałą z osłonek zalążka, chroniąca nasiono przed wysychaniem i uszkodzeniem; (2) bielmo (endosperm) — triploidalne (3n), wypełnione materiałem zapasowym (skrobia, tłuszcze, białka) dla zarodka; u wielu gatunków wchłaniane przez liścienie w toku dojrzewania; (3) zarodek — z korzonkiem zarodkowym (radikula), łodygą zarodkową (hipokotyl/epikotyl) i liścieniami (1 u jednoliściennych, 2 u dwuliściennych). Owocnia to przekształcona ściana zalążni — należy do owocu, nie nasiona."
+  },
+  {
+    "topic_id": "715e2a2c-9cf3-4f9f-93f9-ce3f73c6e92d",
+    "subtopic_id": "78b9339f-9ce4-4e22-9842-584ab100daf9",
+    "image_url": null,
+    "question_text": "Owoce mięsiste, takie jak jagody i pestkowce, są przystosowaniem do rozsiewania przez:",
+    "question_type": "single",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.95,
+    "options": [
+      {"id": "A", "text": "Wiatr (anemochoria) — mięsista owocnia zmniejsza gęstość owocu, ułatwiając unoszenie w powietrzu", "is_correct": false},
+      {"id": "B", "text": "Zwierzęta (zoochoria) — soczysta, odżywcza owocnia stanowi nagrodę dla zwierząt rozpraszających nasiona", "is_correct": true},
+      {"id": "C", "text": "Wodę (hydrochoria) — wysoka zawartość wody w owocni zapewnia pływalność owocu", "is_correct": false},
+      {"id": "D", "text": "Samorzutny rozsiew (autochoria) — mięsista owocnia wybucha pod ciśnieniem osmotycznym", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Owoce mięsiste (jagoda, pestkowiec, jabłko) wykształciły soczyste, odżywcze owocnie jako adaptację do zoochorii. Zwierzę (ptak, ssak) zjada owoc dla substancji odżywczych owocni, natomiast odporne na trawienie nasiona (chronione grubą łupiną lub pestką) przechodzą przez przewód pokarmowy i są wydalane w nowym miejscu — często z pewną porcją nawozu. Rozsiewanie przez wiatr (anemochoria) jest typowe dla owoców suchych z paplusem (dmuchawiec) lub skrzydełkami (klon). Samorzutny wyrzut nasion (autochoria) dotyczy np. niecierpka i łubinu."
+  },
+  {
+    "topic_id": "715e2a2c-9cf3-4f9f-93f9-ce3f73c6e92d",
+    "subtopic_id": "d9f251fc-9b3b-4922-af0d-e4aa4356871c",
+    "image_url": null,
+    "question_text": "Mchy (Bryophyta) różnią się od paproci (Pteridophyta) przede wszystkim tym, że:",
+    "question_type": "single",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.95,
+    "options": [
+      {"id": "A", "text": "Mchy przeprowadzają fotosyntezę przy użyciu innych barwników niż chlorofil a i b", "is_correct": false},
+      {"id": "B", "text": "U mchów dominuje gametofit (n) bez wykształconych tkanek przewodzących, u paproci — sporofit (2n) z ksylemem i floemem", "is_correct": true},
+      {"id": "C", "text": "Paprocie rozmnażają się wyłącznie wegetatywnie, podczas gdy mchy produkują zarodniki", "is_correct": false},
+      {"id": "D", "text": "Mchy wytwarzają nasiona jako formę przetrwalnikową, a paprocie — zarodniki", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Mchy i paprocie różnią się dominującym pokoleniem i obecnością tkanek przewodzących. U mchów dominuje haploidalny gametofit (n) — zielona roślinka; sporofit (2n) — puszka z zarodnią — jest mały i zależny od gametofitu. Mchy nie mają wykształconych tkanek przewodzących, co ogranicza ich rozmiary. U paproci dominuje diploidalny sporofit (2n) — zielona roślina z liśćmi (liścieniami); posiada on ksylem i floem. Gametofit paproci to maleńkie sercowate przedrośle (protalium). Obie grupy rozsiewają się przez zarodniki — żadna nie wytwarza nasion."
+  },
+  {
+    "topic_id": "715e2a2c-9cf3-4f9f-93f9-ce3f73c6e92d",
+    "subtopic_id": "d9f251fc-9b3b-4922-af0d-e4aa4356871c",
+    "image_url": null,
+    "question_text": "Które cechy są wspólne dla wszystkich roślin nasiennych (Spermatophyta), odróżniając je od roślin zarodnikowych?",
+    "question_type": "single",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.95,
+    "options": [
+      {"id": "A", "text": "Obecność kwiatów z okwiatem i podwójne zapłodnienie jako mechanizm rozrodczy", "is_correct": false},
+      {"id": "B", "text": "Wytwarzanie nasion chroniących zarodek oraz uniezależnienie zapłodnienia od wody dzięki pyłkowi", "is_correct": true},
+      {"id": "C", "text": "Brak przemiany pokoleń — rozmnażanie wyłącznie wegetatywne przez rozłogi i bulwy", "is_correct": false},
+      {"id": "D", "text": "Obecność triploidalnego endospermu (3n) we wszystkich nasionach jako obligatoryjnej tkanki zapasowej", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Rośliny nasienne (nagonasienne + okrytonasienne) łączy produkcja nasion — wielokomórkowych struktur chroniących i żywiących zarodek — oraz uniezależnienie rozrodu od wody. U roślin zarodnikowych (mchy, paprocie) plemniki muszą dopłynąć do komórki jajowej przez błonę wodną. U nasiennych pyłek (mikrospory) jest przenoszony przez wiatr lub zwierzęta bezpośrednio na zalążek (nagonasienne) lub znamię słupka (okrytonasienne). Kwiaty i podwójne zapłodnienie to cechy wyłącznie okrytonasiennych. Triploidalne endosperm (3n) dotyczy tylko okrytonasiennych — u nagonasiennych bielmo jest haploidalne (n), pochodzące z gametofitu żeńskiego."
+  }
+]

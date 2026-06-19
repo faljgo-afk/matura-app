@@ -28,21 +28,48 @@ export default function LearnButton({
       <button
         onClick={toggle}
         disabled={loading}
-        className="flex items-center gap-1.5 text-xs text-green-600 font-medium hover:text-gray-400 transition-colors"
+        className="group flex items-center gap-1.5 text-sm text-green-700 font-medium bg-green-100 border border-green-300 rounded-lg px-3 py-1.5 hover:bg-red-50 hover:border-red-200 hover:text-red-600 transition-colors disabled:opacity-50"
       >
-        ✓ Wyuczone
-        <span className="text-gray-300">(cofnij)</span>
+        <svg className="w-4 h-4 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+        </svg>
+        <span className="group-hover:hidden">Wyuczone</span>
+        <span className="hidden group-hover:inline">Cofnij oznaczenie</span>
       </button>
     )
   }
 
   return (
-    <button
-      onClick={toggle}
-      disabled={loading}
-      className="flex items-center gap-1.5 text-xs text-blue-600 font-medium border border-blue-200 rounded-md px-2.5 py-1 hover:bg-blue-50 transition-colors disabled:opacity-50"
-    >
-      {loading ? '...' : '📌 Oznacz jako wyuczone'}
-    </button>
+    <div className="relative group/tooltip inline-block">
+      <button
+        onClick={toggle}
+        disabled={loading}
+        className="flex items-center gap-1.5 text-sm font-semibold text-white bg-green-600 rounded-lg px-3 py-1.5 hover:bg-green-700 transition-colors disabled:opacity-50 shadow-sm"
+      >
+        {loading ? (
+          <svg className="w-4 h-4 animate-spin shrink-0" viewBox="0 0 24 24" fill="none">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+          </svg>
+        ) : (
+          <svg className="w-4 h-4 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
+          </svg>
+        )}
+        Oznacz jako wyuczone
+      </button>
+
+      {/* Tooltip */}
+      <div className="absolute bottom-full left-0 mb-2.5 hidden group-hover/tooltip:block z-20 pointer-events-none">
+        <div className="w-64 bg-gray-900 text-white text-xs leading-relaxed rounded-lg px-3 py-2.5 shadow-lg">
+          <p className="font-semibold mb-0.5">Co to oznacza?</p>
+          <p className="text-gray-300">
+            Pytanie zostanie zapamiętane jako opanowane i będzie pomijane przy losowaniu kolejnych testów z tego tematu.
+          </p>
+        </div>
+        {/* Arrow */}
+        <div className="ml-4 w-0 h-0 border-x-4 border-x-transparent border-t-4 border-t-gray-900" />
+      </div>
+    </div>
   )
 }
