@@ -69,7 +69,15 @@ async function getResults(sessionId: string, userId: string | null) {
     learnedIds = new Set(learned?.map(q => q.question_id) ?? [])
   }
 
-  return { session, questions: ordered, topicSlug, learnedIds }
+  // Check if feedback already submitted for this session
+  const { data: existingFeedback } = await supabase
+    .from('session_feedback')
+    .select('id')
+    .eq('session_id', session.id)
+    .maybeSingle()
+  const feedbackSubmitted = !!existingFeedback
+
+  return { session, questions: ordered, topicSlug, learnedIds, feedbackSubmitted }
 }
 
 export default async function ResultsPage({ params }: { params: { sessionId: string } }) {
@@ -79,7 +87,7 @@ export default async function ResultsPage({ params }: { params: { sessionId: str
   const result = await getResults(params.sessionId, user?.id ?? null)
   if (!result) notFound()
 
-  const { session, questions, topicSlug, learnedIds } = result
+  const { session, questions, topicSlug, learnedIds, feedbackSubmitted } = result
   const answers: Record<string, string[]> = session.answers ?? {}
   const score: number = session.score ?? 0
   const maxScore: number = session.max_score ?? questions.length
@@ -193,7 +201,7 @@ export default async function ResultsPage({ params }: { params: { sessionId: str
           })}
         </div>
 
-        <FeedbackWidget sessionId={params.sessionId} />
+        <FeedbackWidget sessionId={params.sessionId} alreadySubmitted={feedbackSubmitted} />
 
         <div className="mt-8 flex gap-3">
           <Link

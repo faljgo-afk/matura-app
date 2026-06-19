@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { createPortal } from 'react-dom'
 
 const REASONS = [
   { value: 'wrong_answer', label: 'Błędna odpowiedź' },
@@ -34,60 +35,73 @@ export default function ReportQuestionButton({
   }
 
   if (submitted) {
-    return <p className="text-xs text-gray-400 mt-2">✓ Zgłoszenie wysłane — dziękujemy!</p>
+    return <p className="text-xs text-gray-400">✓ Zgłoszenie wysłane — dziękujemy!</p>
   }
 
   return (
-    <div className="mt-2">
-      {!open ? (
-        <button
-          onClick={() => setOpen(true)}
-          className="text-xs text-gray-400 hover:text-red-500 transition-colors flex items-center gap-1"
+    <>
+      <button
+        onClick={() => setOpen(true)}
+        className="text-xs text-gray-400 hover:text-red-500 transition-colors flex items-center gap-1"
+      >
+        🚩 Zgłoś błąd w pytaniu
+      </button>
+
+      {open && createPortal(
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4"
+          onClick={(e) => { if (e.target === e.currentTarget) setOpen(false) }}
         >
-          🚩 Zgłoś błąd w pytaniu
-        </button>
-      ) : (
-        <div className="mt-2 bg-gray-50 border border-gray-200 rounded-lg p-3 space-y-2">
-          <p className="text-xs font-semibold text-gray-600">Rodzaj problemu:</p>
-          <div className="flex flex-col gap-1.5">
-            {REASONS.map(r => (
-              <label key={r.value} className="flex items-center gap-2 text-xs text-gray-600 cursor-pointer">
-                <input
-                  type="radio"
-                  name={`reason-${questionId}`}
-                  value={r.value}
-                  checked={reason === r.value}
-                  onChange={() => setReason(r.value)}
-                  className="accent-green-600"
-                />
-                {r.label}
-              </label>
-            ))}
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-semibold text-gray-800">Zgłoś błąd w pytaniu</h3>
+              <button onClick={() => setOpen(false)} className="text-gray-400 hover:text-gray-600 text-xl leading-none">&times;</button>
+            </div>
+
+            <p className="text-sm text-gray-500 mb-4">Rodzaj problemu:</p>
+            <div className="flex flex-col gap-2 mb-4">
+              {REASONS.map(r => (
+                <label key={r.value} className="flex items-center gap-3 text-sm text-gray-700 cursor-pointer p-2.5 rounded-lg border border-gray-200 hover:border-green-300 transition-colors">
+                  <input
+                    type="radio"
+                    name={`reason-${questionId}`}
+                    value={r.value}
+                    checked={reason === r.value}
+                    onChange={() => setReason(r.value)}
+                    className="accent-green-600"
+                  />
+                  {r.label}
+                </label>
+              ))}
+            </div>
+
+            <textarea
+              value={comment}
+              onChange={e => setComment(e.target.value)}
+              placeholder="Opisz problem (opcjonalnie)"
+              rows={3}
+              className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 resize-none focus:outline-none focus:border-green-400 mb-4"
+            />
+
+            <div className="flex gap-2">
+              <button
+                onClick={handleSubmit}
+                disabled={!reason || loading}
+                className="flex-1 py-2.5 rounded-lg bg-red-500 text-white text-sm font-semibold hover:bg-red-600 disabled:bg-gray-200 disabled:text-gray-400 transition-colors"
+              >
+                {loading ? 'Wysyłanie...' : 'Wyślij zgłoszenie'}
+              </button>
+              <button
+                onClick={() => setOpen(false)}
+                className="px-4 py-2.5 rounded-lg border border-gray-200 text-sm text-gray-500 hover:bg-gray-50"
+              >
+                Anuluj
+              </button>
+            </div>
           </div>
-          <textarea
-            value={comment}
-            onChange={e => setComment(e.target.value)}
-            placeholder="Opisz problem (opcjonalnie)"
-            rows={2}
-            className="w-full border border-gray-200 rounded px-2 py-1.5 text-xs text-gray-700 resize-none focus:outline-none focus:border-green-400"
-          />
-          <div className="flex gap-2">
-            <button
-              onClick={handleSubmit}
-              disabled={!reason || loading}
-              className="px-3 py-1.5 rounded bg-red-500 text-white text-xs font-medium hover:bg-red-600 disabled:bg-gray-200 disabled:text-gray-400"
-            >
-              {loading ? 'Wysyłanie...' : 'Wyślij zgłoszenie'}
-            </button>
-            <button
-              onClick={() => setOpen(false)}
-              className="px-3 py-1.5 rounded border border-gray-200 text-xs text-gray-500 hover:bg-gray-100"
-            >
-              Anuluj
-            </button>
-          </div>
-        </div>
+        </div>,
+        document.body
       )}
-    </div>
+    </>
   )
 }

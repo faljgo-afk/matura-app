@@ -8,10 +8,16 @@ const RATINGS = [
   { value: 3, emoji: '😊', label: 'Dobry' },
 ]
 
-export default function FeedbackWidget({ sessionId }: { sessionId: string }) {
+export default function FeedbackWidget({
+  sessionId,
+  alreadySubmitted = false,
+}: {
+  sessionId: string
+  alreadySubmitted?: boolean
+}) {
   const [rating, setRating] = useState<number | null>(null)
   const [comment, setComment] = useState('')
-  const [submitted, setSubmitted] = useState(false)
+  const [submitted, setSubmitted] = useState(alreadySubmitted)
   const [loading, setLoading] = useState(false)
 
   async function handleSubmit() {
@@ -28,7 +34,7 @@ export default function FeedbackWidget({ sessionId }: { sessionId: string }) {
 
   if (submitted) {
     return (
-      <div className="mt-8 bg-green-50 border border-green-200 rounded-xl p-5 text-center text-green-700">
+      <div className="mt-8 bg-green-50 border border-green-200 rounded-xl p-5 text-center text-green-700 text-sm">
         Dziękujemy za opinię! Twój feedback pomaga nam ulepszać testy. 🙏
       </div>
     )
