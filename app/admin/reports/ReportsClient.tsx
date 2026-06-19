@@ -3,6 +3,12 @@
 import { useState } from 'react'
 import Link from 'next/link'
 
+type Option = {
+  id: string
+  text: string
+  is_correct: boolean
+}
+
 type Question = {
   id: string
   topic_id: string
@@ -12,6 +18,10 @@ type Question = {
   question_type: string
   verified: boolean
   question_text: string
+  options: Option[]
+  correct_answer: string[]
+  explanation: string
+  image_url?: string | null
 }
 
 type MockQuestion = {
@@ -22,6 +32,10 @@ type MockQuestion = {
   question_type: string
   verified: boolean
   question_text: string
+  options: Option[]
+  correct_answer: string[]
+  explanation: string
+  image_url?: string | null
 }
 
 type Topic = {
@@ -37,9 +51,20 @@ type Subtopic = {
   order_index: number
 }
 
+type SidebarQuestion = {
+  text: string
+  subtopic: string
+  difficulty: number
+  type: string
+  image_url?: string | null
+  options: Option[]
+  correct_answer: string[]
+  explanation: string
+}
+
 type SidebarData = {
   title: string
-  questions: { text: string; subtopic: string; difficulty: number; type: string }[]
+  questions: SidebarQuestion[]
 } | null
 
 function DifficultyBadge({ d }: { d: number }) {
@@ -51,6 +76,77 @@ function DifficultyBadge({ d }: { d: number }) {
 function CountBadge({ n, warn, danger }: { n: number; warn: number; danger: number }) {
   const cls = n <= danger ? 'bg-red-100 text-red-700' : n <= warn ? 'bg-yellow-100 text-yellow-700' : 'bg-green-100 text-green-700'
   return <span className={`text-xs font-semibold px-2 py-0.5 rounded ${cls}`}>{n}</span>
+}
+
+function SidebarCard({ q, index }: { q: SidebarQuestion; index: number }) {
+  const [showExplanation, setShowExplanation] = useState(false)
+
+  return (
+    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      {/* Question text */}
+      <div className="px-4 pt-4 pb-3">
+        <p className="text-sm font-medium text-gray-900 leading-snug">
+          <span className="text-gray-400 mr-1">{index + 1}.</span> {q.text}
+        </p>
+      </div>
+
+      {/* Image */}
+      {q.image_url && (
+        <div className="mx-4 mb-3 rounded-lg overflow-hidden border border-gray-100 bg-gray-50">
+          <img src={q.image_url} alt="Ilustracja" className="w-full max-h-48 object-contain p-1" />
+        </div>
+      )}
+
+      {/* Options */}
+      {q.options && q.options.length > 0 && (
+        <div className="px-4 pb-3 space-y-1.5">
+          {q.options.map(opt => {
+            const isCorrect = q.correct_answer?.includes(opt.id)
+            return (
+              <div
+                key={opt.id}
+                className={`flex items-start gap-2 text-xs px-3 py-2 rounded-lg border ${
+                  isCorrect
+                    ? 'border-green-300 bg-green-50 text-green-800'
+                    : 'border-gray-100 bg-gray-50 text-gray-500'
+                }`}
+              >
+                <span className={`font-bold shrink-0 ${isCorrect ? 'text-green-600' : 'text-gray-400'}`}>
+                  {opt.id}.
+                </span>
+                <span>{opt.text}</span>
+                {isCorrect && (
+                  <span className="ml-auto shrink-0 text-green-500 font-bold">✓</span>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      )}
+
+      {/* Footer: badges + explanation toggle */}
+      <div className="px-4 pb-3 flex items-center gap-2 flex-wrap">
+        <span className="text-xs bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full">{q.subtopic}</span>
+        <DifficultyBadge d={q.difficulty} />
+        <span className="text-xs text-gray-400">{q.type}</span>
+        {q.explanation && (
+          <button
+            onClick={() => setShowExplanation(v => !v)}
+            className="ml-auto text-xs text-gray-400 hover:text-blue-600 transition-colors"
+          >
+            {showExplanation ? 'Ukryj wyjaśnienie ▲' : 'Wyjaśnienie ▼'}
+          </button>
+        )}
+      </div>
+
+      {/* Explanation — inline expand */}
+      {showExplanation && q.explanation && (
+        <div className="mx-4 mb-4 bg-blue-50 border border-blue-100 rounded-lg px-3 py-2.5 text-xs text-blue-800 leading-relaxed">
+          {q.explanation}
+        </div>
+      )}
+    </div>
+  )
 }
 
 function Sidebar({ data, onClose }: { data: SidebarData; onClose: () => void }) {
@@ -68,14 +164,7 @@ function Sidebar({ data, onClose }: { data: SidebarData; onClose: () => void }) 
             <p className="text-sm text-gray-400 text-center py-8">Brak pytań</p>
           )}
           {data.questions.map((q, i) => (
-            <div key={i} className="bg-gray-50 rounded-lg p-3 border border-gray-100">
-              <p className="text-sm text-gray-800 mb-2">{i + 1}. {q.text}</p>
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-xs bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full">{q.subtopic}</span>
-                <DifficultyBadge d={q.difficulty} />
-                <span className="text-xs text-gray-400">{q.type}</span>
-              </div>
-            </div>
+            <SidebarCard key={i} q={q} index={i} />
           ))}
         </div>
         <div className="px-5 py-3 border-t border-gray-100 text-xs text-gray-400 text-right">
@@ -123,6 +212,10 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
         subtopic: subtopicName(q),
         difficulty: q.difficulty ?? 2,
         type: q.question_type,
+        image_url: q.image_url,
+        options: q.options ?? [],
+        correct_answer: q.correct_answer ?? [],
+        explanation: q.explanation ?? '',
       })),
     })
   }
@@ -136,6 +229,10 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
         subtopic: mockSubtopicName(q),
         difficulty: q.difficulty ?? 2,
         type: q.question_type,
+        image_url: q.image_url,
+        options: q.options ?? [],
+        correct_answer: q.correct_answer ?? [],
+        explanation: q.explanation ?? '',
       })),
     })
   }

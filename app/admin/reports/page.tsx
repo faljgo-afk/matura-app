@@ -14,8 +14,8 @@ async function getReportData() {
     { data: topics },
     { data: subtopics },
   ] = await Promise.all([
-    supabaseAdmin.from('questions').select('id, topic_id, subtopic_id, subtopics(name), difficulty, question_type, verified, question_text'),
-    supabaseAdmin.from('mock_questions').select('id, subtopic_id, subtopics(id, name, topic_id), difficulty, question_type, verified, question_text'),
+    supabaseAdmin.from('questions').select('id, topic_id, subtopic_id, subtopics(name), difficulty, question_type, verified, question_text, options, correct_answer, explanation, image_url'),
+    supabaseAdmin.from('mock_questions').select('id, subtopic_id, subtopics(id, name, topic_id), difficulty, question_type, verified, question_text, options, correct_answer, explanation, image_url'),
     supabaseAdmin.from('topics').select('id, name, order_index').order('order_index'),
     supabaseAdmin.from('subtopics').select('id, name, topic_id, order_index').order('order_index'),
   ])
