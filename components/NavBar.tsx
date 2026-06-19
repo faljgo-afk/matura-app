@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
 import { createClient } from '@/lib/supabase-browser'
 import type { User } from '@supabase/supabase-js'
+import Logo from './Logo'
 
 const ADMIN_EMAIL = 'faljgo@gmail.com'
 
@@ -22,7 +23,8 @@ export default function NavBar({ user }: { user: User | null }) {
     <nav className="bg-white border-b border-gray-200">
       <div className="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
         <Link href="/" className="font-bold text-green-700 flex items-center gap-2 shrink-0">
-          <span className="text-base md:text-lg">🧬 Biologia na 100%</span>
+          <Logo size={28} />
+          <span className="text-base md:text-lg">Biologia na 100%</span>
           <span className="hidden sm:inline text-xs bg-gray-100 text-gray-400 px-1.5 py-0.5 rounded font-normal">Beta</span>
         </Link>
 
