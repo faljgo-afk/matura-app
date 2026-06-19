@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase-server'
-import { supabase } from '@/lib/supabase'
+import { supabaseAdmin } from '@/lib/supabase-admin'
 
 export async function POST(req: NextRequest) {
   const serverClient = createClient()
@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Missing fields' }, { status: 400 })
   }
 
-  const { error } = await supabase.from('session_feedback').insert({
+  const { error } = await supabaseAdmin.from('session_feedback').insert({
     session_id: sessionId,
     user_id: user?.id ?? null,
     rating,

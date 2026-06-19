@@ -1,4 +1,5 @@
 import { supabase } from '@/lib/supabase'
+import { supabaseAdmin } from '@/lib/supabase-admin'
 import { createClient } from '@/lib/supabase-server'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -69,8 +70,8 @@ async function getResults(sessionId: string, userId: string | null) {
     learnedIds = new Set(learned?.map(q => q.question_id) ?? [])
   }
 
-  // Check if feedback already submitted for this session
-  const { data: existingFeedback } = await supabase
+  // Check if feedback already submitted for this session (use admin client to bypass RLS)
+  const { data: existingFeedback } = await supabaseAdmin
     .from('session_feedback')
     .select('id')
     .eq('session_id', session.id)
