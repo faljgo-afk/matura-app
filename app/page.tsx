@@ -9,6 +9,27 @@ type Topic = {
   order_index: number
 }
 
+const TOPIC_ICONS: Record<number, string> = {
+  1:  '🔬',
+  2:  '🧬',
+  3:  '🧩',
+  4:  '⚡',
+  5:  '🌍',
+  6:  '🌿',
+  7:  '🦎',
+  8:  '🌱',
+  9:  '🫀',
+  10: '🫁',
+  11: '🧠',
+  12: '🦴',
+  13: '👁️',
+  14: '🩹',
+  15: '🐣',
+  16: '♻️',
+  17: '🦕',
+  18: '🧪',
+}
+
 async function getTopics(): Promise<Topic[]> {
   const { data, error } = await supabase
     .from('topics')
@@ -52,30 +73,27 @@ export default async function HomePage() {
               <p className="text-sm text-gray-500">Oznaczaj opanowane pytania i śledź swój postęp w każdym temacie</p>
             </a>
           </div>
-
         </div>
 
         {/* Topic list */}
         <h2 id="topics" className="text-xl font-bold text-gray-800 mb-4 scroll-mt-6">Testy tematyczne</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-10">
           {topics.map((topic) => (
             <Link
               key={topic.id}
               href={`/topics/${topic.slug}`}
-              className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 hover:border-green-400 hover:shadow-md transition-all group"
+              className="bg-white rounded-xl p-4 border border-gray-200 hover:border-green-400 hover:shadow-md transition-all group flex items-center gap-4"
             >
-              <div className="flex items-start gap-3">
-                <span className="text-2xl font-bold text-green-500 group-hover:scale-110 transition-transform">
-                  {topic.order_index}.
-                </span>
-                <div>
-                  <h2 className="text-lg font-semibold text-gray-800 group-hover:text-green-700">
-                    {topic.name}
-                  </h2>
-                  {topic.description && (
-                    <p className="text-sm text-gray-500 mt-1">{topic.description}</p>
-                  )}
-                </div>
+              <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center text-2xl shrink-0 group-hover:bg-green-100 transition-colors">
+                {TOPIC_ICONS[topic.order_index] ?? '📚'}
+              </div>
+              <div className="min-w-0">
+                <h2 className="text-base font-semibold text-gray-800 group-hover:text-green-700 leading-snug">
+                  {topic.name}
+                </h2>
+                {topic.description && (
+                  <p className="text-sm text-gray-500 mt-0.5 truncate">{topic.description}</p>
+                )}
               </div>
             </Link>
           ))}
