@@ -7,7 +7,7 @@ type Question = {
   id: string
   topic_id: string
   subtopic_id: string | null
-  subtopics: { name: string } | null
+  subtopics: { name: string }[] | null
   difficulty: number
   question_type: string
   verified: boolean
@@ -17,7 +17,7 @@ type Question = {
 type MockQuestion = {
   id: string
   subtopic_id: string | null
-  subtopics: { id: string; name: string; topic_id: string } | null
+  subtopics: { id: string; name: string; topic_id: string }[] | null
   difficulty: number
   question_type: string
   verified: boolean
@@ -91,11 +91,11 @@ export default function ReportsClient({ questions, mockQuestions, topics }: {
   const [expandedTopics, setExpandedTopics] = useState<Set<string>>(new Set())
 
   function subtopicName(q: Question) {
-    return q.subtopics?.name ?? '—'
+    return q.subtopics?.[0]?.name ?? '—'
   }
 
   function mockSubtopicName(q: MockQuestion) {
-    return q.subtopics?.name ?? '—'
+    return q.subtopics?.[0]?.name ?? '—'
   }
 
   function toggleTopic(id: string) {
@@ -120,7 +120,7 @@ export default function ReportsClient({ questions, mockQuestions, topics }: {
   }
 
   function openMockTopicSidebar(topic: Topic) {
-    const qs = mockQuestions.filter(q => q.subtopics?.topic_id === topic.id)
+    const qs = mockQuestions.filter(q => q.subtopics?.[0]?.topic_id === topic.id)
     setSidebar({
       title: `Sprawdzian: ${topic.name} (${qs.length} pytań)`,
       questions: qs.map(q => ({
@@ -169,9 +169,9 @@ export default function ReportsClient({ questions, mockQuestions, topics }: {
     const topicSubtopicNames = new Map(
       topicQs
         .filter(q => q.subtopic_id && q.subtopics)
-        .map(q => [q.subtopic_id!, q.subtopics!.name])
+        .map(q => [q.subtopic_id!, q.subtopics![0].name])
     )
-    const mockQsForTopic = mockQuestions.filter(q => q.subtopics?.topic_id === topic.id)
+    const mockQsForTopic = mockQuestions.filter(q => q.subtopics?.[0]?.topic_id === topic.id)
     const coveredSubtopicIds = new Set(mockQsForTopic.map(q => q.subtopic_id).filter(Boolean))
 
     return {
