@@ -24,7 +24,10 @@ export default function NavBar({ user }: { user: User | null }) {
       <div className="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
         <Link href="/" className="font-bold text-green-700 flex items-center gap-2 shrink-0">
           <Logo size={28} />
-          <span className="text-base md:text-lg">Biologia na 100%</span>
+          <span className="text-base md:text-lg">
+            <span className="text-gray-900">Biologia</span>{' '}
+            <span className="text-green-600">na 100%</span>
+          </span>
           <span className="hidden sm:inline text-xs bg-gray-100 text-gray-400 px-1.5 py-0.5 rounded font-normal">Beta</span>
         </Link>
 

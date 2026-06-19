@@ -24,7 +24,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <div className="max-w-4xl mx-auto px-4 h-12 flex items-center justify-between">
             <span className="text-sm text-gray-500 flex items-center gap-1.5">
             <Logo size={18} />
-            Biologia na 100%
+            <span className="text-gray-700">Biologia</span>{' '}
+            <span className="text-green-600">na 100%</span>
             <span className="text-xs bg-gray-100 text-gray-400 px-1.5 py-0.5 rounded">Beta</span>
           </span>
             <span className="text-sm text-gray-400">Support: <a href="mailto:faljgo@gmail.com" className="hover:text-green-600 transition-colors">faljgo@gmail.com</a></span>
