@@ -61,17 +61,17 @@ export default async function HomePage() {
             Co znajdziesz w aplikacji
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left mb-8">
-            <a href="#topics" className="rounded-xl p-5 border border-green-200 hover:border-green-400 hover:shadow-md transition-all cursor-pointer group" style={{background: 'linear-gradient(135deg, #f0fdf4, #dcfce7)'}}>
+            <a href="#topics" className="rounded-xl p-5 border border-green-200 hover:border-green-400 hover:shadow-md transition-all cursor-pointer group" style={{background: 'linear-gradient(135deg, #f0fdf4, #ffffff)'}}>
               <div className="text-2xl mb-2">📗</div>
               <h3 className="font-semibold text-gray-800 mb-1 group-hover:text-green-700">Testy tematyczne</h3>
               <p className="text-sm text-gray-500">Ćwicz konkretne tematy z programu CKE — genetyka, ekologia, fizjologia i więcej</p>
             </a>
-            <a href="/mock-exam" className="rounded-xl p-5 border border-green-200 hover:border-green-400 hover:shadow-md transition-all cursor-pointer group" style={{background: 'linear-gradient(135deg, #f0fdf4, #dcfce7)'}}>
+            <a href="/mock-exam" className="rounded-xl p-5 border border-green-200 hover:border-green-400 hover:shadow-md transition-all cursor-pointer group" style={{background: 'linear-gradient(135deg, #f0fdf4, #ffffff)'}}>
               <div className="text-2xl mb-2">📝</div>
               <h3 className="font-semibold text-gray-800 mb-1 group-hover:text-green-700">Ogólny sprawdzian</h3>
               <p className="text-sm text-gray-500">Kompleksowy test ze wszystkich tematów — z limitem czasu lub we własnym tempie</p>
             </a>
-            <a href="/dashboard" className="rounded-xl p-5 border border-green-200 hover:border-green-400 hover:shadow-md transition-all cursor-pointer group" style={{background: 'linear-gradient(135deg, #f0fdf4, #dcfce7)'}}>
+            <a href="/dashboard" className="rounded-xl p-5 border border-green-200 hover:border-green-400 hover:shadow-md transition-all cursor-pointer group" style={{background: 'linear-gradient(135deg, #f0fdf4, #ffffff)'}}>
               <div className="text-2xl mb-2">📈</div>
               <h3 className="font-semibold text-gray-800 mb-1 group-hover:text-green-700">Śledzenie postępów</h3>
               <p className="text-sm text-gray-500">Oznaczaj opanowane pytania i śledź swój postęp w każdym temacie</p>
