@@ -59,6 +59,9 @@ export default async function AdminPage() {
             <p className="text-gray-500 text-sm mt-1">{users.length} zarejestrowanych użytkowników</p>
           </div>
           <div className="flex items-center gap-3">
+            <Link href="/admin/feedback" className="text-sm text-purple-600 hover:text-purple-800 font-medium border border-purple-200 px-3 py-1.5 rounded-lg hover:bg-purple-50 transition-colors">
+              💬 Feedback
+            </Link>
             <Link href="/admin/reports" className="text-sm text-green-600 hover:text-green-800 font-medium border border-green-200 px-3 py-1.5 rounded-lg hover:bg-green-50 transition-colors">
               📊 Raporty
             </Link>

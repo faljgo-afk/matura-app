@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import LearnButton from '@/components/LearnButton'
 import BackButton from '@/components/BackButton'
+import FeedbackWidget from '@/components/FeedbackWidget'
+import ReportQuestionButton from '@/components/ReportQuestionButton'
 
 export const dynamic = 'force-dynamic'
 
@@ -176,19 +178,22 @@ export default async function ResultsPage({ params }: { params: { sessionId: str
                   </div>
                 )}
 
-                {/* Learn button — only for logged-in users on correctly answered questions */}
-                {user && isCorrect && (
-                  <div className="mt-3 pt-3 border-t border-gray-100">
+                <div className="mt-3 pt-3 border-t border-gray-100 flex items-center justify-between flex-wrap gap-2">
+                  {/* Learn button — only for logged-in users on correctly answered questions */}
+                  {user && isCorrect ? (
                     <LearnButton
                       questionId={question.id}
                       initialLearned={learnedIds.has(question.id)}
                     />
-                  </div>
-                )}
+                  ) : <div />}
+                  <ReportQuestionButton questionId={question.id} sessionId={params.sessionId} />
+                </div>
               </div>
             )
           })}
         </div>
+
+        <FeedbackWidget sessionId={params.sessionId} />
 
         <div className="mt-8 flex gap-3">
           <Link
