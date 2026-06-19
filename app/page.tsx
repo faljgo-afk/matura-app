@@ -36,27 +36,27 @@ export default async function HomePage() {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left mb-8">
-            <div className="bg-white rounded-xl p-5 border border-gray-200">
+            <a href="#topics" className="bg-white rounded-xl p-5 border border-gray-200 hover:border-green-400 hover:shadow-md transition-all cursor-pointer group">
               <div className="text-2xl mb-2">📗</div>
-              <h3 className="font-semibold text-gray-800 mb-1">Testy tematyczne</h3>
+              <h3 className="font-semibold text-gray-800 mb-1 group-hover:text-green-700">Testy tematyczne</h3>
               <p className="text-sm text-gray-500">Ćwicz konkretne tematy z programu CKE — genetyka, ekologia, fizjologia i więcej</p>
-            </div>
-            <div className="bg-white rounded-xl p-5 border border-gray-200">
+            </a>
+            <a href="/mock-exam" className="bg-white rounded-xl p-5 border border-gray-200 hover:border-green-400 hover:shadow-md transition-all cursor-pointer group">
               <div className="text-2xl mb-2">📝</div>
-              <h3 className="font-semibold text-gray-800 mb-1">Ogólny sprawdzian</h3>
+              <h3 className="font-semibold text-gray-800 mb-1 group-hover:text-green-700">Ogólny sprawdzian</h3>
               <p className="text-sm text-gray-500">Kompleksowy test ze wszystkich tematów — z limitem czasu lub we własnym tempie</p>
-            </div>
-            <div className="bg-white rounded-xl p-5 border border-gray-200">
+            </a>
+            <a href="/dashboard" className="bg-white rounded-xl p-5 border border-gray-200 hover:border-green-400 hover:shadow-md transition-all cursor-pointer group">
               <div className="text-2xl mb-2">📈</div>
-              <h3 className="font-semibold text-gray-800 mb-1">Śledzenie postępów</h3>
+              <h3 className="font-semibold text-gray-800 mb-1 group-hover:text-green-700">Śledzenie postępów</h3>
               <p className="text-sm text-gray-500">Oznaczaj opanowane pytania i śledź swój postęp w każdym temacie</p>
-            </div>
+            </a>
           </div>
 
         </div>
 
         {/* Topic list */}
-        <h2 className="text-xl font-bold text-gray-800 mb-4">Testy tematyczne</h2>
+        <h2 id="topics" className="text-xl font-bold text-gray-800 mb-4 scroll-mt-6">Testy tematyczne</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
           {topics.map((topic) => (
             <Link
