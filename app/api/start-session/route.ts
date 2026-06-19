@@ -3,7 +3,7 @@ import { createClient } from '@/lib/supabase-server'
 import { NextRequest, NextResponse } from 'next/server'
 
 function pickWithSubtopicDiversity(
-  questions: { id: string; subtopic?: string | null }[],
+  questions: { id: string; subtopic_id?: string | null }[],
   count: number
 ): string[] {
   const shuffled = [...questions].sort(() => Math.random() - 0.5)
@@ -13,7 +13,7 @@ function pickWithSubtopicDiversity(
   const overflow: string[] = []
 
   for (const q of shuffled) {
-    const sub = q.subtopic ?? 'ogólne'
+    const sub = q.subtopic_id ?? 'unknown'
     if (!usedSubtopics.has(sub)) {
       usedSubtopics.add(sub)
       primary.push(q.id)
@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
   if (sessionType === 'mock_exam' || sessionType === 'mock_exam_free') {
     const { data, error } = await supabase
       .from('mock_questions')
-      .select('id, subtopic')
+      .select('id, subtopic_id')
       .eq('verified', true)
       .limit(100)
 
@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
   } else {
     const { data, error } = await supabase
       .from('questions')
-      .select('id, subtopic')
+      .select('id, subtopic_id')
       .eq('topic_id', topicId)
       .eq('verified', true)
       .limit(100)
