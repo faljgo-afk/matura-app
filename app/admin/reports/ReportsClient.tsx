@@ -186,7 +186,7 @@ export default function ReportsClient({ questions, mockQuestions, topics }: {
 
   const totalSubtopicIds = new Set(questions.map(q => q.subtopic_id).filter(Boolean))
   const coveredByMock = new Set(mockQuestions.map(q => q.subtopic_id).filter(Boolean))
-  const totalCovered = [...totalSubtopicIds].filter(id => coveredByMock.has(id)).length
+  const totalCovered = Array.from(totalSubtopicIds).filter(id => coveredByMock.has(id)).length
 
   return (
     <main className="min-h-screen bg-gray-50">
@@ -375,7 +375,7 @@ export default function ReportsClient({ questions, mockQuestions, topics }: {
 
                     {isExpanded && (
                       <div className="border-t border-gray-100 divide-y divide-gray-50">
-                        {[...topic.topicSubtopicIds].map(subId => {
+                        {Array.from(topic.topicSubtopicIds).map(subId => {
                           const subName = topic.topicSubtopicNames.get(subId) ?? subId
                           const inMock = mockQuestions.filter(q => q.subtopic_id === subId).length
                           const inMain = questions.filter(q => q.subtopic_id === subId && q.topic_id === topic.id).length
