@@ -32,7 +32,7 @@ export default async function HomePage() {
             Biologia na 100%
           </h1>
           <p className="text-lg text-gray-600 mb-8">
-            Platforma do przygotowania do matury rozszerzonej z biologii
+            Trenuj i sprawdzaj swoją wiedzę z biologii — testy tematyczne i sprawdziany z całego materiału
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left mb-8">
@@ -43,7 +43,7 @@ export default async function HomePage() {
             </div>
             <div className="bg-white rounded-xl p-5 border border-gray-200">
               <div className="text-2xl mb-2">📝</div>
-              <h3 className="font-semibold text-gray-800 mb-1">Próbny sprawdzian</h3>
+              <h3 className="font-semibold text-gray-800 mb-1">Ogólny sprawdzian</h3>
               <p className="text-sm text-gray-500">Kompleksowy test ze wszystkich tematów — z limitem czasu lub we własnym tempie</p>
             </div>
             <div className="bg-white rounded-xl p-5 border border-gray-200">
