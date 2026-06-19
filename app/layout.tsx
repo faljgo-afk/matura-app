@@ -29,7 +29,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 <span className="text-sm font-semibold text-green-600">na 100%</span>
                 <span className="text-xs bg-gray-100 text-gray-400 px-1.5 py-0.5 rounded">Beta</span>
               </span>
-              <span className="text-xs text-gray-400">Platforma do przygotowania do matury z biologii</span>
+              <span className="text-xs text-gray-400">Ucz się biologii przez praktykę i testowanie wiedzy</span>
             </div>
             <div className="text-right">
               <p className="text-xs text-gray-400 mb-1">Kontakt</p>
