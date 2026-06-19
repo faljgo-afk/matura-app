@@ -21,14 +21,20 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         {children}
         <CookieConsent />
         <footer className="border-t border-gray-200 bg-white mt-auto">
-          <div className="max-w-4xl mx-auto px-4 h-12 flex items-center justify-between">
-            <span className="text-sm text-gray-500 flex items-center gap-1.5">
-            <Logo size={18} />
-            <span className="text-gray-700">Biologia</span>{' '}
-            <span className="text-green-600">na 100%</span>
-            <span className="text-xs bg-gray-100 text-gray-400 px-1.5 py-0.5 rounded">Beta</span>
-          </span>
-            <span className="text-sm text-gray-400">Support: <a href="mailto:faljgo@gmail.com" className="hover:text-green-600 transition-colors">faljgo@gmail.com</a></span>
+          <div className="max-w-4xl mx-auto px-4 py-6 flex items-center justify-between">
+            <div className="flex flex-col gap-1.5">
+              <span className="flex items-center gap-1.5">
+                <Logo size={20} />
+                <span className="text-sm font-semibold text-gray-800">Biologia</span>{' '}
+                <span className="text-sm font-semibold text-green-600">na 100%</span>
+                <span className="text-xs bg-gray-100 text-gray-400 px-1.5 py-0.5 rounded">Beta</span>
+              </span>
+              <span className="text-xs text-gray-400">Platforma do przygotowania do matury z biologii</span>
+            </div>
+            <div className="text-right">
+              <p className="text-xs text-gray-400 mb-1">Kontakt</p>
+              <a href="mailto:faljgo@gmail.com" className="text-sm text-gray-500 hover:text-green-600 transition-colors">faljgo@gmail.com</a>
+            </div>
           </div>
         </footer>
       </body>
