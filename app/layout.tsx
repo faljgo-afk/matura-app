@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { createClient } from '@/lib/supabase-server'
 import NavBar from '@/components/NavBar'
+import CookieConsent from '@/components/CookieConsent'
 
 export const metadata: Metadata = {
   title: 'Biologia na 100%',
@@ -17,6 +18,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className="antialiased bg-gray-50">
         <NavBar user={user} />
         {children}
+        <CookieConsent />
         <footer className="border-t border-gray-200 bg-white mt-auto">
           <div className="max-w-4xl mx-auto px-4 h-12 flex items-center justify-between">
             <span className="text-sm text-gray-500">🧬 Biologia na 100% <span className="text-xs bg-gray-100 text-gray-400 px-1.5 py-0.5 rounded ml-1">Beta</span></span>
