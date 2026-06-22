@@ -116,6 +116,24 @@ export default async function HomePage() {
           </Link>
         </div>
 
+        <Link
+          href="/archiwum"
+          className="mt-4 flex items-center justify-between bg-white border border-amber-200 hover:border-amber-400 hover:shadow-md transition-all rounded-xl p-6 group"
+        >
+          <div>
+            <div className="inline-flex items-center text-xs font-semibold text-amber-700 bg-amber-100 px-2.5 py-1 rounded-full mb-2">
+              Nowość
+            </div>
+            <h2 className="text-lg font-bold text-gray-900 group-hover:text-amber-700 transition-colors">
+              Archiwum matur CKE
+            </h2>
+            <p className="text-sm text-gray-500 mt-0.5">
+              Prawdziwe zadania otwarte z egzaminów — napisz odpowiedź i sprawdź ją według oficjalnego klucza
+            </p>
+          </div>
+          <span className="text-2xl ml-4 shrink-0">📄</span>
+        </Link>
+
       </div>
     </main>
   )

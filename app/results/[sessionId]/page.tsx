@@ -161,34 +161,68 @@ export default async function ResultsPage({ params }: { params: { sessionId: str
                 )}
 
                 <div className="space-y-2 mb-4">
-                  {question.options.map((option) => {
-                    const userPicked = userAnswer.includes(option.id)
-                    const isCorrectOption = correct.includes(option.id)
+                  {question.question_type === 'true_false' && correct.some((c: string) => c.includes('-')) ? (
+                    question.options.map((option) => {
+                      const correctVerdict = correct.find((c: string) => c.startsWith(option.id + '-'))?.split('-')[1] ?? ''
+                      const userVerdict = userAnswer.find((a: string) => a.startsWith(option.id + '-'))?.split('-')[1] ?? null
+                      const statementCorrect = userVerdict === correctVerdict
 
-                    let style = 'border-gray-200 text-gray-500'
-                    let badge: React.ReactNode = null
+                      let style = 'border-gray-200 text-gray-500'
+                      if (userVerdict) {
+                        style = statementCorrect
+                          ? 'border-green-400 bg-green-50 text-green-800'
+                          : 'border-red-400 bg-red-50 text-red-800'
+                      }
 
-                    if (userPicked && isCorrectOption) {
-                      style = 'border-green-400 bg-green-50 text-green-800'
-                      badge = <span className="ml-2 text-green-600 font-medium text-xs">✓ poprawna · Twój wybór</span>
-                    } else if (userPicked && !isCorrectOption) {
-                      style = 'border-red-400 bg-red-50 text-red-800'
-                      badge = <span className="ml-2 text-red-500 font-medium text-xs">✗ Twój wybór (błędna)</span>
-                    } else if (!userPicked && isCorrectOption) {
-                      style = 'border-green-300 bg-green-50 text-green-700'
-                      badge = <span className="ml-2 text-green-500 font-medium text-xs">✓ poprawna (nie wybrano)</span>
-                    }
+                      return (
+                        <div key={option.id} className={`px-3 py-2 rounded-lg border text-sm flex items-center justify-between gap-3 ${style}`}>
+                          <span>
+                            <span className="font-semibold mr-1">{option.id}.</span>
+                            {option.text}
+                          </span>
+                          <div className="flex items-center gap-1.5 shrink-0 text-xs font-bold whitespace-nowrap">
+                            {userVerdict && (
+                              <span className={statementCorrect ? 'text-green-700' : 'text-red-600'}>
+                                Twój: {userVerdict}
+                              </span>
+                            )}
+                            {!statementCorrect && (
+                              <span className="text-green-700">→ ✓ {correctVerdict}</span>
+                            )}
+                          </div>
+                        </div>
+                      )
+                    })
+                  ) : (
+                    question.options.map((option) => {
+                      const userPicked = userAnswer.includes(option.id)
+                      const isCorrectOption = correct.includes(option.id)
 
-                    return (
-                      <div key={option.id} className={`px-3 py-2 rounded-lg border text-sm flex items-center justify-between ${style}`}>
-                        <span>
-                          <span className="font-semibold mr-1">{option.id}.</span>
-                          {option.text}
-                        </span>
-                        {badge}
-                      </div>
-                    )
-                  })}
+                      let style = 'border-gray-200 text-gray-500'
+                      let badge: React.ReactNode = null
+
+                      if (userPicked && isCorrectOption) {
+                        style = 'border-green-400 bg-green-50 text-green-800'
+                        badge = <span className="ml-2 text-green-600 font-medium text-xs">✓ poprawna · Twój wybór</span>
+                      } else if (userPicked && !isCorrectOption) {
+                        style = 'border-red-400 bg-red-50 text-red-800'
+                        badge = <span className="ml-2 text-red-500 font-medium text-xs">✗ Twój wybór (błędna)</span>
+                      } else if (!userPicked && isCorrectOption) {
+                        style = 'border-green-300 bg-green-50 text-green-700'
+                        badge = <span className="ml-2 text-green-500 font-medium text-xs">✓ poprawna (nie wybrano)</span>
+                      }
+
+                      return (
+                        <div key={option.id} className={`px-3 py-2 rounded-lg border text-sm flex items-center justify-between ${style}`}>
+                          <span>
+                            <span className="font-semibold mr-1">{option.id}.</span>
+                            {option.text}
+                          </span>
+                          {badge}
+                        </div>
+                      )
+                    })
+                  )}
                 </div>
 
                 {!isCorrect && (

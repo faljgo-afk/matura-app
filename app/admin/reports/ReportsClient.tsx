@@ -100,27 +100,53 @@ function SidebarCard({ q, index }: { q: SidebarQuestion; index: number }) {
       {/* Options */}
       {q.options && q.options.length > 0 && (
         <div className="px-4 pb-3 space-y-1.5">
-          {q.options.map(opt => {
-            const isCorrect = q.correct_answer?.includes(opt.id)
-            return (
-              <div
-                key={opt.id}
-                className={`flex items-start gap-2 text-xs px-3 py-2 rounded-lg border ${
-                  isCorrect
-                    ? 'border-green-300 bg-green-50 text-green-800'
-                    : 'border-gray-100 bg-gray-50 text-gray-500'
-                }`}
-              >
-                <span className={`font-bold shrink-0 ${isCorrect ? 'text-green-600' : 'text-gray-400'}`}>
-                  {opt.id}.
-                </span>
-                <span>{opt.text}</span>
-                {isCorrect && (
-                  <span className="ml-auto shrink-0 text-green-500 font-bold">✓</span>
-                )}
-              </div>
-            )
-          })}
+          {(() => {
+            const isTrueFalseMulti = q.correct_answer?.some((c: string) => c.includes('-P') || c.includes('-F'))
+            return q.options.map(opt => {
+              if (isTrueFalseMulti) {
+                const verdictEntry = q.correct_answer?.find((c: string) => c.startsWith(opt.id + '-'))
+                const verdict = verdictEntry?.split('-')[1] ?? ''
+                const isPrawda = verdict === 'P'
+                return (
+                  <div
+                    key={opt.id}
+                    className={`flex items-start gap-2 text-xs px-3 py-2 rounded-lg border ${
+                      isPrawda ? 'border-green-300 bg-green-50 text-green-800' : 'border-red-100 bg-red-50 text-red-700'
+                    }`}
+                  >
+                    <span className={`font-bold shrink-0 ${isPrawda ? 'text-green-600' : 'text-red-400'}`}>
+                      {opt.id}.
+                    </span>
+                    <span>{opt.text}</span>
+                    <span className={`ml-auto shrink-0 font-bold text-xs px-1.5 py-0.5 rounded ${
+                      isPrawda ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600'
+                    }`}>
+                      {verdict}
+                    </span>
+                  </div>
+                )
+              }
+              const isCorrect = q.correct_answer?.includes(opt.id)
+              return (
+                <div
+                  key={opt.id}
+                  className={`flex items-start gap-2 text-xs px-3 py-2 rounded-lg border ${
+                    isCorrect
+                      ? 'border-green-300 bg-green-50 text-green-800'
+                      : 'border-gray-100 bg-gray-50 text-gray-500'
+                  }`}
+                >
+                  <span className={`font-bold shrink-0 ${isCorrect ? 'text-green-600' : 'text-gray-400'}`}>
+                    {opt.id}.
+                  </span>
+                  <span>{opt.text}</span>
+                  {isCorrect && (
+                    <span className="ml-auto shrink-0 text-green-500 font-bold">✓</span>
+                  )}
+                </div>
+              )
+            })
+          })()}
         </div>
       )}
 
@@ -175,13 +201,35 @@ function Sidebar({ data, onClose }: { data: SidebarData; onClose: () => void }) 
   )
 }
 
-const TABS = ['Przegląd bazy', 'Pokrycie tematów', 'Sprawdzian']
+type MaturaExam = {
+  id: string
+  year: number
+  session: string
+}
 
-export default function ReportsClient({ questions, mockQuestions, topics, subtopics }: {
+type MaturaQuestion = {
+  id: string
+  exam_id: string
+  question_type: string
+  max_points: number
+  key_points: string[]
+  model_answer: string | null
+  zadanie_number: string
+}
+
+const SESSION_LABEL: Record<string, string> = {
+  maj: 'Maj', czerwiec: 'Czerwiec', sierpien: 'Sierpień', dodatkowy: 'Dodatkowy',
+}
+
+const TABS = ['Przegląd bazy', 'Pokrycie tematów', 'Sprawdzian', 'Archiwum matur']
+
+export default function ReportsClient({ questions, mockQuestions, topics, subtopics, maturaExams, maturaQuestions }: {
   questions: Question[]
   mockQuestions: MockQuestion[]
   topics: Topic[]
   subtopics: Subtopic[]
+  maturaExams: MaturaExam[]
+  maturaQuestions: MaturaQuestion[]
 }) {
   const [tab, setTab] = useState(0)
   const [sidebar, setSidebar] = useState<SidebarData>(null)
@@ -241,7 +289,18 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
   const verified = questions.filter(q => q.verified)
   const unverified = questions.filter(q => !q.verified)
   const byDifficulty = [1, 2, 3].map(d => ({ d, count: questions.filter(q => q.difficulty === d).length }))
-  const byType = ['single', 'multiple', 'true_false'].map(t => ({ t, count: questions.filter(q => q.question_type === t).length }))
+  const byType = ['single', 'multiple', 'true_false', 'open'].map(t => ({ t, count: questions.filter(q => q.question_type === t).length }))
+
+  // Archiwum stats
+  const maturaByExam = maturaExams.map(exam => {
+    const qs = maturaQuestions.filter(q => q.exam_id === exam.id)
+    const open = qs.filter(q => q.question_type === 'open')
+    const closed = qs.filter(q => q.question_type !== 'open')
+    const withKeyPoints = open.filter(q => q.key_points?.length > 0)
+    const withModelAnswer = open.filter(q => !!q.model_answer)
+    const totalPoints = qs.reduce((s, q) => s + (q.max_points ?? 0), 0)
+    return { exam, qs, open, closed, withKeyPoints, withModelAnswer, totalPoints }
+  })
   const mockVerified = mockQuestions.filter(q => q.verified).length
 
   // Topic coverage table — uses all predefined subtopics (including 0-question ones)
@@ -346,37 +405,76 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
 
         {/* Tab 0: Przegląd bazy */}
         {tab === 0 && (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="bg-white rounded-xl p-5 border border-gray-200">
-              <div className="text-3xl font-bold text-green-600">{questions.length}</div>
-              <div className="text-sm text-gray-500 mt-1">Pytań tematycznych</div>
-              <div className="text-xs text-gray-400 mt-1">{verified.length} verified · {unverified.length} oczekuje</div>
-            </div>
-            <div className="bg-white rounded-xl p-5 border border-gray-200">
-              <div className="text-3xl font-bold text-blue-600">{mockQuestions.length}</div>
-              <div className="text-sm text-gray-500 mt-1">Pytań sprawdzianu</div>
-              <div className="text-xs text-gray-400 mt-1">{mockVerified} verified · {mockQuestions.length - mockVerified} oczekuje</div>
-            </div>
-            <div className="bg-white rounded-xl p-5 border border-gray-200">
-              <div className="text-sm font-semibold text-gray-600 mb-3">Trudność</div>
-              <div className="space-y-1.5">
-                {byDifficulty.map(({ d, count }) => (
-                  <div key={d} className="flex items-center justify-between">
-                    <DifficultyBadge d={d} />
-                    <span className="text-sm font-semibold text-gray-700">{count}</span>
-                  </div>
-                ))}
+          <div className="space-y-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="bg-white rounded-xl p-5 border border-gray-200">
+                <div className="text-3xl font-bold text-green-600">{questions.length}</div>
+                <div className="text-sm text-gray-500 mt-1">Pytań tematycznych</div>
+                <div className="text-xs text-gray-400 mt-1">{verified.length} verified · {unverified.length} oczekuje</div>
+              </div>
+              <div className="bg-white rounded-xl p-5 border border-gray-200">
+                <div className="text-3xl font-bold text-blue-600">{mockQuestions.length}</div>
+                <div className="text-sm text-gray-500 mt-1">Pytań sprawdzianu</div>
+                <div className="text-xs text-gray-400 mt-1">{mockVerified} verified · {mockQuestions.length - mockVerified} oczekuje</div>
+              </div>
+              <div className="bg-white rounded-xl p-5 border border-gray-200">
+                <div className="text-sm font-semibold text-gray-600 mb-3">Trudność</div>
+                <div className="space-y-1.5">
+                  {byDifficulty.map(({ d, count }) => (
+                    <div key={d} className="flex items-center justify-between">
+                      <DifficultyBadge d={d} />
+                      <span className="text-sm font-semibold text-gray-700">{count}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="bg-white rounded-xl p-5 border border-gray-200">
+                <div className="text-sm font-semibold text-gray-600 mb-3">Typy pytań</div>
+                <div className="space-y-1.5">
+                  {byType.map(({ t, count }) => (
+                    <div key={t} className="flex items-center justify-between">
+                      <span className="text-xs text-gray-500">{t}</span>
+                      <span className={`text-sm font-semibold ${count === 0 ? 'text-gray-300' : 'text-gray-700'}`}>{count}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-            <div className="bg-white rounded-xl p-5 border border-gray-200">
-              <div className="text-sm font-semibold text-gray-600 mb-3">Typy pytań</div>
-              <div className="space-y-1.5">
-                {byType.map(({ t, count }) => (
-                  <div key={t} className="flex items-center justify-between">
-                    <span className="text-xs text-gray-500">{t}</span>
-                    <span className="text-sm font-semibold text-gray-700">{count}</span>
-                  </div>
-                ))}
+
+            {/* Archiwum summary */}
+            <div className="bg-white rounded-xl border border-amber-200 p-5">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-sm font-semibold text-gray-700">Archiwum matur CKE</h2>
+                <button onClick={() => setTab(3)} className="text-xs text-amber-600 hover:text-amber-800 hover:underline">
+                  Szczegóły →
+                </button>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div>
+                  <div className="text-2xl font-bold text-amber-600">{maturaExams.length}</div>
+                  <div className="text-xs text-gray-500 mt-0.5">Arkuszy CKE</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-amber-600">{maturaQuestions.length}</div>
+                  <div className="text-xs text-gray-500 mt-0.5">Zadań łącznie</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-gray-700">{maturaQuestions.filter(q => q.question_type === 'open').length}</div>
+                  <div className="text-xs text-gray-500 mt-0.5">Otwartych</div>
+                </div>
+                <div>
+                  {(() => {
+                    const open = maturaQuestions.filter(q => q.question_type === 'open')
+                    const withKp = open.filter(q => q.key_points?.length > 0).length
+                    const pct = open.length > 0 ? Math.round(withKp / open.length * 100) : 0
+                    return (
+                      <>
+                        <div className={`text-2xl font-bold ${pct < 80 ? 'text-red-500' : 'text-green-600'}`}>{pct}%</div>
+                        <div className="text-xs text-gray-500 mt-0.5">Ma key_points ({withKp}/{open.length})</div>
+                      </>
+                    )
+                  })()}
+                </div>
               </div>
             </div>
           </div>
@@ -599,6 +697,111 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
               <span><span className="text-green-400 mr-1">●</span>podtemat pokryty</span>
               <span><span className="text-red-300 mr-1">○</span>brak pytań</span>
             </div>
+          </div>
+        )}
+
+        {/* Tab 3: Archiwum matur */}
+        {tab === 3 && (
+          <div className="space-y-4">
+            {maturaByExam.map(({ exam, qs, open, closed, withKeyPoints, withModelAnswer, totalPoints }) => {
+              const kpPct = open.length > 0 ? Math.round(withKeyPoints.length / open.length * 100) : 100
+              const maPct = open.length > 0 ? Math.round(withModelAnswer.length / open.length * 100) : 100
+              return (
+                <div key={exam.id} className="bg-white rounded-xl border border-gray-200 p-5">
+                  <div className="flex items-center justify-between mb-4">
+                    <div>
+                      <h2 className="font-bold text-gray-900">
+                        Matura {exam.year} — {SESSION_LABEL[exam.session] ?? exam.session}
+                      </h2>
+                      <p className="text-xs text-gray-400 mt-0.5">exam_id: {exam.id}</p>
+                    </div>
+                    <a
+                      href={`/archiwum/${exam.id}`}
+                      target="_blank"
+                      className="text-xs text-amber-600 hover:text-amber-800 hover:underline"
+                    >
+                      Otwórz →
+                    </a>
+                  </div>
+
+                  <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-4">
+                    <div className="bg-gray-50 rounded-lg p-3 text-center">
+                      <div className="text-xl font-bold text-gray-800">{qs.length}</div>
+                      <div className="text-xs text-gray-500 mt-0.5">Zadań</div>
+                    </div>
+                    <div className="bg-gray-50 rounded-lg p-3 text-center">
+                      <div className="text-xl font-bold text-gray-800">{totalPoints}</div>
+                      <div className="text-xs text-gray-500 mt-0.5">Punktów</div>
+                    </div>
+                    <div className="bg-amber-50 rounded-lg p-3 text-center">
+                      <div className="text-xl font-bold text-amber-700">{open.length}</div>
+                      <div className="text-xs text-gray-500 mt-0.5">Otwartych</div>
+                    </div>
+                    <div className="bg-blue-50 rounded-lg p-3 text-center">
+                      <div className="text-xl font-bold text-blue-700">{closed.length}</div>
+                      <div className="text-xs text-gray-500 mt-0.5">Zamkniętych</div>
+                    </div>
+                    <div className={`rounded-lg p-3 text-center ${kpPct < 80 ? 'bg-red-50' : 'bg-green-50'}`}>
+                      <div className={`text-xl font-bold ${kpPct < 80 ? 'text-red-600' : 'text-green-700'}`}>{kpPct}%</div>
+                      <div className="text-xs text-gray-500 mt-0.5">Ma key_points</div>
+                    </div>
+                  </div>
+
+                  {/* Type breakdown */}
+                  <div className="flex gap-2 flex-wrap mb-4">
+                    {(['single', 'multiple', 'true_false', 'open'] as const).map(t => {
+                      const count = qs.filter(q => q.question_type === t).length
+                      if (count === 0) return null
+                      const colors: Record<string, string> = {
+                        single: 'bg-blue-50 text-blue-700 border-blue-200',
+                        multiple: 'bg-purple-50 text-purple-700 border-purple-200',
+                        true_false: 'bg-orange-50 text-orange-700 border-orange-200',
+                        open: 'bg-amber-50 text-amber-700 border-amber-200',
+                      }
+                      return (
+                        <span key={t} className={`text-xs font-medium px-2 py-1 rounded border ${colors[t]}`}>
+                          {t}: {count}
+                        </span>
+                      )
+                    })}
+                  </div>
+
+                  {/* Quality warnings */}
+                  {open.length > 0 && (
+                    <div className="space-y-1.5">
+                      {withKeyPoints.length < open.length && (
+                        <div className="flex items-start gap-2 text-xs bg-red-50 border border-red-100 rounded-lg px-3 py-2 text-red-700">
+                          <span className="shrink-0">⚠</span>
+                          <span>
+                            {open.length - withKeyPoints.length} otwartych zadań bez key_points:{' '}
+                            {open.filter(q => !q.key_points?.length).map(q => `Zad. ${q.zadanie_number}`).join(', ')}
+                          </span>
+                        </div>
+                      )}
+                      {withModelAnswer.length < open.length && (
+                        <div className="flex items-start gap-2 text-xs bg-yellow-50 border border-yellow-100 rounded-lg px-3 py-2 text-yellow-700">
+                          <span className="shrink-0">ℹ</span>
+                          <span>
+                            {open.length - withModelAnswer.length} otwartych bez model_answer (AI ocenia tylko na podstawie kryteriów)
+                          </span>
+                        </div>
+                      )}
+                      {withKeyPoints.length === open.length && withModelAnswer.length === open.length && (
+                        <div className="text-xs text-green-600 bg-green-50 border border-green-100 rounded-lg px-3 py-2">
+                          ✓ Wszystkie otwarte zadania mają key_points i model_answer
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )
+            })}
+
+            {maturaExams.length === 0 && (
+              <div className="bg-white rounded-xl p-8 border border-gray-200 text-center text-gray-400">
+                Brak arkuszy w bazie. Uruchom import-matura-v2.js.
+              </div>
+            )}
           </div>
         )}
 

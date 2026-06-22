@@ -13,21 +13,27 @@ async function getReportData() {
     { data: mockQuestions },
     { data: topics },
     { data: subtopics },
+    { data: maturaExams },
+    { data: maturaQuestions },
   ] = await Promise.all([
     supabaseAdmin.from('questions').select('id, topic_id, subtopic_id, subtopics(name), difficulty, question_type, verified, question_text, options, correct_answer, explanation, image_url'),
     supabaseAdmin.from('mock_questions').select('id, subtopic_id, subtopics(id, name, topic_id), difficulty, question_type, verified, question_text, options, correct_answer, explanation, image_url'),
     supabaseAdmin.from('topics').select('id, name, order_index').order('order_index'),
     supabaseAdmin.from('subtopics').select('id, name, topic_id, order_index').order('order_index'),
+    supabaseAdmin.from('matura_exams').select('id, year, session').order('year', { ascending: false }),
+    supabaseAdmin.from('matura_questions').select('id, exam_id, question_type, max_points, key_points, model_answer, zadanie_number'),
   ])
 
   return {
-    // Supabase infers embedded selects as arrays but runtime returns objects — cast needed
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     questions: (questions ?? []) as unknown as any,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mockQuestions: (mockQuestions ?? []) as unknown as any,
     topics: topics ?? [],
     subtopics: subtopics ?? [],
+    maturaExams: maturaExams ?? [],
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    maturaQuestions: (maturaQuestions ?? []) as unknown as any,
   }
 }
 
@@ -43,5 +49,7 @@ export default async function ReportsPage() {
     mockQuestions={data.mockQuestions}
     topics={data.topics}
     subtopics={data.subtopics}
+    maturaExams={data.maturaExams}
+    maturaQuestions={data.maturaQuestions}
   />
 }

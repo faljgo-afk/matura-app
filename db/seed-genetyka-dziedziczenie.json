@@ -1,0 +1,92 @@
+[
+  {
+    "topic_id": "417e905f-f10b-49e8-ab02-f7042144e68b",
+    "subtopic_id": "a0020902-50b3-4481-850e-44023d3662ac",
+    "image_url": null,
+    "question_text": "Groch siewny ma kolor nasion zolty (Y) dominujacy nad zielonym (y) oraz gladka lupine (R) dominujaca nad pomarszczona (r). Krzyzowka roslin o genotypie YyRr x YyRr da potomstwo w stosunku fenotypowym:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "9 zoltych gladkich : 3 zolte pomarszczone : 3 zielone gladkie : 1 zielone pomarszczone", "is_correct": true},
+      {"id": "B", "text": "1 : 1 : 1 : 1", "is_correct": false},
+      {"id": "C", "text": "3 zolte gladkie : 1 zielone pomarszczone", "is_correct": false},
+      {"id": "D", "text": "Wszystkie potomstwo bedzie zolte i gladkie", "is_correct": false}
+    ],
+    "correct_answer": ["A"],
+    "explanation": "Krzyzowka dihybrydowa YyRr x YyRr: zgodnie z II prawem Mendla (prawo niezaleznej segregacji) kazda para alleli dziedziczy sie niezaleznie. Dla koloru: Yy x Yy daje 3 Y_ : 1 yy (3 zolte : 1 zielone). Dla ksztaltu lupiny: Rr x Rr daje 3 R_ : 1 rr (3 gladkie : 1 pomarszczone). Lacznie: 9 Y_R_ (zolte gladkie) : 3 Y_rr (zolte pomarszczone) : 3 yyR_ (zielone gladkie) : 1 yyrr (zielone pomarszczone). Stosunek 9:3:3:1 jest klasycznym wynikiem krzyzowki dihybrydalnej i potwierdzil prawo niezaleznej segregacji Mendla. Warunkiem jest brak sprzezenia genow (geny na roznych chromosomach lub odlegle na tym samym).",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.99
+  },
+  {
+    "topic_id": "417e905f-f10b-49e8-ab02-f7042144e68b",
+    "subtopic_id": "aa092ab8-8b73-42be-ade5-937612aa3149",
+    "image_url": null,
+    "question_text": "Hemofilia A jest recesywna choroba sprzezona z chromosomem X. Matka bedaca nosicielka (X^H X^h) i zdrowy ojciec (X^H Y) maja dzieci. Wskaznie, jaki procent SYNOW bedzie chory na hemofilie:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "0%", "is_correct": false},
+      {"id": "B", "text": "25%", "is_correct": false},
+      {"id": "C", "text": "50%", "is_correct": true},
+      {"id": "D", "text": "100%", "is_correct": false}
+    ],
+    "correct_answer": ["C"],
+    "explanation": "Krzyzowka X^H X^h (matka nosicielka) x X^H Y (ojciec zdrowy): mozliwe genotypy potomstwa: X^H X^H (corka zdrowa, 25%), X^H X^h (corka nosicielka, 25%), X^H Y (syn zdrowy, 25%), X^h Y (syn chory, 25%). Synowie dziedzicza chromosom X wylacznie od matki. Z prawdopodobienstwem 50% matka przekazuje synowi allel X^h (z hemofilii). Poniewaz synowie maja tylko jeden chromosom X (XY), jeden allel recesywny wystarczy do zachorowania. Wynik: 50% synow chorych, 50% synow zdrowych. Zaden z ojca zdrowego nie przekazuje X^h synom (ojciec daje synom tylko Y). Zadna corka nie zachoruje -- otrzymuje X^H od ojca, co maskuje ewentualne X^h od matki.",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.99
+  },
+  {
+    "topic_id": "417e905f-f10b-49e8-ab02-f7042144e68b",
+    "subtopic_id": "efcb697c-fb46-4bdf-bb03-a2fdba82bcaa",
+    "image_url": null,
+    "question_text": "Matka ma grupe krwi A (heterozygota I^A i^0), a ojciec grupe krwi B (heterozygota I^B i^0). Wskaznie, jakie grupy krwi moga miec ich dzieci:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Tylko A i B", "is_correct": false},
+      {"id": "B", "text": "A, B, AB i 0", "is_correct": true},
+      {"id": "C", "text": "A, B i AB (bez grupy 0)", "is_correct": false},
+      {"id": "D", "text": "Wylacznie AB", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Krzyzowka I^A i^0 (matka) x I^B i^0 (ojciec): mozliwe genotypy i fenotypy potomstwa: I^A I^B (25%) = grupa AB, I^A i^0 (25%) = grupa A, I^B i^0 (25%) = grupa B, i^0 i^0 (25%) = grupa 0. Wszystkie cztery grupy krwi sa mozliwe. Gen ABO wykazuje kodominacje (allele I^A i I^B sa rownorzedne i oba dominuja nad i^0). Jest to klasyczny przyklad uzytkowany w testamiach ojcostwa: znajomosc grup krwi rodzicow pozwala wykluczyc ojcostwo, lecz nie potwierdzic go jednoznacznie. Np. jezeli ojciec ma grupe 0 (i^0 i^0), dziecko nie moze miec grupy AB.",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.99
+  },
+  {
+    "topic_id": "417e905f-f10b-49e8-ab02-f7042144e68b",
+    "subtopic_id": "979ad1bd-9768-4c1d-bdc1-66353738b09c",
+    "image_url": null,
+    "question_text": "Crossing-over zachodzi podczas profazy I mejozy. Wskaznie POPRAWNE stwierdzenie dotyczace znaczenia biologicznego crossing-over:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Crossing-over zwieksza liczbe chromosomow w komorce o 50% w stosunku do komorki macierzystej", "is_correct": false},
+      {"id": "B", "text": "Crossing-over powoduje wymiane odcinkow miedzy niesiostrzenymi chromatydami chromosomow homologicznych, zwiekszajac zmiennosc genetyczna gamet", "is_correct": true},
+      {"id": "C", "text": "Crossing-over zachodzi miedzy chromatydami siostrzanymi tego samego chromosomu i prowadzi do duplikacji genow", "is_correct": false},
+      {"id": "D", "text": "Crossing-over jest procesem wystepujacym wylacznie w mitozie, nie w mejozie", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Crossing-over (rekombinacja homologiczna) zachodzi w profazie I mejozy, gdy chromosomy homologiczne lacza sie w biwalenty (synapsis) tworzac tetrade czterech chromatyd. Wymiana odcinkow nastepuje miedzy NIESIOSTRZENYMI chromatydami (z roznych homologow, nie miedzy kopiami tego samego chromosomu). W wyniku crossing-over powstaja nowe kombinacje alleli w chromosomach rekombinantowych. Zwieksza to zmiennosc genetyczna gamet i potomstwa -- jest to jeden z glownych zrodel zmiennosci genetycznej w rozrodzie plciowym, obok losowego rozdzialu chromosomow homologicznych. Liczba chromosomow nie ulega zmianie -- to redukcja liczby chromosomow nastepuje przez podzial redukcyjny (mejoza I). Crossing-over nie wystepuje w mitozie (brak synapsingu chromosomow homologicznych).",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.98
+  },
+  {
+    "topic_id": "417e905f-f10b-49e8-ab02-f7042144e68b",
+    "subtopic_id": "44534440-600c-4ca4-9598-b1275669b85b",
+    "image_url": null,
+    "question_text": "Mutacja punktowa polegajaca na zastapnieniu jednej zasady DNA inna zasada powoduje zmiane aminokwasu w kodowanym bialku. Jak nazywa sie ten typ mutacji?",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Mutacja synonimiczna (milczaca, silent)", "is_correct": false},
+      {"id": "B", "text": "Mutacja nonsensowna", "is_correct": false},
+      {"id": "C", "text": "Mutacja zmiany sensu (missense)", "is_correct": true},
+      {"id": "D", "text": "Mutacja zmiany ramki odczytu (frameshift)", "is_correct": false}
+    ],
+    "correct_answer": ["C"],
+    "explanation": "Mutacje punktowe (substytucje jednej pary zasad) dzielimy na trzy typy: (1) Synonimiczne (milczace, silent) -- zmiana zasady nie zmienia aminokwasu, bo kodon pozostaje synonimem dla tego samego aminokwasu (dzieki degeneracji kodu genetycznego; najczesciej zmiana w 3. pozycji kodonu). (2) Zmiany sensu (missense) -- zmiana zasady prowadzi do powstania kodonu dla innego aminokwasu, co moze zmienic strukture i funkcje bialka (np. mutacja w genie HBB powodujaca anemie sierpowata: GAG-GTG, Glu-Val). (3) Nonsensowne -- zmiana zasady tworzy kodon stop (UAA, UAG lub UGA), co powoduje przedwczesne zakonczenie translacji i skrocone, zwykle nieaktywne bialko. Mutacje frameshift (insercje, delecje) nie sa substytucjami -- zmieniaja cala ramke odczytu.",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.99
+  }
+]

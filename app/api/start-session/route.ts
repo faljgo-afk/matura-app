@@ -53,6 +53,7 @@ export async function POST(req: NextRequest) {
       .select('id, subtopic_id')
       .eq('topic_id', topicId)
       .eq('verified', true)
+      .in('question_type', ['single', 'multiple', 'true_false'])
       .limit(100)
 
     if (error || !data || data.length === 0) {

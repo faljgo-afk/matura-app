@@ -1,0 +1,362 @@
+[
+  {
+    "topic_id": "87346a24-dd63-4896-85f9-1124188982a7",
+    "subtopic_id": "be147aae-d7b6-4dde-9126-f5ea06635e74",
+    "image_url": null,
+    "question_text": "W analizie składu nukleotydowego DNA pewnej bakterii stwierdzono, że 32% zasad stanowi adenina. Wskaż, jaki będzie procentowy udział guaniny w tym DNA:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "32%", "is_correct": false},
+      {"id": "B", "text": "18%", "is_correct": true},
+      {"id": "C", "text": "16%", "is_correct": false},
+      {"id": "D", "text": "36%", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Zgodnie z regułami Chargaffa: A = T oraz G = C. Jeśli adenina stanowi 32%, to tymina również 32% (A = T). Łącznie A + T = 64%, a zatem G + C = 100% − 64% = 36%. Ponieważ G = C, każda z nich wynosi 18%. Reguły Chargaffa wynikają ze struktury podwójnej helisy — komplementarne zasady tworzą pary (A-T: 2 wiązania wodorowe, G-C: 3 wiązania wodorowe). Stosunek (A+T)/(G+C), zwany zawartością GC, jest charakterystyczny dla każdego gatunku i wpływa na stabilność termiczną DNA.",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.99
+  },
+  {
+    "topic_id": "87346a24-dd63-4896-85f9-1124188982a7",
+    "subtopic_id": "be147aae-d7b6-4dde-9126-f5ea06635e74",
+    "image_url": null,
+    "question_text": "Ryboza obecna w RNA różni się od deoksyrybozy w DNA obecnością grupy 2'-OH. Wskaż prawidłowe dokończenie zdania: Obecność grupy 2'-OH w rybozie sprawia, że RNA...",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "tworzy bardziej stabilną podwójną helisę niż DNA", "is_correct": false},
+      {"id": "B", "text": "jest chemicznie mniej trwałe niż DNA, gdyż 2'-OH uczestniczy w hydrolizie wiązania fosfodiesterowego", "is_correct": true},
+      {"id": "C", "text": "nie może być odczytywane przez polimerazę RNA podczas transkrypcji odwrotnej", "is_correct": false},
+      {"id": "D", "text": "jest zawsze jednoniciowe i nie może tworzyć żadnych struktur drugorzędowych", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Grupa 2'-OH w rybozie jest reaktywnym nukleofilem, który może atakować sąsiednie wiązanie fosfodiesterowe — jest to mechanizm alkalicznej hydrolizy RNA. Dlatego RNA jest znacznie mniej trwałe chemicznie od DNA (deoksyryboza nie ma grupy 2'-OH, co blokuje ten szlak hydrolizy). Jednocześnie właśnie dzięki grupie 2'-OH niektóre RNA pełnią funkcje katalityczne jako rybozymy. RNA może tworzyć struktury drugorzędowe (spinki do włosów, pętle) przez komplementarne łączenie fragmentów tej samej nici, a dsRNA (dwuniciowe RNA) istnieje jako produkt replikacji wirusów. DNA tworzy stabilniejszą podwójną helisę niż RNA właśnie m.in. dzięki braku grupy 2'-OH.",
+    "difficulty": 3,
+    "verified": true,
+    "ai_confidence": 0.96
+  },
+  {
+    "topic_id": "87346a24-dd63-4896-85f9-1124188982a7",
+    "subtopic_id": "509e44e6-44f6-41bf-8f2c-e6d28ec2ac66",
+    "image_url": null,
+    "question_text": "W doświadczeniu Meselsona i Stahla bakterie E. coli hodowane na podłożu z ¹⁵N (ciężki azot) przeniesiono do podłoża z ¹⁴N. Wskaż, jakie cząsteczki DNA będą obecne po JEDNEJ rundzie replikacji:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Wyłącznie DNA z dwiema nićmi ¹⁴N/¹⁴N", "is_correct": false},
+      {"id": "B", "text": "Wyłącznie DNA hybrydowe ¹⁵N/¹⁴N", "is_correct": true},
+      {"id": "C", "text": "Mieszanina: 50% DNA ¹⁵N/¹⁵N i 50% DNA ¹⁴N/¹⁴N", "is_correct": false},
+      {"id": "D", "text": "Mieszanina: 25% ¹⁵N/¹⁵N, 50% ¹⁵N/¹⁴N i 25% ¹⁴N/¹⁴N", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Doświadczenie Meselsona i Stahla (1958) potwierdziło semikonserwatywny model replikacji DNA. Po jednej rundzie replikacji każda cząsteczka DNA ¹⁵N/¹⁵N rozdziela się na dwie nici macierzyste (¹⁵N); na każdej z nich syntetyzowana jest nowa nić z dostępnych w środowisku nukleotydów ¹⁴N. Wynikiem są wyłącznie hybrydowe cząsteczki ¹⁵N/¹⁴N — dokładnie to przewidywał model semikonserwatywny. Opcja C odpowiadałaby modelowi konserwatywnego (oryginalna helisa pozostaje nienaruszona, a nowa zawiera obie nici ¹⁴N). Opcja D odpowiadałaby modelowi dyspersyjnemu. Po DWÓCH rundach replikacji pojawiłyby się już cząsteczki ¹⁴N/¹⁴N (50% hybrydowe, 50% ¹⁴N/¹⁴N).",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.99
+  },
+  {
+    "topic_id": "87346a24-dd63-4896-85f9-1124188982a7",
+    "subtopic_id": "509e44e6-44f6-41bf-8f2c-e6d28ec2ac66",
+    "image_url": null,
+    "question_text": "W replikacji DNA nić wiodąca (leading strand) syntetyzowana jest ciągle, natomiast nić opóźniona (lagging strand) — nieciągle, w postaci fragmentów Okazakiego. Wskaż poprawne wyjaśnienie tego zjawiska:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Polimeraza DNA na nici opóźnionej działa wolniej z powodu częstszych błędów replikacyjnych wymagających korekty", "is_correct": false},
+      {"id": "B", "text": "Polimeraza DNA może syntetyzować nić wyłącznie w kierunku 5'→3', a dwie nici macierzyste mają przeciwne orientacje względem kierunku poruszania widełek", "is_correct": true},
+      {"id": "C", "text": "Na nici opóźnionej brakuje nukleotydów purynowych, co wymaga dodatkowych przerw w syntezie", "is_correct": false},
+      {"id": "D", "text": "Nić opóźniona jest syntetyzowana przez polimerazę α o mniejszej wydajności niż polimeraza δ na nici wiodącej", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Kluczowe ograniczenie polimerazy DNA: może addować nukleotydy wyłącznie do wolnego końca 3'-OH — synteza przebiega tylko w kierunku 5'→3'. Widełki replikacyjne poruszają się w jednym kierunku, odsłaniając obie nici macierzyste jednocześnie. Nić wiodąca (matryca 3'→5' względem widełek) może być kopiowana ciągle w kierunku 5'→3'. Nić opóźniona (matryca 5'→3' względem widełek) wymaga, by polimeraza syntetyzowała w kierunku 3'→5' — co jest niemożliwe. Rozwiązaniem jest synteza krótkich fragmentów Okazakiego (ok. 1000–2000 nt u prokariontów, 100–200 nt u eukariontów) w kierunku 5'→3', każdorazowo od nowego primeru RNA. Primery RNA są następnie usuwane przez polimerazy naprawcze i ligazy.",
+    "difficulty": 3,
+    "verified": true,
+    "ai_confidence": 0.98
+  },
+  {
+    "topic_id": "87346a24-dd63-4896-85f9-1124188982a7",
+    "subtopic_id": "080488a3-c287-46ec-b337-d87e1736d7da",
+    "image_url": null,
+    "question_text": "Transkrypcja u eukariontów przebiega w jądrze komórkowym. Wskaż stwierdzenie POPRAWNIE opisujące etap inicjacji transkrypcji mRNA:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Polimeraza RNA II wiąże się bezpośrednio z sekwencją TATA box bez udziału czynników transkrypcyjnych", "is_correct": false},
+      {"id": "B", "text": "Ogólne czynniki transkrypcyjne (m.in. TFIID) rozpoznają sekwencje promotora i rekrutują polimerazę RNA II, tworząc kompleks inicjacyjny", "is_correct": true},
+      {"id": "C", "text": "Transkrypcja i translacja zachodzą jednocześnie — rybosomy wiążą się do nascentnego mRNA jeszcze w jądrze", "is_correct": false},
+      {"id": "D", "text": "Polimeraza RNA II odczytuje nić sensowną (kodującą) DNA w kierunku 5'→3', syntetyzując mRNA identyczny z nicią matrycową", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Inicjacja transkrypcji mRNA u eukariontów jest procesem wieloetapowym. Podjednostka TBP białka TFIID rozpoznaje sekwencję TATA box (ok. –25 do –30 pz od miejsca startu), po czym kolejno przyłączają się TFIIA, TFIIB i inne czynniki ogólne, tworząc preinicjacyjny kompleks transkrypcyjny (PIC). Dopiero w ramach tego kompleksu rekrutowana jest polimeraza RNA II. Transkrypcja i translacja są u eukariontów przestrzennie i czasowo rozdzielone (sprzężona transkrypcja i translacja — polisomy — jest cechą prokariontów). Polimeraza RNA II odczytuje nić MATRYCOWĄ (antysensowną) w kierunku 3'→5', syntetyzując mRNA 5'→3' o sekwencji identycznej z nicią sensowną (z U zamiast T).",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.97
+  },
+  {
+    "topic_id": "87346a24-dd63-4896-85f9-1124188982a7",
+    "subtopic_id": "080488a3-c287-46ec-b337-d87e1736d7da",
+    "image_url": null,
+    "question_text": "Pudełko TATA (TATA box) to sekwencja regulatorowa w promotorach genów eukariotycznych. Wskaż prawidłowy opis jego lokalizacji:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Bezpośrednio w miejscu startu transkrypcji (+1), gdzie polimeraza RNA II zaczyna syntezę mRNA", "is_correct": false},
+      {"id": "B", "text": "Na nici sensownej, ok. 25–30 par zasad powyżej (upstream) miejsca startu transkrypcji (+1)", "is_correct": true},
+      {"id": "C", "text": "Na nici matrycowej, w odległości 100–200 pz downstream od miejsca startu transkrypcji", "is_correct": false},
+      {"id": "D", "text": "W intronach genu, gdzie pełni funkcję wzmacniacza (enhancera) transkrypcji", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Pudełko TATA (konsensusowa sekwencja TATAAA) zlokalizowane jest na nici sensownej (kodującej) DNA, ok. 25–30 par zasad POWYŻEJ (upstream, czyli w kierunku 5') miejsca startu transkrypcji (+1). Podjednostka TBP (TATA-binding protein) białka TFIID wiąże się w rowku mniejszym helisy DNA w tym miejscu, wyginając DNA o ok. 80° i inicjując tworzenie kompleksu preinicjacyjnego. Bogactwo w pary A-T (2 wiązania wodorowe vs 3 dla G-C) ułatwia lokalne rozplecenie helisy przy starcie transkrypcji. Nie wszystkie geny eukariotyczne posiadają TATA box — ok. 30% genów ma promotory TATA-less, regulowane innymi elementami (np. Inr, DPE).",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.97
+  },
+  {
+    "topic_id": "87346a24-dd63-4896-85f9-1124188982a7",
+    "subtopic_id": "080488a3-c287-46ec-b337-d87e1736d7da",
+    "image_url": null,
+    "question_text": "Terminator Rho-niezależny u prokariontów zawiera sekwencję GC-bogatą tworząca spinkę do włosów w mRNA, po której następuje ciąg urydyn (poli-U). Wskaż, który element jest KLUCZOWY dla zakończenia transkrypcji w tym mechanizmie:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Białko Rho wiąże się ze spinką do włosów i w hydrolizie ATP odłącza polimerazę RNA od nici DNA", "is_correct": false},
+      {"id": "B", "text": "Spinka do włosów destabilizuje kompleks elongacyjny, a sekwencja poli-U tworzy niestabilną hybrydę rU:dA z nicią matrycową — razem powodują uwolnienie transkryptu", "is_correct": true},
+      {"id": "C", "text": "Sekwencja bogata w GC po spince stabilizuje helisę DNA, blokując mechaniczne poruszanie się polimerazy", "is_correct": false},
+      {"id": "D", "text": "Czynnik sigma rozpoznaje sekwencję terminatora i aktywuje domenę polimerazy odpowiedzialną za uwolnienie transkryptu", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "W terminacji Rho-niezależnej (wewnętrznej) działają synergicznie dwa elementy: (1) Spinka do włosów — struktura GC-bogata tworząca się w nascentnym mRNA tuż za polimerazą RNA — wywiera siłę mechaniczną destabilizującą kompleks elongacyjny, prawdopodobnie przez zmianę konformacji polimerazy; (2) Sekwencja poli-U — hybryda rU:dA (uracyl w mRNA paruje z adeniną w nici matrycowej DNA) jest wyjątkowo słaba — pary rU:dA mają najniższe energie dysocjacji ze wszystkich par RNA:DNA. Połączenie obu efektów powoduje rozerwanie hybrydy RNA:DNA i uwolnienie transkryptu. Białko Rho jest zaangażowane w INNY typ terminacji (Rho-zależna), wymagający hydrolizujący ATP. Czynnik sigma pełni funkcję inicjacyjną, nie terminacyjną.",
+    "difficulty": 3,
+    "verified": true,
+    "ai_confidence": 0.95
+  },
+  {
+    "topic_id": "87346a24-dd63-4896-85f9-1124188982a7",
+    "subtopic_id": "7e58aed3-066f-410e-a5c4-19fe84a3821e",
+    "image_url": null,
+    "question_text": "Pre-mRNA u eukariontów przechodzi modyfikacje w jądrze przed eksportem do cytoplazmy. Wskaż, które z poniższych modyfikacji ŁĄCZNIE charakteryzują obróbkę potranskrypcyjną eukariotycznego mRNA:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Dodanie czapeczki 7-metyloguanozynowej do końca 3' i ogona poli-A do końca 5'", "is_correct": false},
+      {"id": "B", "text": "Dodanie czapeczki m7G do końca 5', ogona poli-A do końca 3' oraz wycinanie intronów przez spliceosom", "is_correct": true},
+      {"id": "C", "text": "Zamiana urydyn na tyminy i usunięcie eksonów z sekwencji kodującej", "is_correct": false},
+      {"id": "D", "text": "Przeniesienie pre-mRNA do cytoplazmy i złożenie spliceosomów na powierzchni retikulum endoplazmatycznego", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Obróbka potranskrypcyjna pre-mRNA u eukariontów obejmuje trzy główne procesy: (1) Kapcowanie — dodanie czapeczki 7-metyloguanozynowej (m7G) do końca 5' transkryptu; chroni mRNA przed degradacją przez egzonukleazy 5'→3' i jest rozpoznawana przez czynniki inicjacyjne translacji (eIF4E); (2) Poliadenylacja — enzymatyczne dodanie ok. 200 adenozyn do końca 3', po sygnale AAUAAA; wydłuża czas życia mRNA i ułatwia eksport z jądra; (3) Splicing — wycinanie intronów i łączenie eksonów przez spliceosom (kompleks snRNA + białka snRNP). Czapeczka jest na końcu 5' (nie 3'), a ogon poli-A na końcu 3' (nie 5'). RNA nie zawiera tyminy (T) — to zasada DNA. Spliceosom działa w jądrze, nie w cytoplazmie.",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.98
+  },
+  {
+    "topic_id": "87346a24-dd63-4896-85f9-1124188982a7",
+    "subtopic_id": "7e58aed3-066f-410e-a5c4-19fe84a3821e",
+    "image_url": null,
+    "question_text": "Alternatywny splicing (alternatywna obróbka splicingowa) pozwala na różne połączenia eksonów z jednego pre-mRNA. Wskaż główną biologiczną konsekwencję tego mechanizmu:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Zwiększa liczbę genów w genomie eukariontycznym przez multiplikację sekwencji DNA", "is_correct": false},
+      {"id": "B", "text": "Umożliwia wytworzenie wielu różnych białek (izoform) z jednego genu, zwiększając różnorodność proteomu bez zmiany liczby genów", "is_correct": true},
+      {"id": "C", "text": "Skraca czas translacji przez eliminację sekwencji niekodujących z dojrzałego mRNA", "is_correct": false},
+      {"id": "D", "text": "Zabezpiecza mRNA przed degradacją przez cytoplazmatyczne rybonukleazy", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Alternatywny splicing polega na tym, że spliceosom łączy eksony jednego pre-mRNA w różnych kombinacjach — pomijając niektóre eksony (exon skipping), włączając alternatywne eksony lub stosując alternatywne miejsca splicingowe. Jeden gen może kodować dziesiątki lub setki różnych białek (izoform) różniących się funkcją, lokalizacją komórkową lub specyficznością. Szacuje się, że ponad 90% ludzkich genów wieloeksonowych podlega alternatywnemu splicingowi. Stąd z zaledwie 20–25 tysięcy genów ludzki organizm może produkować setki tysięcy różnych białek. Liczba genów nie ulega zmianie — DNA pozostaje niezmienione. Ochronę mRNA przed degradacją zapewniają czapeczka m7G i ogon poli-A, nie splicing.",
+    "difficulty": 3,
+    "verified": true,
+    "ai_confidence": 0.97
+  },
+  {
+    "topic_id": "87346a24-dd63-4896-85f9-1124188982a7",
+    "subtopic_id": "d3f5edfd-647b-4850-8dcd-3168a5805c61",
+    "image_url": null,
+    "question_text": "Kod genetyczny wykazuje szereg właściwości. Wskaż, co oznacza DEGENERACJA kodu genetycznego:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Jeden kodon może kodować kilka różnych aminokwasów w zależności od organizmu", "is_correct": false},
+      {"id": "B", "text": "Większość aminokwasów jest kodowana przez więcej niż jeden kodon (synonimy kodonów)", "is_correct": true},
+      {"id": "C", "text": "Kod genetyczny ewoluuje i różni się znacznie między gatunkami eukariotycznymi a prokariotycznymi", "is_correct": false},
+      {"id": "D", "text": "Jeden kodon stop może przerywać translację wielu różnych genów jednocześnie w tej samej komórce", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Degeneracja (redundancja) kodu genetycznego oznacza, że większość spośród 20 aminokwasów jest kodowana przez więcej niż jeden kodon (synonimy kodonów). Na 64 możliwe kodony trójkowe: 61 koduje aminokwasy, 3 to kodony stop (UAA, UAG, UGA). Spośród aminokwasów: leucyna, seryna i arginina mają po 6 kodonów synonimicznych; metionina i tryptofan — tylko po 1. Degeneracja różni się od wieloznaczności: wiele kodonów → 1 aminokwas (NIE 1 kodon → wiele aminokwasów). Zmiany synonimiczne (najczęściej w 3. pozycji kodonu — „pozycja chwiejna\" Wobble) zwykle nie zmieniają aminokwasu. Kod genetyczny jest niemal powszechny — zachowany u prokariontów i eukariontów, z niewielkimi wyjątkami w mitochondriach.",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.98
+  },
+  {
+    "topic_id": "87346a24-dd63-4896-85f9-1124188982a7",
+    "subtopic_id": "d3f5edfd-647b-4850-8dcd-3168a5805c61",
+    "image_url": null,
+    "question_text": "Badacz analizuje mRNA o sekwencji 5'-AUG-UGU-GAA-UAA-3'. Wskaż prawidłowy opis produktu translacji tego transkryptu:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Dipeptyd Met-Cys — translacja zatrzymuje się po dwóch aminokwasach, ponieważ GAA jest kodonem stop", "is_correct": false},
+      {"id": "B", "text": "Tripeptyd Met-Cys-Glu — translacja zatrzymuje się na UAA, który jest kodonem stop", "is_correct": true},
+      {"id": "C", "text": "Tetrapeptyd Met-Cys-Glu-Stop — UAA koduje aminokwas \"stop\" włączany do łańcucha polipeptydowego", "is_correct": false},
+      {"id": "D", "text": "Translacja nie zachodzi — sekwencja jest zbyt krótka, aby zainicjować syntezę białka na rybosomie", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Translacja sekwencji 5'-AUG-UGU-GAA-UAA-3': AUG = Met (kodon inicjacyjny), UGU = Cys (cysteina), GAA = Glu (kwas glutaminowy), UAA = kodon stop. Rybosom syntetyzuje tripeptyd Met-Cys-Glu, a gdy napotyka UAA, czynniki uwolnienia (eRF1 u eukariontów) rozpoznają kodon stop i hydrolizują wiązanie między ostatnim tRNA a łańcuchem polipeptydowym — gotowy peptyd zostaje uwolniony. UAA jest jednym z trzech kodonów stop (UAA, UAG, UGA) — żaden z nich nie koduje aminokwasu. GAA koduje kwas glutaminowy (Glu), nie jest kodonem stop. Cztery kodony to wystarczająca długość do inicjacji — liczy się obecność kodonu AUG, nie bezwzględna długość mRNA.",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.98
+  },
+  {
+    "topic_id": "87346a24-dd63-4896-85f9-1124188982a7",
+    "subtopic_id": "d6c4adf0-caa3-46f3-b24a-d4d662a7a9cc",
+    "image_url": null,
+    "question_text": "Rybosom eukariotyczny (80S) posiada trzy miejsca wiązania tRNA: A, P i E. Wskaż POPRAWNY opis jednego cyklu elongacji translacji:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Aminoacylo-tRNA wchodzi do miejsca P, łańcuch polipeptydowy przenoszony jest do miejsca A, a rybosom przesuwa się o 3 nukleotydy w kierunku 5' mRNA", "is_correct": false},
+      {"id": "B", "text": "Aminoacylo-tRNA wchodzi do miejsca A; transferaza peptydylowa przenosi łańcuch polipeptydowy z tRNA w miejscu P na aminokwas w miejscu A; translokacja przesuwa rybosom o jeden kodon w kierunku 3'", "is_correct": true},
+      {"id": "C", "text": "Transfer peptydu z miejsca P do A jest katalizowany wyłącznie przez białka rybosomu — enzymy klasy transferaz", "is_correct": false},
+      {"id": "D", "text": "W każdym cyklu elongacji zużywana jest 1 cząsteczka ATP do fosforylacji nowo przyłączonego aminokwasu", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Elongacja translacji przebiega cyklicznie w trzech krokach: (1) Dekodowanie: aminoacylo-tRNA (z EF-Tu·GTP u prokariontów lub eEF1A·GTP u eukariontów) wchodzi do miejsca A, gdzie antykodon tRNA paruje komplementarnie z kodonem mRNA; (2) Transpeptydacja: transferaza peptydylowa (katalityczna aktywność rRNA 23S/28S — rybosom jest rybozymem, NIE białkiem!) przenosi rosnący łańcuch polipeptydowy z tRNA w miejscu P na grupę aminową aminokwasu w miejscu A — powstaje nowe wiązanie peptydowe; (3) Translokacja (z hydrolizą GTP przez EF-G/eEF2): tRNA z peptydem przesuwa się do miejsca P, wolne tRNA do miejsca E, a mRNA przesuwa się o 3 nukleotydy w kierunku 3'. Łańcuch polipeptydowy rośnie od końca N ku C.",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.97
+  },
+  {
+    "topic_id": "87346a24-dd63-4896-85f9-1124188982a7",
+    "subtopic_id": "d6c4adf0-caa3-46f3-b24a-d4d662a7a9cc",
+    "image_url": null,
+    "question_text": "Antybiotyki aminoglikozydowe (np. streptomycyna) hamują translację u bakterii przez wiązanie z podjednostką 30S rybosomu. Wskaż, dlaczego streptomycyna jest skuteczna przeciw bakteriom, lecz nie niszczy komórek ludzkich:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Streptomycyna jest rozkładana przez enzymy lizosomalne komórek eukariotycznych przed dotarciem do rybosomów", "is_correct": false},
+      {"id": "B", "text": "Rybosomy cytoplazmatyczne człowieka (80S, podjednostka 40S) różnią się strukturalnie od rybosomów bakteryjnych (70S, podjednostka 30S) — streptomycyna nie wiąże się do 40S", "is_correct": true},
+      {"id": "C", "text": "Komórki eukariotyczne posiadają glikoproteiny błonowe blokujące wnikanie streptomycyny do cytoplazmy", "is_correct": false},
+      {"id": "D", "text": "Streptomycyna hamuje translację zarówno u bakterii, jak i człowieka, lecz jest stosowana w dawkach selektywnie toksycznych tylko dla bakterii", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Selektywność streptomycyny wynika z fundamentalnych różnic strukturalnych między rybosomami prokariontów (70S: podjednostki 30S i 50S) a rybosomami cytoplazmatycznymi eukariontów (80S: podjednostki 40S i 60S). Streptomycyna wiąże się z białkiem S12 i rRNA 16S podjednostki 30S, powodując błędy w dekodowaniu kodonów. Ludzka podjednostka 40S ma inną sekwencję rRNA i odmienny skład białkowy — streptomycyna nie pasuje do jej centrum dekodowania. Uwaga: mitochondria ludzkich komórek posiadają rybosomy 70S (relikt endosymbiozy), przez co mogą być wrażliwe na aminoglikozydy przy wysokich stężeniach — to jeden z mechanizmów ich toksyczności narządowej (uszkodzenie słuchu, nerek).",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.97
+  },
+  {
+    "topic_id": "87346a24-dd63-4896-85f9-1124188982a7",
+    "subtopic_id": "d6c4adf0-caa3-46f3-b24a-d4d662a7a9cc",
+    "image_url": null,
+    "question_text": "Inicjacja translacji u eukariontów przebiega inaczej niż u prokariontów — podjednostka 43S skanuje mRNA od końca 5' w poszukiwaniu kodonu AUG. Wskaż, który element umożliwia rozpoznanie inicjatorowego kodonu AUG spośród wewnętrznych kodonów AUG kodujących metioninę:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Sekwencja Shine-Dalgarno przy inicjatorowym AUG, komplementarna do rRNA podjednostki 40S", "is_correct": false},
+      {"id": "B", "text": "Inicjatorowy AUG jest rozpoznawany przez specjalny Met-tRNAi i otoczony optymalną sekwencją Kozaka (GCC(A/G)CCAUGG)", "is_correct": true},
+      {"id": "C", "text": "Inicjatorowy AUG zawsze poprzedza sekwencja poli-A, którą rozpoznaje podjednostka 40S", "is_correct": false},
+      {"id": "D", "text": "Wewnętrzne kodony AUG są chemicznie modyfikowane (metylowane) przez enzymy komórkowe i nie wiążą inicjatorowego tRNA", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Inicjacja translacji u eukariontów: kompleks 43S (mała podjednostka 40S + czynniki inicjacyjne eIF1, eIF1A, eIF3 + Met-tRNAᵢ·eIF2·GTP) wiąże się z czapeczką m7G i skanuje mRNA w kierunku 3'. Inicjatorowy AUG jest rozpoznawany przez specjalny inicjatorowy tRNA (Met-tRNAᵢ, inny niż elongacyjny Met-tRNAₑ używany do wewnętrznych kodonów Met) i przez kontekst sekwencji Kozaka — optymalna sekwencja to GCC(A/G)CCAUGG, gdzie kluczowe są puryna (A lub G) w pozycji –3 i G w pozycji +4. AUG w słabym kontekście Kozaka bywa przeskakiwany (leaky scanning). Sekwencja Shine-Dalgarno jest cechą PROKARIONTÓW i służy do bezpośredniego wiązania rybosomu 70S przy AUG — eukarioty nie stosują tego mechanizmu.",
+    "difficulty": 3,
+    "verified": true,
+    "ai_confidence": 0.96
+  },
+  {
+    "topic_id": "87346a24-dd63-4896-85f9-1124188982a7",
+    "subtopic_id": "a5dee6c1-8f72-4f35-9d6a-0b694089ddaf",
+    "image_url": null,
+    "question_text": "Operon laktozowy (lac operon) E. coli podlega regulacji przez represję i indukcję. Wskaż warunki, w których geny strukturalne operonu lac będą NAJAKTYWNIEJ transkrybowane:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Glukoza obecna, laktoza nieobecna", "is_correct": false},
+      {"id": "B", "text": "Glukoza nieobecna, laktoza obecna", "is_correct": true},
+      {"id": "C", "text": "Glukoza obecna, laktoza obecna", "is_correct": false},
+      {"id": "D", "text": "Glukoza nieobecna, laktoza nieobecna", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Operon lac podlega dwustopniowej regulacji. (1) Kontrola negatywna przez represor: białko LacI (represor) wiąże operator i blokuje transkrypcję. Allolaktoza (pochodna laktozy) jest induktorem — wiąże represor, zmienia jego konformację i uwalnia z operatora. BEZ laktozy operon jest zablokowany. (2) Kontrola pozytywna przez CAP: gdy glukoza jest nieobecna, rośnie stężenie cAMP, który aktywuje białko CAP (Catabolite Activator Protein = CRP). Kompleks CAP-cAMP wiąże się przy promotorze i wielokrotnie wzmacnia aktywność polimerazy RNA. Przy nieobecności glukozy i obecności laktozy: represor jest odłączony (laktoza = induktor) ORAZ CAP jest aktywowany (brak glukozy = wysokie cAMP) — synergia obu efektów daje maksymalną transkrypcję. Glukoza — jako preferowane źródło węgla — gdy jest obecna, hamuje operon lac (represja kataboliczna).",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.98
+  },
+  {
+    "topic_id": "87346a24-dd63-4896-85f9-1124188982a7",
+    "subtopic_id": "a5dee6c1-8f72-4f35-9d6a-0b694089ddaf",
+    "image_url": null,
+    "question_text": "W operonie tryptofanowym (trp operon) E. coli transkrypcja jest regulowana przez atenuację — mechanizm sprzęgający transkrypcję z translacją. Wskaż zdarzenie molekularne w warunkach NISKIEGO stężenia tryptofanu, które zapobiega przedwczesnemu zakończeniu transkrypcji:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Obfitość naładowanych tRNA^Trp umożliwia szybką translację peptydu lidera → formuje się terminator (regiony 3-4) → transkrypcja genów strukturalnych jest zatrzymana", "is_correct": false},
+      {"id": "B", "text": "Niedobór naładowanych tRNA^Trp zatrzymuje rybosom na kodonach Trp peptydu lidera → formuje się antyterminatorowa spinka do włosów (regiony 2-3) → transkrypcja jest kontynuowana", "is_correct": true},
+      {"id": "C", "text": "Czynnik Rho wiąże się z nascentnym transkryptem lidera i w hydrolizie ATP odłącza polimerazę RNA od nici DNA", "is_correct": false},
+      {"id": "D", "text": "Represor trp traci kofaktor i odpada od operatora — transkrypcja jest aktywowana wyłącznie przez mechanizm represji, bez udziału atenuacji", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Atenuacja w operonie trp polega na sprzęganiu postępu transkrypcji z translacją peptydu lidera (zawierającego 2 kodony Trp = UGG). Sekwencja lidera RNA może przyjmować alternatywne struktury drugorzędowe. Przy NISKIM stężeniu Trp: niedobór naładowanych tRNA^Trp powoduje stallowanie rybosomu na kodonach Trp w regionie 1. Rybosom w tej pozycji uwalnia region 2, który paruje z regionem 3, tworząc antyterminatorową spinkę do włosów. Region 4 nie może sparować z regionem 3 (bo ten jest zajęty przez region 2) → terminator nie powstaje → polimeraza RNA kontynuuje transkrypcję genów biosyntezy tryptofanu. Przy WYSOKIM Trp: rybosom szybko mija Trp-kodony → regiony 3-4 tworzą terminatorową spinkę → transkrypcja zatrzymuje się na atuatorze. Rho i represja to odrębne mechanizmy regulacji.",
+    "difficulty": 3,
+    "verified": true,
+    "ai_confidence": 0.95
+  },
+  {
+    "topic_id": "87346a24-dd63-4896-85f9-1124188982a7",
+    "subtopic_id": "c0f6a1a7-b95b-468f-be90-6430736c2ec5",
+    "image_url": null,
+    "question_text": "Enhancery (wzmacniacze) to sekwencje regulatorowe w genomach eukariontów. Wskaż POPRAWNY opis ich właściwości:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Enhancery muszą znajdować się bezpośrednio sąsiadując z promotorem genu (do 100 pz) i działają wyłącznie w orientacji 5'→3'", "is_correct": false},
+      {"id": "B", "text": "Enhancery mogą działać z odległości dziesiątek tysięcy par zasad, w dowolnej orientacji, dzięki pętlowaniu chromatyny zbliżającemu je do promotora", "is_correct": true},
+      {"id": "C", "text": "Enhancery to sekwencje RNA działające na zasadzie antysensownego hamowania ekspresji genów", "is_correct": false},
+      {"id": "D", "text": "Enhancery kodują czynniki transkrypcyjne, które po translacji wiążą się bezpośrednio do polimerazy RNA II", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Enhancery (wzmacniacze transkrypcji) są sekwencjami regulatorowymi DNA o kilku unikalnych właściwościach: (1) Działają niezależnie od odległości — mogą wzmacniać transkrypcję z odległości nawet 1 Mb od genu; (2) Działają w obu orientacjach względem genu; (3) Mechanizm: czynniki transkrypcyjne (aktywatory) wiążą się z sekwencjami w enhancerze, a chromatyna tworzy pętlę DNA (loop), przybliżając enhancer do promotora — mediator i koadaptory łączą aktywator z kompleksem preinicjacyjnym przy promotorze. Badania chromosomalnego konformacji (Hi-C, ChIA-PET) potwierdziły bezpośrednie kontakty przestrzenne między enhancerami a promotorami odległych genów. Enhancery to sekwencje DNA (nie RNA) i nie kodują białek. Ich aktywność jest tkankoswoista — różne enhancery są aktywne w różnych typach komórek.",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.97
+  },
+  {
+    "topic_id": "87346a24-dd63-4896-85f9-1124188982a7",
+    "subtopic_id": "c0f6a1a7-b95b-468f-be90-6430736c2ec5",
+    "image_url": null,
+    "question_text": "Modyfikacje histonów wpływają na strukturę chromatyny i regulują dostępność DNA dla polimerazy RNA. Wskaż, która z poniższych modyfikacji histonów jest ZWIĄZANA Z AKTYWNĄ TRANSKRYPCJĄ:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Deacetylacja ogonów histonowych H3 i H4 przez enzymy HDAC", "is_correct": false},
+      {"id": "B", "text": "Metylacja lizyny 9 histonu H3 (H3K9me3)", "is_correct": false},
+      {"id": "C", "text": "Acetylacja ogonów histonowych H3 i H4 przez enzymy HAT", "is_correct": true},
+      {"id": "D", "text": "Ubikwitynacja lizyny 119 histonu H2A (H2AK119ub1) przez kompleks PRC1", "is_correct": false}
+    ],
+    "correct_answer": ["C"],
+    "explanation": "Acetylacja ogonów histonowych przez acetylotransferazy histonów (HAT) jest silnie skorelowana z aktywną transkrypcją. Acetylacja neutralizuje ładunek dodatni reszt lizynowych w ogonach histonów, osłabiając elektrostatyczne oddziaływanie histonów z ujemnie naładowanym DNA — chromatyna rozluźnia się (euchrymatyna), stając się dostępna dla polimerazy RNA II i czynników transkrypcyjnych. Markery aktywnej chromatyny: H3K27ac, H3K9ac, H3K4me3 (metylacja, nie acetylacja — tu aktywna). Deacetylacja (HDAC) i kondensacja chromatyny → wyciszenie transkrypcji (heterochromatyna). H3K9me3 to marker trwale wyciszonej heterochromatyny, miejscem wiązania białka HP1. H2AK119ub1 jest nanoszony przez kompleks polycomb PRC1 i hamuje transkrypcję genów rozwojowych.",
+    "difficulty": 3,
+    "verified": true,
+    "ai_confidence": 0.97
+  },
+  {
+    "topic_id": "87346a24-dd63-4896-85f9-1124188982a7",
+    "subtopic_id": "56b9ee49-9719-42a5-baac-e106038c1ba5",
+    "image_url": null,
+    "question_text": "Epigenetyka bada dziedziczne zmiany ekspresji genów niezwiązane ze zmianami sekwencji DNA. Wskaż, które zjawisko jest przykładem mechanizmu epigenetycznego:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Mutacja punktowa w eksonie genu zamieniająca kodon sensowny na kodon stop (mutacja nonsensowna)", "is_correct": false},
+      {"id": "B", "text": "Metylacja wysp CpG w regionie promotora, która wycisza ekspresję genu bez zmiany sekwencji nukleotydowej", "is_correct": true},
+      {"id": "C", "text": "Crossing-over między chromosomami homologicznymi prowadzący do rekombinacji genów", "is_correct": false},
+      {"id": "D", "text": "Delecja fragmentu chromosomu zawierającego gen supresorowy nowotworów", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Epigenetyka obejmuje mechanizmy regulacji ekspresji genów, które są dziedziczne i odwracalne, lecz nie wynikają ze zmiany sekwencji DNA. Metylacja DNA — przyłączenie grupy metylowej (CH₃) do cytozyny w dinukleotydach CpG przez metylotransferazy (DNMT) — tworząc 5-metylocytozynę (5mC). Metylacja promotora rekrutuje białka MBD (methyl-CpG binding domain) i deacetylazy histonów, co prowadzi do kondensacji chromatyny i wyciszenia transkrypcji. Ta modyfikacja jest przekazywana komórkom potomnym (przez metylotransferazy utrzymujące). Mutacje, crossing-over i delecje to zmiany sekwencji DNA — zjawiska genetyczne, nie epigenetyczne. Przykłady mechanizmów epigenetycznych: metylacja DNA, modyfikacje histonów (acetylacja, metylacja), regulacja przez ncRNA (miRNA, lncRNA).",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.98
+  },
+  {
+    "topic_id": "87346a24-dd63-4896-85f9-1124188982a7",
+    "subtopic_id": "56b9ee49-9719-42a5-baac-e106038c1ba5",
+    "image_url": null,
+    "question_text": "Inaktywacja chromosomu X (lyonizacja) u samic ssaków to przykład regulacji epigenetycznej na poziomie całego chromosomu. Wskaż stwierdzenie POPRAWNIE opisujące ten proces:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Zawsze inaktywowany jest chromosom X odziedziczony po ojcu — chromosom X matki zawsze pozostaje aktywny", "is_correct": false},
+      {"id": "B", "text": "W każdej komórce wczesnego embrionu jeden chromosom X jest LOSOWO inaktywowany, a ten stan jest klonalnie przekazywany wszystkim komórkom potomnym", "is_correct": true},
+      {"id": "C", "text": "Inaktywacja chromosomu X jest odwracalna w każdym cyklu podziału komórki — w kolejnej generacji komórek inaktywowany może być drugi chromosom X", "is_correct": false},
+      {"id": "D", "text": "Inaktywacja dotyczy wyłącznie eksonów chromosomu X — introny i sekwencje regulatorowe pozostają aktywne transkrypcyjnie", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Lyonizacja (opisana przez Mary Lyon w 1961 roku) to mechanizm kompensacji dawki genów u samic ssaków (XX). We wczesnym zarodku (ok. 16–32 komórek, przed implantacją) w każdej komórce jeden z dwóch chromosomów X ulega inaktywacji — wybór jest LOSOWY (może to być X matki lub ojca). Po wyborze, stan inaktywacji jest utrzymywany KLONALNIE we wszystkich komórkach potomnych przez mechanizmy epigenetyczne: RNA Xist (kodowany przez gen XIST na inaktywowanym X) okrywa inaktywowany chromosom, rekrutując kompleksy polycomb, metylotransferazy histonów (H3K27me3, H3K9me2) i metylotransferazy DNA (metylacja CpG). Inaktywowany X tworzy ciałko Barra. Mozaikowość X-inaktywacji tłumaczy umaszczenie kocic szylkretowych (różne klony komórek mają inaktywowane różne X). Ok. 15–25% genów chromosomu X „ucieka\" inaktywacji i pozostaje aktywnych na obu X.",
+    "difficulty": 3,
+    "verified": true,
+    "ai_confidence": 0.96
+  }
+]

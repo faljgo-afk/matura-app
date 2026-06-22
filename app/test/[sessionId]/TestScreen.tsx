@@ -78,6 +78,10 @@ export default function TestScreen({
   const question = questions[current]
   const selected = answers[question.id] ?? []
   const isMultiple = question.question_type === 'multiple'
+  const isTrueFalse = question.question_type === 'true_false'
+  // New multi-statement format: options A/B/C with correct_answer ['A-P','B-F','C-P']
+  // Old format: options T/F with correct_answer ['T'] or ['F']
+  const isTrueFalseMulti = isTrueFalse && !question.options.some(o => o.id === 'T' || o.id === 'F')
   const isReview = reviewSet.has(question.id)
 
   function toggleOption(optionId: string) {
@@ -88,7 +92,27 @@ export default function TestScreen({
     setAnswers({ ...answers, [question.id]: next })
   }
 
-  const answeredCount = Object.keys(answers).length
+  function getTrueFalseVerdict(optionId: string): 'P' | 'F' | null {
+    const ans = answers[question.id] ?? []
+    if (ans.includes(optionId + '-P')) return 'P'
+    if (ans.includes(optionId + '-F')) return 'F'
+    return null
+  }
+
+  function setTrueFalseVerdict(optionId: string, verdict: 'P' | 'F') {
+    const prev = answers[question.id] ?? []
+    const filtered = prev.filter(a => !a.startsWith(optionId + '-'))
+    setAnswers({ ...answers, [question.id]: [...filtered, `${optionId}-${verdict}`] })
+  }
+
+  const answeredCount = questions.filter(q => {
+    const ans = answers[q.id] ?? []
+    const isMultiTF = q.question_type === 'true_false' && !q.options.some(o => o.id === 'T' || o.id === 'F')
+    if (isMultiTF) {
+      return q.options.every(opt => ans.some((a: string) => a.startsWith(opt.id + '-')))
+    }
+    return ans.length > 0
+  }).length
   const isLast = current === questions.length - 1
   const canSubmit = answeredCount === questions.length
   const isTimeLow = timeLeft !== null && timeLeft < 300
@@ -131,11 +155,17 @@ export default function TestScreen({
         {/* Question */}
         <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 mb-4">
           <div className={`inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full mb-4 ${
-            isMultiple
+            isTrueFalseMulti
+              ? 'bg-amber-100 text-amber-700'
+              : isMultiple
               ? 'bg-purple-100 text-purple-700'
               : 'bg-blue-100 text-blue-700'
           }`}>
-            {isMultiple ? '☑ Wybierz wszystkie poprawne odpowiedzi' : '○ Wybierz jedną odpowiedź'}
+            {isTrueFalseMulti
+              ? 'P/F Oceń prawdziwość każdego stwierdzenia'
+              : isMultiple
+              ? '☑ Wybierz wszystkie poprawne odpowiedzi'
+              : '○ Wybierz jedną odpowiedź'}
           </div>
           <p className="text-lg font-medium text-gray-900 mb-4">{question.question_text}</p>
 
@@ -149,25 +179,62 @@ export default function TestScreen({
             </div>
           )}
 
-          <div className="space-y-3">
-            {question.options.map((option) => {
-              const isSelected = selected.includes(option.id)
-              return (
-                <button
-                  key={option.id}
-                  onClick={() => toggleOption(option.id)}
-                  className={`w-full text-left px-4 py-3 rounded-lg border-2 transition-all ${
-                    isSelected
-                      ? 'border-green-500 bg-green-50 text-green-800'
-                      : 'border-gray-200 hover:border-gray-300 text-gray-700'
-                  }`}
-                >
-                  <span className="font-semibold mr-2">{option.id}.</span>
-                  {option.text}
-                </button>
-              )
-            })}
-          </div>
+          {isTrueFalseMulti ? (
+            <div className="space-y-3">
+              {question.options.map((option) => {
+                const verdict = getTrueFalseVerdict(option.id)
+                return (
+                  <div
+                    key={option.id}
+                    className={`flex items-center gap-3 px-4 py-3 rounded-lg border-2 transition-all ${
+                      verdict ? 'border-amber-200 bg-amber-50' : 'border-gray-200'
+                    }`}
+                  >
+                    <span className="font-semibold text-gray-500 shrink-0">{option.id}.</span>
+                    <span className="flex-1 text-gray-700 text-sm">{option.text}</span>
+                    <div className="flex gap-2 shrink-0">
+                      <button
+                        onClick={() => setTrueFalseVerdict(option.id, 'P')}
+                        className={`w-9 h-9 text-sm font-bold rounded-lg border-2 transition-all ${
+                          verdict === 'P'
+                            ? 'border-green-500 bg-green-500 text-white'
+                            : 'border-gray-300 text-gray-400 hover:border-green-400 hover:text-green-600'
+                        }`}
+                      >P</button>
+                      <button
+                        onClick={() => setTrueFalseVerdict(option.id, 'F')}
+                        className={`w-9 h-9 text-sm font-bold rounded-lg border-2 transition-all ${
+                          verdict === 'F'
+                            ? 'border-red-500 bg-red-500 text-white'
+                            : 'border-gray-300 text-gray-400 hover:border-red-400 hover:text-red-600'
+                        }`}
+                      >F</button>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {question.options.map((option) => {
+                const isSelected = selected.includes(option.id)
+                return (
+                  <button
+                    key={option.id}
+                    onClick={() => toggleOption(option.id)}
+                    className={`w-full text-left px-4 py-3 rounded-lg border-2 transition-all ${
+                      isSelected
+                        ? 'border-green-500 bg-green-50 text-green-800'
+                        : 'border-gray-200 hover:border-gray-300 text-gray-700'
+                    }`}
+                  >
+                    <span className="font-semibold mr-2">{option.id}.</span>
+                    {option.text}
+                  </button>
+                )
+              })}
+            </div>
+          )}
         </div>
 
         {/* Navigation */}

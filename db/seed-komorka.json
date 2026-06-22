@@ -1,0 +1,344 @@
+[
+  {
+    "topic_id": "c4346b31-355b-4817-9e66-22cf36d4c993",
+    "subtopic_id": "02bdc9fd-fcc9-4a74-bb86-477bfaa7dba3",
+    "image_url": null,
+    "question_text": "Komórkę roślinną umieszczono w roztworze o stężeniu soli wyższym niż wnętrze komórki. Wskaż prawidłowe dokończenie zdania: W wyniku tego zjawiska komórka...",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "pobierze wodę drogą osmozy, co spowoduje wzrost turgoru", "is_correct": false},
+      {"id": "B", "text": "ulegnie plazmolizie, ponieważ woda opuści ją drogą osmozy", "is_correct": true},
+      {"id": "C", "text": "wchłonie jony soli na drodze dyfuzji prostej przez lipidy błony", "is_correct": false},
+      {"id": "D", "text": "ulegnie lizie wskutek pęknięcia ściany komórkowej pod nadmiernym turgorem", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "W roztworze hipertonicznym woda przemieszcza się drogą osmozy z komórki (środowisko hipotoniczne) do otaczającego roztworu (środowisko hipertoniczne). Utrata wody powoduje kurczenie się wakuoli i oderwanie protoplastu od ściany komórkowej — jest to plazmoliza. Jony soli nie przenikają swobodnie przez selektywnie przepuszczalną błonę plazmatyczną na drodze dyfuzji prostej. Liza jest charakterystyczna dla komórek bez ściany komórkowej (np. erytrocytów) umieszczonych w roztworze hipotonicznym — ściana komórkowa roślin chroni przed pęknięciem.",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.97
+  },
+  {
+    "topic_id": "c4346b31-355b-4817-9e66-22cf36d4c993",
+    "subtopic_id": "02bdc9fd-fcc9-4a74-bb86-477bfaa7dba3",
+    "image_url": null,
+    "question_text": "Pompa sodowo-potasowa (Na⁺/K⁺-ATPaza) jest kluczowym białkiem błony komórkowej. Które stwierdzenie POPRAWNIE opisuje jej działanie?",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Transportuje 2 jony Na⁺ na zewnątrz i 3 jony K⁺ do wnętrza komórki, zużywając 1 ATP", "is_correct": false},
+      {"id": "B", "text": "Transportuje 3 jony Na⁺ na zewnątrz i 2 jony K⁺ do wnętrza komórki, zużywając 1 ATP", "is_correct": true},
+      {"id": "C", "text": "Działa jako kanał jonowy otwierający się po zmianie potencjału błonowego", "is_correct": false},
+      {"id": "D", "text": "Transportuje jony zgodnie z gradientem elektrochemicznym bez zużycia energii", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Pompa sodowo-potasowa (Na⁺/K⁺-ATPaza) hydrolizuje 1 cząsteczkę ATP, uwalniając energię do transportu jonów wbrew ich gradientom. Każdy cykl pracy pompy przetransportowuje 3 jony Na⁺ na zewnątrz komórki i 2 jony K⁺ do jej wnętrza. Asymetryczny transport (3 ładunki dodatnie na zewnątrz vs 2 do środka) przyczynia się do ujemnego potencjału elektrycznego wnętrza komórki. Pompa nie jest kanałem jonowym — to transporter, który zmienia konformację po przyłączeniu ATP; kanały jonowe otwierają się biernie i przepuszczają jony zgodnie z gradientem bez zużycia energii.",
+    "difficulty": 3,
+    "verified": true,
+    "ai_confidence": 0.97
+  },
+  {
+    "topic_id": "c4346b31-355b-4817-9e66-22cf36d4c993",
+    "subtopic_id": "5f7aaca5-c24d-41de-a023-a4fd1edd909d",
+    "image_url": null,
+    "question_text": "Wskaż strukturę komórkową, która jest obecna ZARÓWNO w komórkach prokariotycznych, jak i eukariotycznych:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Mitochondrium", "is_correct": false},
+      {"id": "B", "text": "Rybosomy", "is_correct": true},
+      {"id": "C", "text": "Jądro komórkowe otoczone otoczką", "is_correct": false},
+      {"id": "D", "text": "Aparat Golgiego", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Rybosomy są jedyną spośród wymienionych struktur obecną we wszystkich typach komórek. Różnią się jednak budową: u prokariontów mają rozmiar 70S (podjednostki 30S i 50S), a u eukariontów 80S (podjednostki 40S i 60S). Mitochondria, jądro komórkowe i aparat Golgiego to struktury charakterystyczne wyłącznie dla komórek eukariotycznych — powstały w wyniku ewolucji po wyodrębnieniu się tej domeny życia. Warto pamiętać, że mitochondria i chloroplasty mają własne rybosomy 70S, co stanowi jeden z kluczowych dowodów teorii endosymbiozy.",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.98
+  },
+  {
+    "topic_id": "c4346b31-355b-4817-9e66-22cf36d4c993",
+    "subtopic_id": "5f7aaca5-c24d-41de-a023-a4fd1edd909d",
+    "image_url": null,
+    "question_text": "Naukowiec zaobserwował, że po zadziałaniu bodźcem sekrecyjnym pęcherzyki zaczęły transportować białka z retikulum endoplazmatycznego do aparatu Golgiego, skąd kolejne pęcherzyki skierowały się ku błonie komórkowej. Który szlak transportu opisano w powyższym fragmencie?",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Endocytoza receptorowo-zależna", "is_correct": false},
+      {"id": "B", "text": "Egzocytoza — szlak wydzielniczy", "is_correct": true},
+      {"id": "C", "text": "Autofagia — trawienie uszkodzonych organelli przez lizosom", "is_correct": false},
+      {"id": "D", "text": "Transcytoza — transport przez komórkę z jednej strony na drugą", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Opisany szlak to konstytutywna egzocytoza: białka syntetyzowane na rybosomach szorstkie ER trafiają do aparatu Golgiego, gdzie są modyfikowane (glikozylacja, sortowanie), a następnie transportowane pęcherzykami do błony komórkowej i wydalane na zewnątrz. Endocytoza receptorowo-zależna to proces odwrotny — internalizacja cząsteczek z zewnątrz. Autofagia polega na trawieniu własnych organelli przez lizosomy i jest procesem degradacyjnym, nie sekrecyjnym. Transcytoza to transport substancji przez całą komórkę (np. w komórkach śródbłonka naczyń) i łączy endocytozę z egzocytozą.",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.96
+  },
+  {
+    "topic_id": "c4346b31-355b-4817-9e66-22cf36d4c993",
+    "subtopic_id": "baa3174e-705a-4720-be31-86a859a652e1",
+    "image_url": null,
+    "question_text": "Wskaż prawidłowe dokończenie zdania: Woda pełni w komórce funkcję głównego rozpuszczalnika, ponieważ...",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "jest cząsteczką niepolarną o małej masie cząsteczkowej i niskiej lepkości", "is_correct": false},
+      {"id": "B", "text": "tworzy trwałe wiązania kowalencyjne z solami mineralnymi, co zapobiega ich wytrącaniu", "is_correct": false},
+      {"id": "C", "text": "jest cząsteczką polarną zdolną do tworzenia wiązań wodorowych z innymi substancjami polarnymi i jonami", "is_correct": true},
+      {"id": "D", "text": "ma wysoką temperaturę wrzenia, która zapobiega odparowaniu z wnętrza komórki", "is_correct": false}
+    ],
+    "correct_answer": ["C"],
+    "explanation": "Woda jest doskonałym rozpuszczalnikiem biologicznym dzięki swojej polarności — atom tlenu jest silnie elektroujemny i przyciąga elektrony wiążące, co powoduje nierównomierny rozkład ładunku. Cząsteczka wody może otaczać zarówno jony (oddziaływania elektrostatyczne), jak i inne cząsteczki polarne (wiązania wodorowe), izolując je od siebie i umożliwiając rozpuszczenie. Substancje niepolarne (lipidy) są w wodzie nierozpuszczalne — to właśnie ta właściwość leży u podstaw budowy dwuwarstwy lipidowej błon komórkowych. Wysoka temperatura wrzenia wody wynika z wiązań wodorowych, ale nie jest bezpośrednią przyczyną jej właściwości jako rozpuszczalnika.",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.97
+  },
+  {
+    "topic_id": "c4346b31-355b-4817-9e66-22cf36d4c993",
+    "subtopic_id": "baa3174e-705a-4720-be31-86a859a652e1",
+    "image_url": null,
+    "question_text": "Oceń, które stwierdzenie dotyczące lipidów komórkowych jest PRAWDZIWE:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Fosfolipidy są w pełni hydrofobowe, dlatego tworzą jednowarstwową błonę komórkową", "is_correct": false},
+      {"id": "B", "text": "Cholesterol w błonie komórkowej zwiększa jej płynność w niskich temperaturach i zmniejsza w wysokich", "is_correct": true},
+      {"id": "C", "text": "Trójglicerydy pełnią w błonach biologicznych główną funkcję strukturalną", "is_correct": false},
+      {"id": "D", "text": "Woski dobrze rozpuszczają związki polarne ze względu na obecność grup hydrofilowych", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Cholesterol działa w błonie komórkowej jako bufor płynności: w niskich temperaturach zapobiega krystalizacji i upakowania fosfolipidów (zwiększa płynność), natomiast w wysokich temperaturach ogranicza nadmierne upłynnienie błony (zmniejsza płynność). Fosfolipidy mają charakter amfipatyczny — posiadają zarówno hydrofilową głowę (fosforan + alkohol), jak i hydrofobowe ogony kwasów tłuszczowych — dlatego tworzą dwuwarstwę, nie jednowarstwę. Trójglicerydy pełnią funkcję zapasową energetyczną (tkanka tłuszczowa), a nie strukturalną błon. Woski są substancjami silnie hydrofobowymi i nie rozpuszczają związków polarnych.",
+    "difficulty": 3,
+    "verified": true,
+    "ai_confidence": 0.96
+  },
+  {
+    "topic_id": "c4346b31-355b-4817-9e66-22cf36d4c993",
+    "subtopic_id": "a42f1d2e-1608-446b-a4b8-4740027f1112",
+    "image_url": null,
+    "question_text": "Enzym X wykazuje optymalną aktywność przy pH 2,0 i temperaturze 37°C. Wskaż, w którym odcinku przewodu pokarmowego człowieka enzym X prawdopodobnie działa:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Jama ustna", "is_correct": false},
+      {"id": "B", "text": "Żołądek", "is_correct": true},
+      {"id": "C", "text": "Dwunastnica", "is_correct": false},
+      {"id": "D", "text": "Jelito cienkie", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Optymalne warunki enzymu X (pH 2,0; temperatura 37°C) odpowiadają środowisku żołądka. Ludzki żołądek wytwarza kwas solny (HCl), utrzymując pH na poziomie 1,5–3,5 — jest to środowisko wymagane przez pepsynę, która trawi białka. Temperatura 37°C odpowiada temperaturze ciała człowieka. Jama ustna ma pH 6,5–7,5 — tu działa amylaza ślinowa. Dwunastnica i jelito cienkie mają pH 7–8 (zasadowe wskutek wydzielania soku trzustkowego i żółci), gdzie aktywne są trypsyna, lipaza i inne enzymy trawienne. W wysokim pH enzym X ulegałby denaturacji i inaktywacji.",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.98
+  },
+  {
+    "topic_id": "c4346b31-355b-4817-9e66-22cf36d4c993",
+    "subtopic_id": "a42f1d2e-1608-446b-a4b8-4740027f1112",
+    "image_url": null,
+    "question_text": "Inhibitor kompetycyjny i niekompetycyjny różnią się mechanizmem hamowania enzymu. Które stwierdzenie POPRAWNIE opisuje różnicę między tymi typami inhibicji?",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Inhibitor kompetycyjny trwale denaturuje enzym, inhibitor niekompetycyjny powoduje tylko chwilowe zahamowanie", "is_correct": false},
+      {"id": "B", "text": "Inhibicję kompetycyjną można przezwyciężyć przez zwiększenie stężenia substratu, inhibicji niekompetycyjnej — nie", "is_correct": true},
+      {"id": "C", "text": "Inhibitor niekompetycyjny zmienia wartość Km, inhibitor kompetycyjny obniża wartość Vmax", "is_correct": false},
+      {"id": "D", "text": "Tylko inhibitor niekompetycyjny działa poprzez centrum aktywne enzymu", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Kluczowa różnica dotyczy możliwości odwrócenia inhibicji przez zmianę stężenia substratu. Inhibitor kompetycyjny rywalizuje z substratem o centrum aktywne enzymu — przy dużym nadmiarze substratu wzrasta prawdopodobieństwo zajęcia centrum przez substrat, a inhibicja maleje. Inhibitor niekompetycyjny wiąże się z centrum allosterycznym (innym niż aktywne), zmieniając konformację enzymu niezależnie od substratu — żadna ilość substratu nie odwróci tej inhibicji. Pod względem kinetycznym: inhibitor kompetycyjny zwiększa pozorne Km (zmniejsza pozorne powinowactwo do substratu), nie zmieniając Vmax; inhibitor niekompetycyjny obniża Vmax, nie zmieniając Km — odwrotnie niż w opcji C.",
+    "difficulty": 3,
+    "verified": true,
+    "ai_confidence": 0.96
+  },
+  {
+    "topic_id": "c4346b31-355b-4817-9e66-22cf36d4c993",
+    "subtopic_id": "257cec56-c729-474f-8387-eef06eb32e09",
+    "image_url": null,
+    "question_text": "Wskaż prawidłowe dokończenie zdania: RNA różni się strukturalnie od DNA tym, że...",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "RNA zawiera deoksyrybozę, a DNA — rybozę jako cukier w nukleotydach", "is_correct": false},
+      {"id": "B", "text": "RNA zawiera uracyl zamiast tyminy i jest zazwyczaj jednoniciowy", "is_correct": true},
+      {"id": "C", "text": "RNA zawiera wyłącznie puryny, a DNA — wyłącznie pirymidyny", "is_correct": false},
+      {"id": "D", "text": "RNA tworzy stabilną podwójną helisę stabilizowaną wiązaniami wodorowymi między zasadami", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Między RNA a DNA istnieją dwie zasadnicze różnice strukturalne. Po pierwsze, cukier: RNA zawiera rybozę (z grupą -OH przy węglu 2'), a DNA — deoksyrybozę (bez tej grupy, stąd nazwa). Po drugie, zasada: RNA zawiera uracyl (U) zamiast tyminy (T) obecnej w DNA — obie zasady pirymidynowe parują z adeniną. RNA jest zazwyczaj jednoniciowy (choć może tworzyć lokalne struktury drugorzędowe przez komplementarne fragmenty). DNA tworzy stabilną podwójną helisę. Obie cząsteczki zawierają zarówno puryny (adeninę i guaninę), jak i pirymidyny (cytozynę, a ponadto tyminę w DNA lub uracyl w RNA).",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.98
+  },
+  {
+    "topic_id": "c4346b31-355b-4817-9e66-22cf36d4c993",
+    "subtopic_id": "257cec56-c729-474f-8387-eef06eb32e09",
+    "image_url": null,
+    "question_text": "Badacz zsekwencjonował nić matrycową DNA pewnego genu i uzyskał sekwencję 5'-ATCGGCTA-3'. Wskaż, jaka będzie sekwencja mRNA powstałej w wyniku transkrypcji tego odcinka:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "5'-AUCGGCUA-3'", "is_correct": false},
+      {"id": "B", "text": "5'-UAGCCGAU-3'", "is_correct": true},
+      {"id": "C", "text": "3'-UAGCCGAU-5'", "is_correct": false},
+      {"id": "D", "text": "5'-TAGCCGAT-3'", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Polimeraza RNA odczytuje nić matrycową w kierunku 3'→5' i syntetyzuje mRNA w kierunku 5'→3'. Nić matrycowa podana jest w orientacji 5'→3', więc polimeraza zaczyna odczyt od jej prawego końca (3'). Komplementarne pary zasad (z podmianą T→U): A→U, T→A, C→G, G→C. Czytając matrycę 3'→5' (od A na końcu 3' do A na końcu 5'): sekwencja mRNA 5'→3' wynosi U-A-G-C-C-G-A-U = 5'-UAGCCGAU-3'. Opcja A to błąd — jest to prosta zamiana T→U bez uwzględnienia komplementarności. Opcja C ma prawidłową sekwencję, ale błędną orientację 3'→5' (mRNA zapisuje się zawsze 5'→3'). Opcja D zawiera tyminę zamiast uracylu — jest to nić DNA, nie mRNA.",
+    "difficulty": 3,
+    "verified": true,
+    "ai_confidence": 0.97
+  },
+  {
+    "topic_id": "c4346b31-355b-4817-9e66-22cf36d4c993",
+    "subtopic_id": "04e96c80-bd1d-4d99-95b7-c88d4f0ef598",
+    "image_url": null,
+    "question_text": "Glikoliza jest pierwszym etapem oddychania komórkowego. Wskaż stwierdzenie, które POPRAWNIE opisuje ten proces:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Glikoliza zachodzi w mitochondriach i wymaga bezpośrednio tlenu cząsteczkowego", "is_correct": false},
+      {"id": "B", "text": "Z 1 cząsteczki glukozy powstają 2 cząsteczki pirogronianu i zysk netto 2 ATP", "is_correct": true},
+      {"id": "C", "text": "W glikolizie glukoza jest całkowicie utleniana do CO₂ i H₂O z zyskiem 36–38 ATP", "is_correct": false},
+      {"id": "D", "text": "Glikoliza produkuje FADH₂ jako główny nośnik elektronów przekazywanych do łańcucha oddechowego", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Glikoliza to beztlenowy szlak metaboliczny przebiegający w cytozolu komórki. 1 cząsteczka glukozy (6C) jest rozkładana na 2 cząsteczki pirogronianu (3C). Bilans energetyczny: inwestycja 2 ATP (etap preparacyjny) minus produkcja 4 ATP (etap wyzysku energii) = zysk netto 2 ATP; ponadto powstają 2 NADH. Glikoliza nie wymaga tlenu i nie zachodzi w mitochondriach. 36–38 ATP to łączny zysk z pełnego oddychania tlenowego (glikoliza + cykl Krebsa + łańcuch oddechowy). W glikolizie nie powstaje FADH₂ — ten nośnik elektronów jest redukowany dopiero w cyklu Krebsa (w reakcji katalizowanej przez dehydrogenazę bursztynianową).",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.97
+  },
+  {
+    "topic_id": "c4346b31-355b-4817-9e66-22cf36d4c993",
+    "subtopic_id": "04e96c80-bd1d-4d99-95b7-c88d4f0ef598",
+    "image_url": null,
+    "question_text": "Mięśnie szkieletowe w warunkach intensywnego wysiłku fizycznego i niedoboru tlenu przeprowadzają fermentację mleczanową. Wskaż kluczową funkcję tego procesu z punktu widzenia metabolizmu komórki:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Produkuje duże ilości ATP porównywalne z oddychaniem tlenowym, umożliwiając długotrwały wysiłek", "is_correct": false},
+      {"id": "B", "text": "Regeneruje NAD⁺ konieczny do kontynuowania glikolizy w warunkach beztlenowych", "is_correct": true},
+      {"id": "C", "text": "Dostarcza tlen do komórek mięśniowych w warunkach niedotlenienia", "is_correct": false},
+      {"id": "D", "text": "Umożliwia syntezę glukozy z mleczanu bezpośrednio w mięśniach (glukoneogeneza)", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Fermentacja mleczanowa nie produkuje ATP — jej jedynym metabolicznym celem jest regeneracja NAD⁺. W glikolizie NAD⁺ jest redukowany do NADH. Gdy brakuje tlenu, mitochondrialny łańcuch oddechowy nie może utleniać NADH z powrotem do NAD⁺. Fermentacja mleczanowa rozwiązuje ten problem: pirogronian jest redukowany do mleczanu przez dehydrogenazę mleczanową, a NADH jest utleniany do NAD⁺. Zregenerowany NAD⁺ umożliwia kontynuowanie glikolizy i produkcję 2 ATP netto. Glukoneogeneza z mleczanu zachodzi głównie w wątrobie (cykl Coriego), nie w mięśniach. Fermentacja nie dostarcza tlenu — to enzymatyczny szlak beztlenowy.",
+    "difficulty": 3,
+    "verified": true,
+    "ai_confidence": 0.97
+  },
+  {
+    "topic_id": "c4346b31-355b-4817-9e66-22cf36d4c993",
+    "subtopic_id": "ce23ad40-6d27-4b15-b49f-0e714db0e20e",
+    "image_url": null,
+    "question_text": "Łańcuch oddechowy zlokalizowany jest w wewnętrznej błonie mitochondrialnej. Wskaż, jaką rolę pełni tlen cząsteczkowy (O₂) w tym procesie:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Tlen jest bezpośrednim źródłem energii dla kompleksów białkowych łańcucha oddechowego", "is_correct": false},
+      {"id": "B", "text": "Tlen służy jako końcowy akceptor elektronów i łącząc się z protonami, tworzy wodę", "is_correct": true},
+      {"id": "C", "text": "Tlen pompuje protony z matrycy do przestrzeni międzybłonowej mitochondrium", "is_correct": false},
+      {"id": "D", "text": "Tlen aktywuje syntazę ATP przez bezpośrednie wiązanie się z jej centrum katalitycznym", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "W łańcuchu oddechowym elektrony pochodzące z NADH i FADH₂ są stopniowo przekazywane między kolejnymi nośnikami (kompleksy I-IV), a uwalniana energia napędza pompy protonowe. Na końcu łańcucha kompleks IV (oksydaza cytochromowa) przekazuje elektrony na O₂, który łączy się z protonami: O₂ + 4e⁻ + 4H⁺ → 2H₂O. Tlen jest niezbędnym końcowym akceptorem elektronów — bez niego cały łańcuch zatrzymuje się, gdyż nikt nie może przyjąć elektronów od ostatniego kompleksu. Energia uwalniana podczas transportu elektronów jest konserwowana jako gradient protonowy, który następnie napędza syntazę ATP (chemiosmoza). Tlen nie pompuje protonów i nie aktywuje bezpośrednio syntazy ATP.",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.98
+  },
+  {
+    "topic_id": "c4346b31-355b-4817-9e66-22cf36d4c993",
+    "subtopic_id": "ce23ad40-6d27-4b15-b49f-0e714db0e20e",
+    "image_url": null,
+    "question_text": "Gradient protonowy wytworzony przez łańcuch oddechowy jest wykorzystywany do syntezy ATP. Który model POPRAWNIE opisuje mechanizm fosforylacji oksydacyjnej w mitochondrium?",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Fosforylacja na poziomie substratu — wysokoenergetyczne intermediaty cyklu Krebsa bezpośrednio fosforylują ADP", "is_correct": false},
+      {"id": "B", "text": "Chemiosmoza — protony przepływają przez syntazę ATP zgodnie z gradientem elektrochemicznym, napędzając fosforylację ADP do ATP", "is_correct": true},
+      {"id": "C", "text": "Fotofosforylacja — energia świetlna pochłaniana przez mitochondria bezpośrednio napędza syntezę ATP", "is_correct": false},
+      {"id": "D", "text": "Elektrony z NADH bezpośrednio fosforylują ADP bez pośrednictwa gradientu protonowego", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Fosforylacja oksydacyjna w mitochondriach przebiega zgodnie z hipotezą chemiosmotyczną Petera Mitchella (Nagroda Nobla 1978). Kompleksy I, III i IV łańcucha oddechowego pompują protony H⁺ z matrycy do przestrzeni międzybłonowej, wytwarzając gradient elektrochemiczny. Protony dyfundują z powrotem do matrycy wyłącznie przez sintazę ATP (kompleks V), a energia ich przepływu zgodnie z gradientem napędza syntezę ATP z ADP i Pi. Fosforylacja na poziomie substratu (opcja A) rzeczywiście zachodzi w glikolizie i cyklu Krebsa, ale jest ilościowo mniej istotna i nie dotyczy gradientu protonowego. Fotofosforylacja (opcja C) zachodzi w chloroplastach — nie w mitochondriach.",
+    "difficulty": 3,
+    "verified": true,
+    "ai_confidence": 0.97
+  },
+  {
+    "topic_id": "c4346b31-355b-4817-9e66-22cf36d4c993",
+    "subtopic_id": "ce23ad40-6d27-4b15-b49f-0e714db0e20e",
+    "image_url": null,
+    "question_text": "Cyjanek potasu (KCN) jest silną trucizną, która blokuje oksydazę cytochromową (kompleks IV łańcucha oddechowego). Wskaż bezpośredni skutek zatrucia cyjankiem na poziomie komórkowym:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Zahamowanie wyłącznie glikolizy przy zachowaniu prawidłowej funkcji mitochondriów", "is_correct": false},
+      {"id": "B", "text": "Zatrzymanie transportu elektronów i zanik gradientu protonowego, co uniemożliwia syntezę ATP przez syntazę ATP", "is_correct": true},
+      {"id": "C", "text": "Nadprodukcja ATP wskutek niekontrolowanego przepływu protonów przez błonę wewnętrzną", "is_correct": false},
+      {"id": "D", "text": "Selektywne zahamowanie cyklu Krebsa przy zachowaniu funkcji łańcucha oddechowego", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Oksydaza cytochromowa (kompleks IV) jest ostatnim nośnikiem elektronów w łańcuchu oddechowym — przekazuje elektrony na O₂. Cyjanek wiąże się z jonem żelaza Fe³⁺ w centrum hemowym kompleksu IV i nieodwracalnie blokuje ten transfer. Skutki: (1) elektrony nie mogą przepływać przez cały łańcuch (blokada oddolna); (2) kompleksy I–III nie mogą pompować protonów; (3) gradient protonowy zanika; (4) syntaza ATP traci siłę napędową — produkcja ATP ustaje. Śmierć komórki następuje z powodu ostrego niedoboru ATP. Glikoliza i fermentacja mleczanowa są niezależne od łańcucha oddechowego i mogą jeszcze chwilowo funkcjonować. Cykl Krebsa jest zablokowany pośrednio, bo bez działającego łańcucha nie może utleniać zgromadzonych NADH i FADH₂.",
+    "difficulty": 3,
+    "verified": true,
+    "ai_confidence": 0.97
+  },
+  {
+    "topic_id": "c4346b31-355b-4817-9e66-22cf36d4c993",
+    "subtopic_id": "a21c7985-cdf3-4451-840e-617a993b145e",
+    "image_url": null,
+    "question_text": "Cykl komórkowy składa się z kilku faz. Wskaż, która faza bezpośrednio poprzedza mitozę i jakie kluczowe wydarzenie w niej zachodzi:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Faza S — replikacja DNA i synteza histonów", "is_correct": false},
+      {"id": "B", "text": "Faza G0 — komórka trwale opuszcza cykl komórkowy i nie podlega podziałowi", "is_correct": false},
+      {"id": "C", "text": "Faza G2 — weryfikacja poprawności replikacji DNA i synteza białek wrzeciona kariokinetycznego", "is_correct": true},
+      {"id": "D", "text": "Faza M — kondensacja chromosomów i rozpad otoczki jądrowej", "is_correct": false}
+    ],
+    "correct_answer": ["C"],
+    "explanation": "Cykl komórkowy składa się z interfazy (G1 → S → G2) i fazy M (mitoza + cytokineza). Faza G2 bezpośrednio poprzedza mitozę — w tym czasie komórka posiada już zreplikowane DNA (zawartość 4C) i intensywnie syntetyzuje białka niezbędne do podziału, m.in. tubulinę (składnik wrzeciona podziałowego) i kondensyny. W punkcie kontrolnym G2/M system cyklinowo-kinazowy sprawdza kompletność i poprawność replikacji oraz ewentualne uszkodzenia DNA — w razie błędów podział zostaje wstrzymany. Faza S zawiera replikację, lecz nie jest bezpośrednio przed mitozą (G2 jest pomiędzy). Faza M to sam podział — kondensacja chromosomów zachodzi już w profazie, która jest częścią fazy M, a nie jej poprzedniczką.",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.97
+  },
+  {
+    "topic_id": "c4346b31-355b-4817-9e66-22cf36d4c993",
+    "subtopic_id": "a21c7985-cdf3-4451-840e-617a993b145e",
+    "image_url": null,
+    "question_text": "Zaznacz WSZYSTKIE stwierdzenia, które są PRAWDZIWE w odniesieniu do mitozy:",
+    "question_type": "multiple",
+    "options": [
+      {"id": "A", "text": "Mitoza prowadzi do powstania 2 komórek potomnych z identycznym materiałem genetycznym jak komórka macierzysta", "is_correct": true},
+      {"id": "B", "text": "W anafazie mitozy dochodzi do crossing-over między chromatydami niesiostrzanymi", "is_correct": false},
+      {"id": "C", "text": "Podział mitotyczny zachodzi w komórkach somatycznych i służy wzrostowi oraz naprawie tkanek", "is_correct": true},
+      {"id": "D", "text": "W anafazie mitozy centromery ulegają podziałowi, a chromatydy siostrzane wędrują do przeciwnych biegunów", "is_correct": true}
+    ],
+    "correct_answer": ["A", "C", "D"],
+    "explanation": "Mitoza to podział równomiernościowy — każda komórka potomna otrzymuje identyczny garnitur chromosomowy (2n, jak komórka macierzysta). Zachodzi w komórkach somatycznych i jest podstawą wzrostu organizmu, regeneracji tkanek oraz rozmnażania bezpłciowego. W anafazie mitozy enzymy separyną przecinają kohezyny łączące chromatydy siostrzane — centromery się rozdzielają, a chromatydy (stając się samodzielnymi chromosomami) wędrują do przeciwnych biegunów ciągnięte przez wrzeciono. Crossing-over (rekombinacja genetyczna) zachodzi wyłącznie w mejozie I (profaza I) między chromatydami niesiostrzanymi chromosomów homologicznych — NIE w mitozie. To kluczowa różnica zwiększająca zmienność genetyczną w rozmnażaniu płciowym.",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.97
+  },
+  {
+    "topic_id": "c4346b31-355b-4817-9e66-22cf36d4c993",
+    "subtopic_id": "b3c2f29e-c078-4af4-9c0e-ea903c659986",
+    "image_url": null,
+    "question_text": "Teoria endosymbiozy głosi, że mitochondria i chloroplasty wywodzą się z wolno żyjących prokariontów. Wskaż cechę mitochondriów, która STANOWI najsilniejszy dowód na poparcie tej teorii:",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Mitochondria posiadają dwie błony, a wewnętrzna tworzy wpuklenia zwane krystami", "is_correct": false},
+      {"id": "B", "text": "Mitochondria mają własne koliste DNA i rybosomy 70S podobne do bakteryjnych", "is_correct": true},
+      {"id": "C", "text": "Mitochondria są obecne wyłącznie w komórkach eukariotycznych organizmów tlenowych", "is_correct": false},
+      {"id": "D", "text": "Mitochondria wymagają białek kodowanych przez DNA jądra komórkowego do prawidłowego funkcjonowania", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "Teoria endosymbiozy (Lynn Margulis, 1967) opiera się na kilku kluczowych dowodach wskazujących na bakteryjne pochodzenie mitochondriów i chloroplastów. Najważniejsze: (1) Własne koliste DNA bez histonów — identyczne jak bakteryjny chromosom (jądrowe DNA eukariotów jest liniowe i otoczone histonami); (2) Rybosomy 70S — takie same jak bakteryjne (a nie 80S charakterystyczne dla cytoplazmy eukariontów) — wrażliwe na te same antybiotyki co bakterie (streptomycyna, chloramfenikol); (3) Namnażanie przez podział binarny niezależnie od podziału komórki. Podwójne błony mitochondriów (opcja A) też są dowodem, ale mniej precyzyjnym. Opcja D wskazuje na zależność od jądra — to prawda, ale nie jest dowodem teorii endosymbiozy, lecz raczej wynikiem ewolucyjnego przeniesienia genów do jądra.",
+    "difficulty": 2,
+    "verified": true,
+    "ai_confidence": 0.97
+  },
+  {
+    "topic_id": "c4346b31-355b-4817-9e66-22cf36d4c993",
+    "subtopic_id": "b3c2f29e-c078-4af4-9c0e-ea903c659986",
+    "image_url": null,
+    "question_text": "W toku ewolucji endosymbiotycznej większość genów pierwotnych mitochondriów została przeniesiona do jądra komórkowego. Które wyjaśnienie NAJLEPIEJ tłumaczy, dlaczego pewne geny pozostały w genomie mitochondrialnym?",
+    "question_type": "single",
+    "options": [
+      {"id": "A", "text": "Geny mitochondrialne są zbyt duże, by zmieścić się w jądrze komórkowym", "is_correct": false},
+      {"id": "B", "text": "Białka kodowane przez mitDNA są silnie hydrofobowe — trudno je zaimportować przez dwie błony mitochondrialne, dlatego korzystniej jest produkować je lokalnie", "is_correct": true},
+      {"id": "C", "text": "Mitochondrialny DNA koduje wyłącznie rybosomy potrzebne do translacji pozostałych białek mitochondrialnych", "is_correct": false},
+      {"id": "D", "text": "Jądro komórkowe nie ma wystarczającej pojemności genomowej, by przejąć dodatkowe geny mitochondrialne", "is_correct": false}
+    ],
+    "correct_answer": ["B"],
+    "explanation": "W toku ewolucji endosymbiotycznej przeniesienie genów z mitochondriów do jądra komórkowego jest korzystne — jeden egzemplarz genu w jądrze zastępuje wiele kopii w każdym mitochondrium. Dlaczego jednak 13 genów (u człowieka) pozostało w mitDNA? Hipoteza CoRR (Colocation for Redox Regulation) sugeruje, że geny kodujące subjednostki łańcucha oddechowego muszą pozostać lokalnie, bo ich produkty białkowe są wyjątkowo hydrofobowe i nie mogą być zaimportowane przez hydrofobową podwójną błonę mitochondrialną po syntezie w cytoplazmie. Lokalna produkcja umożliwia też szybką regulację ekspresji w odpowiedzi na lokalny stan oksydoredukcji. Ludzki genom jądrowy (3 miliardy par zasad) z łatwością pomieściłby kilkanaście dodatkowych genów — pojemność nie jest ograniczeniem. Mitochondrialny DNA koduje nie tylko rybosomy, lecz przede wszystkim 13 białek łańcucha oddechowego.",
+    "difficulty": 3,
+    "verified": true,
+    "ai_confidence": 0.93
+  }
+]
