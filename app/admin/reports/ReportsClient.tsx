@@ -705,7 +705,6 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
           <div className="space-y-4">
             {maturaByExam.map(({ exam, qs, open, closed, withKeyPoints, withModelAnswer, totalPoints }) => {
               const kpPct = open.length > 0 ? Math.round(withKeyPoints.length / open.length * 100) : 100
-              const maPct = open.length > 0 ? Math.round(withModelAnswer.length / open.length * 100) : 100
               return (
                 <div key={exam.id} className="bg-white rounded-xl border border-gray-200 p-5">
                   <div className="flex items-center justify-between mb-4">

@@ -101,7 +101,7 @@ function MultipleChoice({ question, onReset }: { question: Question; onReset: ()
     if (checked) return
     setSelected(prev => {
       const next = new Set(Array.from(prev))
-      next.has(opt) ? next.delete(opt) : next.add(opt)
+      if (next.has(opt)) { next.delete(opt) } else { next.add(opt) }
       return next
     })
   }

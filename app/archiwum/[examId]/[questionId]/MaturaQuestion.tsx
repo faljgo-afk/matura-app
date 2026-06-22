@@ -28,7 +28,6 @@ function ScoreBadge({ score, max }: { score: number; max: number }) {
 
 export default function MaturaQuestion({
   questionId,
-  maxPoints,
   modelAnswer,
 }: {
   questionId: string

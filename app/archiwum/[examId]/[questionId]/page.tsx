@@ -28,8 +28,8 @@ async function getQuestion(questionId: string): Promise<Question | null> {
   if (!data) return null
   return {
     ...data,
-    exam_year: (data.matura_exams as any)?.year,
-    exam_session: (data.matura_exams as any)?.session,
+    exam_year: (data.matura_exams as { year: number } | null)?.year,
+    exam_session: (data.matura_exams as { session: string } | null)?.session,
   }
 }
 
