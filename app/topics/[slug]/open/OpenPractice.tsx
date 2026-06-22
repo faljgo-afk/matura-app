@@ -220,24 +220,38 @@ export default function OpenPractice({ questions }: { questions: Question[] }) {
               placeholder="Napisz pełną odpowiedź..."
               className="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent resize-y"
             />
-            <div className="flex items-center justify-between mt-3 gap-3">
-              <button
-                onClick={handleSkip}
-                className="px-4 py-2.5 text-sm font-medium border border-gray-300 text-gray-600 rounded-lg hover:border-amber-400 hover:text-amber-700 hover:bg-amber-50 transition-all whitespace-nowrap"
-              >
-                Pomiń na razie
-              </button>
-              <div className="flex items-center gap-3 ml-auto">
-                <span className="text-xs text-gray-400">{answer.trim().length} znaków</span>
-                <button
-                  onClick={handleEvaluate}
-                  disabled={answer.trim().length < 5 || loading}
-                  className="px-5 py-2.5 bg-violet-600 text-white text-sm font-semibold rounded-lg hover:bg-violet-700 disabled:bg-gray-200 disabled:text-gray-400 transition-all"
-                >
-                  {loading ? 'Oceniam...' : 'Sprawdź odpowiedź'}
-                </button>
+            {loading ? (
+              <div className="mt-4 flex items-center gap-4 bg-violet-50 border border-violet-200 rounded-xl px-5 py-4">
+                <div className="flex gap-1.5 shrink-0">
+                  <span className="w-2.5 h-2.5 bg-violet-400 rounded-full animate-bounce [animation-delay:-0.3s]" />
+                  <span className="w-2.5 h-2.5 bg-violet-400 rounded-full animate-bounce [animation-delay:-0.15s]" />
+                  <span className="w-2.5 h-2.5 bg-violet-400 rounded-full animate-bounce" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-violet-800">AI ocenia odpowiedź...</p>
+                  <p className="text-xs text-violet-500 mt-0.5">Porównuję z kryteriami oceniania CKE</p>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="flex items-center justify-between mt-3 gap-3">
+                <button
+                  onClick={handleSkip}
+                  className="px-4 py-2.5 text-sm font-medium border border-gray-300 text-gray-600 rounded-lg hover:border-amber-400 hover:text-amber-700 hover:bg-amber-50 transition-all whitespace-nowrap"
+                >
+                  Pomiń na razie
+                </button>
+                <div className="flex items-center gap-3 ml-auto">
+                  <span className="text-xs text-gray-400">{answer.trim().length} znaków</span>
+                  <button
+                    onClick={handleEvaluate}
+                    disabled={answer.trim().length < 5}
+                    className="px-5 py-2.5 bg-violet-600 text-white text-sm font-semibold rounded-lg hover:bg-violet-700 disabled:bg-gray-200 disabled:text-gray-400 transition-all"
+                  >
+                    Sprawdź odpowiedź
+                  </button>
+                </div>
+              </div>
+            )}
             {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
           </div>
         )}
