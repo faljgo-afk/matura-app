@@ -189,6 +189,7 @@ function TrueFalse({ question, onReset }: { question: Question; onReset: () => v
   const count = question.num_statements ?? pattern.length
   const [answers, setAnswers] = useState<(string | null)[]>(Array(count).fill(null))
   const [checked, setChecked] = useState(false)
+  const [showAnswer, setShowAnswer] = useState(false)
 
   function setAnswer(i: number, val: string) {
     if (checked) return
@@ -199,10 +200,11 @@ function TrueFalse({ question, onReset }: { question: Question; onReset: () => v
     ? answers.filter((a, i) => a === pattern[i]).length
     : 0
 
-  // Scale score to max_points (e.g. 3 statements but max 2 pts)
   const scaledScore = checked
     ? Math.round((score / count) * question.max_points)
     : 0
+
+  const isPerfect = checked && scaledScore === question.max_points
 
   return (
     <div className="space-y-3">
@@ -215,7 +217,7 @@ function TrueFalse({ question, onReset }: { question: Question; onReset: () => v
               {(['P', 'F'] as const).map(val => {
                 const label = val === 'P' ? 'Prawda' : 'Fałsz'
                 const isSelected = answers[i] === val
-                const isCorrect = checked && pattern[i] === val
+                const isCorrect = checked && pattern[i] === val && (isPerfect || showAnswer)
                 const isWrong = checked && answers[i] === val && pattern[i] !== val
                 return (
                   <button
@@ -250,14 +252,33 @@ function TrueFalse({ question, onReset }: { question: Question; onReset: () => v
       ) : (
         <>
           <div className={`rounded-lg px-4 py-3 text-sm ${
-            scaledScore === question.max_points ? 'bg-green-50 text-green-800' : 'bg-yellow-50 text-yellow-800'
+            isPerfect ? 'bg-green-50 text-green-800' : 'bg-yellow-50 text-yellow-800'
           }`}>
             <ScoreBadge score={scaledScore} max={question.max_points} />
             <span className="ml-3">{score}/{count} stwierdzeń poprawnie</span>
           </div>
-          <button onClick={onReset} className="w-full py-2 text-sm border border-gray-200 rounded-lg text-gray-500 hover:bg-gray-50">
-            Spróbuj jeszcze raz
-          </button>
+          {isPerfect ? (
+            <button onClick={onReset} className="w-full py-2 text-sm border border-gray-200 rounded-lg text-gray-500 hover:bg-gray-50">
+              Spróbuj jeszcze raz
+            </button>
+          ) : (
+            <div className="flex gap-2">
+              <button
+                onClick={() => { setAnswers(Array(count).fill(null)); setChecked(false); setShowAnswer(false) }}
+                className="flex-1 py-2.5 text-sm font-semibold border border-amber-300 text-amber-700 rounded-lg hover:bg-amber-50 transition-all"
+              >
+                Spróbuj jeszcze raz
+              </button>
+              {!showAnswer && (
+                <button
+                  onClick={() => setShowAnswer(true)}
+                  className="px-4 py-2.5 text-sm border border-gray-200 text-gray-500 rounded-lg hover:bg-gray-50 transition-all whitespace-nowrap"
+                >
+                  Pokaż odpowiedź
+                </button>
+              )}
+            </div>
+          )}
         </>
       )}
     </div>
