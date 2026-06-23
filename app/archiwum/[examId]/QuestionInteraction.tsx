@@ -217,8 +217,9 @@ function TrueFalse({ question, onReset }: { question: Question; onReset: () => v
               {(['P', 'F'] as const).map(val => {
                 const label = val === 'P' ? 'Prawda' : 'Fałsz'
                 const isSelected = answers[i] === val
-                const isCorrect = checked && pattern[i] === val && (isPerfect || showAnswer)
-                const isWrong = checked && answers[i] === val && pattern[i] !== val
+                const revealColors = isPerfect || showAnswer
+                const isCorrect = checked && pattern[i] === val && revealColors
+                const isWrong = checked && answers[i] === val && pattern[i] !== val && revealColors
                 return (
                   <button
                     key={val}
