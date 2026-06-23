@@ -40,6 +40,7 @@ function ScoreBadge({ score, max }: { score: number; max: number }) {
 function SingleChoice({ question }: { question: Question; onReset: () => void }) {
   const [selected, setSelected] = useState<string | null>(null)
   const [confirmed, setConfirmed] = useState(false)
+  const [showAnswer, setShowAnswer] = useState(false)
   const correct = (question.correct_answer as { letter: string })?.letter
 
   // Compound answer: letter + digit (e.g. 'C2') → generate all combos A1–C3
@@ -48,12 +49,15 @@ function SingleChoice({ question }: { question: Question; onReset: () => void })
     ? ['A', 'B', 'C'].flatMap(l => ['1', '2', '3'].map(n => l + n))
     : ['A', 'B', 'C', 'D']
 
+  const isCorrect = selected === correct
+
   function getColor(opt: string) {
     if (!confirmed) return selected === opt
       ? 'border-amber-500 bg-amber-50 text-amber-800 font-semibold cursor-pointer'
       : 'border-gray-300 hover:border-amber-400 hover:bg-amber-50 cursor-pointer'
-    if (opt === correct) return 'border-green-500 bg-green-50 text-green-800 font-semibold'
-    if (opt === selected && opt !== correct) return 'border-red-400 bg-red-50 text-red-700'
+    if (isCorrect && opt === correct) return 'border-green-500 bg-green-50 text-green-800 font-semibold'
+    if (!isCorrect && showAnswer && opt === correct) return 'border-green-500 bg-green-50 text-green-800 font-semibold'
+    if (opt === selected && !isCorrect) return 'border-red-400 bg-red-50 text-red-700'
     return 'border-gray-200 text-gray-400'
   }
 
@@ -96,7 +100,7 @@ function SingleChoice({ question }: { question: Question; onReset: () => void })
               Spróbuj jeszcze raz
             </button>
             <button
-              onClick={() => setSelected(correct)}
+              onClick={() => setShowAnswer(true)}
               className="px-4 py-2.5 text-sm border border-gray-200 text-gray-500 rounded-lg hover:bg-gray-50 transition-all whitespace-nowrap"
             >
               Pokaż odpowiedź
