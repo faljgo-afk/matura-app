@@ -36,17 +36,33 @@ export async function POST(req: NextRequest) {
   let reviewQuestionIds: string[] = []
 
   if (sessionType === 'mock_exam' || sessionType === 'mock_exam_free') {
-    const { data, error } = await supabase
-      .from('mock_questions')
-      .select('id, subtopic_id')
-      .eq('verified', true)
-      .limit(100)
+    const [{ data: mockData }, { data: topicData }] = await Promise.all([
+      supabase.from('mock_questions').select('id, subtopic_id').eq('verified', true).limit(200),
+      supabase.from('questions').select('id, subtopic_id')
+        .eq('verified', true)
+        .in('question_type', ['single', 'multiple', 'true_false'])
+        .limit(300),
+    ])
 
-    if (error || !data || data.length === 0) {
+    const combined = [...(mockData ?? []), ...(topicData ?? [])]
+    if (combined.length === 0) {
       return NextResponse.json({ error: 'No mock questions found' }, { status: 404 })
     }
 
-    questionIds = pickWithSubtopicDiversity(data, questionCount)
+    if (user) {
+      const { data: learned } = await supabase
+        .from('user_learned_questions')
+        .select('question_id')
+        .eq('user_id', user.id)
+      const learnedIds = new Set((learned ?? []).map(q => q.question_id))
+      const unlearned = combined.filter(q => !learnedIds.has(q.id))
+      questionIds = pickWithSubtopicDiversity(
+        unlearned.length >= questionCount ? unlearned : combined,
+        questionCount
+      )
+    } else {
+      questionIds = pickWithSubtopicDiversity(combined, questionCount)
+    }
   } else {
     const { data, error } = await supabase
       .from('questions')

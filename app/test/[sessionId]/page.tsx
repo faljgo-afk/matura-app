@@ -29,14 +29,23 @@ async function getSessionWithQuestions(sessionId: string) {
 
   const questionIds: string[] = session.questions
   const isMock = session.session_type === 'mock_exam' || session.session_type === 'mock_exam_free'
-  const table = isMock ? 'mock_questions' : 'questions'
 
-  const { data: questions } = await supabase
-    .from(table)
-    .select('id, question_text, question_type, options, image_url')
-    .in('id', questionIds)
+  let questions: Question[] = []
+  if (isMock) {
+    const [{ data: mqData }, { data: qData }] = await Promise.all([
+      supabase.from('mock_questions').select('id, question_text, question_type, options, image_url').in('id', questionIds),
+      supabase.from('questions').select('id, question_text, question_type, options, image_url').in('id', questionIds),
+    ])
+    questions = [...(mqData ?? []), ...(qData ?? [])]
+  } else {
+    const { data } = await supabase
+      .from('questions')
+      .select('id, question_text, question_type, options, image_url')
+      .in('id', questionIds)
+    questions = data ?? []
+  }
 
-  if (!questions) return null
+  if (questions.length === 0) return null
 
   const ordered = questionIds
     .map(id => questions.find(q => q.id === id))
