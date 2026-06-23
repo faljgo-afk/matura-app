@@ -39,6 +39,7 @@ function ScoreBadge({ score, max }: { score: number; max: number }) {
 // ─── Single choice ─────────────────────────────────────────────────────────────
 function SingleChoice({ question, onReset }: { question: Question; onReset: () => void }) {
   const [selected, setSelected] = useState<string | null>(null)
+  const [confirmed, setConfirmed] = useState(false)
   const correct = (question.correct_answer as { letter: string })?.letter
 
   // Compound answer: letter + digit (e.g. 'C2') → generate all combos A1–C3
@@ -47,13 +48,10 @@ function SingleChoice({ question, onReset }: { question: Question; onReset: () =
     ? ['A', 'B', 'C'].flatMap(l => ['1', '2', '3'].map(n => l + n))
     : ['A', 'B', 'C', 'D']
 
-  function handleSelect(opt: string) {
-    if (selected) return
-    setSelected(opt)
-  }
-
   function getColor(opt: string) {
-    if (!selected) return 'border-gray-300 hover:border-amber-400 hover:bg-amber-50 cursor-pointer'
+    if (!confirmed) return selected === opt
+      ? 'border-amber-500 bg-amber-50 text-amber-800 font-semibold cursor-pointer'
+      : 'border-gray-300 hover:border-amber-400 hover:bg-amber-50 cursor-pointer'
     if (opt === correct) return 'border-green-500 bg-green-50 text-green-800 font-semibold'
     if (opt === selected && opt !== correct) return 'border-red-400 bg-red-50 text-red-700'
     return 'border-gray-200 text-gray-400'
@@ -66,26 +64,34 @@ function SingleChoice({ question, onReset }: { question: Question; onReset: () =
         {options.map(opt => (
           <button
             key={opt}
-            onClick={() => handleSelect(opt)}
+            onClick={() => { if (!confirmed) setSelected(opt) }}
             className={`w-12 h-12 rounded-xl border-2 text-sm font-bold transition-all ${getColor(opt)}`}
           >
             {opt}
           </button>
         ))}
       </div>
-      {selected && (
-        <div className={`rounded-lg px-4 py-3 text-sm font-medium ${
-          selected === correct ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'
-        }`}>
-          {selected === correct
-            ? `✓ Poprawnie! Odpowiedź: ${correct}`
-            : `✗ Niepoprawnie. Poprawna odpowiedź: ${correct}`}
-        </div>
-      )}
-      {selected && (
-        <button onClick={onReset} className="w-full py-2 text-sm border border-gray-200 rounded-lg text-gray-500 hover:bg-gray-50">
-          Spróbuj jeszcze raz
+      {!confirmed ? (
+        <button
+          onClick={() => setConfirmed(true)}
+          disabled={!selected}
+          className="w-full py-2.5 text-sm font-semibold bg-amber-500 text-white rounded-lg hover:bg-amber-600 disabled:bg-gray-200 disabled:text-gray-400 transition-all"
+        >
+          Sprawdź
         </button>
+      ) : (
+        <>
+          <div className={`rounded-lg px-4 py-3 text-sm font-medium ${
+            selected === correct ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'
+          }`}>
+            {selected === correct
+              ? `✓ Poprawnie! Odpowiedź: ${correct}`
+              : `✗ Niepoprawnie. Poprawna odpowiedź: ${correct}`}
+          </div>
+          <button onClick={onReset} className="w-full py-2 text-sm border border-gray-200 rounded-lg text-gray-500 hover:bg-gray-50">
+            Spróbuj jeszcze raz
+          </button>
+        </>
       )}
     </div>
   )
