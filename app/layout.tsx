@@ -21,7 +21,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         {children}
         <CookieConsent />
         <footer className="border-t border-gray-200 bg-white mt-auto">
-          <div className="max-w-4xl mx-auto px-4 py-6 flex items-center justify-between">
+          <div className="w-full px-10 py-6 flex items-center justify-between">
             <div className="flex flex-col gap-1.5">
               <span className="flex items-center gap-1.5">
                 <Logo size={20} />
