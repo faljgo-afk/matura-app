@@ -204,7 +204,7 @@ function TrueFalse({ question, onReset }: { question: Question; onReset: () => v
     ? Math.round((score / count) * question.max_points)
     : 0
 
-  const isPerfect = checked && scaledScore === question.max_points
+  const isPerfect = checked && score === count
 
   return (
     <div className="space-y-3">
