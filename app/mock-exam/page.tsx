@@ -5,11 +5,13 @@ import MockExamStarter from './MockExamStarter'
 export const dynamic = 'force-dynamic'
 
 async function getMockQuestionCount() {
-  const { count } = await supabase
-    .from('mock_questions')
-    .select('id', { count: 'exact', head: true })
-    .eq('verified', true)
-  return count ?? 0
+  const [{ count: mockCount }, { count: topicCount }] = await Promise.all([
+    supabase.from('mock_questions').select('id', { count: 'exact', head: true }).eq('verified', true),
+    supabase.from('questions').select('id', { count: 'exact', head: true })
+      .eq('verified', true)
+      .in('question_type', ['single', 'multiple', 'true_false']),
+  ])
+  return (mockCount ?? 0) + (topicCount ?? 0)
 }
 
 export default async function MockExamPage() {
