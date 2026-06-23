@@ -88,12 +88,20 @@ function SingleChoice({ question, onReset }: { question: Question; onReset: () =
           <div className="rounded-lg px-4 py-3 text-sm font-medium bg-red-50 text-red-800">
             ✗ Niepoprawnie. Spróbuj jeszcze raz.
           </div>
-          <button
-            onClick={() => { setSelected(null); setConfirmed(false) }}
-            className="w-full py-2.5 text-sm font-semibold border border-amber-300 text-amber-700 rounded-lg hover:bg-amber-50 transition-all"
-          >
-            Spróbuj jeszcze raz
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={() => { setSelected(null); setConfirmed(false) }}
+              className="flex-1 py-2.5 text-sm font-semibold border border-amber-300 text-amber-700 rounded-lg hover:bg-amber-50 transition-all"
+            >
+              Spróbuj jeszcze raz
+            </button>
+            <button
+              onClick={() => setSelected(correct)}
+              className="px-4 py-2.5 text-sm border border-gray-200 text-gray-500 rounded-lg hover:bg-gray-50 transition-all whitespace-nowrap"
+            >
+              Pokaż odpowiedź
+            </button>
+          </div>
         </>
       )}
     </div>
