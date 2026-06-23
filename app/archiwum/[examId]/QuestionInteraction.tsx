@@ -43,10 +43,12 @@ function SingleChoice({ question }: { question: Question; onReset: () => void })
   const [showAnswer, setShowAnswer] = useState(false)
   const correct = (question.correct_answer as { letter: string })?.letter
 
-  // Compound answer: letter + digit (e.g. 'C2') → generate all combos A1–C3
+  // Compound answer: letter + digit (e.g. 'C2') → generate grid from stored rows/cols
   const isCompound = correct ? /^[A-Z]\d$/.test(correct) : false
+  const ca = question.correct_answer as { letter: string; rows?: number; cols?: number }
   const options = isCompound
-    ? ['A', 'B', 'C'].flatMap(l => ['1', '2', '3'].map(n => l + n))
+    ? Array.from({ length: ca.rows ?? 3 }, (_, i) => String.fromCharCode(65 + i))
+        .flatMap(l => Array.from({ length: ca.cols ?? 3 }, (_, j) => l + (j + 1)))
     : ['A', 'B', 'C', 'D']
 
   const isCorrect = selected === correct

@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env node
+#!/usr/bin/env node
 // Import matura v2 — reads klucz PDF, parses all questions, uploads arkusz PDF to storage
 // Usage: node db/import-matura-v2.js --arkusz <pdf> --klucz <pdf> --year 2025 --session czerwiec
 
@@ -313,6 +313,39 @@ async function insertQuestion(examId, q) {
   await supabaseRequest('POST', 'matura_questions', row)
 }
 
+// ─── Compound grid detection from arkusz ─────────────────────────────────────
+
+function getArkuszBlock(arkuszText, num) {
+  const escaped = num.replace(/\./g, '\\.')
+  const re = new RegExp(`Zadanie\\s+${escaped}\\.([\\s\\S]{0,2000}?)(?=Zadanie\\s+\\d|$)`)
+  const m = arkuszText.match(re)
+  return m ? m[1] : ''
+}
+
+function detectCompoundGrid(arkuszText, num) {
+  // For sub-questions like "5.1", also try parent "5"
+  const parentNum = num.includes('.') ? num.split('.')[0] : null
+  const block = getArkuszBlock(arkuszText, num) || (parentNum ? getArkuszBlock(arkuszText, parentNum) : '')
+
+  let rows = 3, cols = 3
+
+  // "odpowiedź A albo B" → rows=2; "odpowiedź A, B albo C" → rows=3
+  const letterMatch = block.match(/odpowied[zź]\s+([A-C](?:[,\s]+[A-C])*\s+albo\s+[A-C])/i)
+  if (letterMatch) {
+    const letters = [...new Set((letterMatch[1].match(/[A-C]/g) || []).map(l => l.toUpperCase()))]
+    rows = letters.length
+  }
+
+  // "odpowiedź 1. albo 2." → cols=2; "odpowiedź 1., 2. albo 3." → cols=3
+  const digitMatch = block.match(/odpowied[zź]\s+(\d+\.?(?:[,\s]+\d+\.?)*\s+albo\s+\d+\.?)/i)
+  if (digitMatch) {
+    const digits = (digitMatch[1].match(/\d+/g) || []).map(Number)
+    cols = Math.max(...digits)
+  }
+
+  return { rows, cols }
+}
+
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 async function main() {
@@ -326,15 +359,26 @@ async function main() {
   console.log(`   Arkusz: ${args.arkusz}`)
   console.log(`   Klucz:  ${args.klucz}\n`)
 
-  // 1. Parse klucz
-  console.log('1/4 Extracting klucz text...')
+  // 1. Parse klucz + arkusz
+  console.log('1/4 Extracting klucz and arkusz text...')
   const kluczText = extractPdfText(args.klucz)
+  const arkuszText = extractPdfText(args.arkusz)
 
   console.log('2/4 Parsing questions from klucz...')
   const questions = parseKlucz(kluczText)
+
+  // Enrich compound single answers with grid dimensions from arkusz
+  for (const q of questions) {
+    if (q.question_type === 'single' && q.correct_answer?.letter && /^[A-Z]\d$/.test(q.correct_answer.letter)) {
+      const { rows, cols } = detectCompoundGrid(arkuszText, q.zadanie_number)
+      q.correct_answer = { ...q.correct_answer, rows, cols }
+    }
+  }
+
   console.log(`   Found ${questions.length} questions:`)
   for (const q of questions) {
-    console.log(`   - Zadanie ${q.zadanie_number} (${q.max_points} pkt) [${q.question_type}]`)
+    const grid = q.correct_answer?.rows ? ` [${q.correct_answer.rows}×${q.correct_answer.cols}]` : ''
+    console.log(`   - Zadanie ${q.zadanie_number} (${q.max_points} pkt) [${q.question_type}]${grid}`)
   }
 
   // 3. Upload PDF
