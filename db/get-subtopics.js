@@ -1,6 +1,6 @@
-const https = require('https');
+﻿const https = require('https');
 const URL_HOST = 'gzpxvfaftvkfwpvljcrk.supabase.co';
-const KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6cHh2ZmFmdHZrZndwdmxqY3JrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MTc3MjY5MCwiZXhwIjoyMDk3MzQ4NjkwfQ.E-wLyCSNY4UohTIvIh1y9a4f0VLmNRCY7IoLR1qS__w';
+const KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 
 function get(path) {
   return new Promise((resolve, reject) => {

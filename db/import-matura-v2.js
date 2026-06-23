@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+﻿#!/usr/bin/env node
 // Import matura v2 — reads klucz PDF, parses all questions, uploads arkusz PDF to storage
 // Usage: node db/import-matura-v2.js --arkusz <pdf> --klucz <pdf> --year 2025 --session czerwiec
 
@@ -8,7 +8,7 @@ const https = require('https')
 const path = require('path')
 
 const SUPABASE_URL = 'https://gzpxvfaftvkfwpvljcrk.supabase.co'
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6cHh2ZmFmdHZrZndwdmxqY3JrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MTc3MjY5MCwiZXhwIjoyMDk3MzQ4NjkwfQ.E-wLyCSNY4UohTIvIh1y9a4f0VLmNRCY7IoLR1qS__w'
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
 
 // Topic keyword detection (same as before)
 const TOPIC_KEYWORDS = {
