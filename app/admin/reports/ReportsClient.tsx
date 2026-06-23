@@ -329,6 +329,7 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
     return {
       ...topic,
       total: tq.length,
+      openCount: tq.filter(q => q.question_type === 'open').length,
       verifiedCount: tq.filter(q => q.verified).length,
       subtopicCount: topicSubs.length,
       avgDiff,
@@ -489,6 +490,7 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
                   <tr>
                     <th className="text-left px-4 py-3 text-gray-600 font-medium">Temat / Podtemat</th>
                     <th className="text-center px-3 py-3 text-gray-600 font-medium">Pytań</th>
+                    <th className="text-center px-3 py-3 text-gray-600 font-medium">Otwartych</th>
                     <th className="text-center px-3 py-3 text-gray-600 font-medium">Verified</th>
                     <th className="text-center px-3 py-3 text-gray-600 font-medium">Podtematów</th>
                     <th className="text-center px-3 py-3 text-gray-600 font-medium">Śr. trudność</th>
@@ -518,6 +520,11 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
                           </td>
                           <td className="px-3 py-3 text-center">
                             <CountBadge n={topic.total} warn={10} danger={5} />
+                          </td>
+                          <td className="px-3 py-3 text-center">
+                            {topic.openCount > 0
+                              ? <span className="text-xs font-semibold px-2 py-0.5 rounded bg-violet-100 text-violet-700">{topic.openCount}</span>
+                              : <span className="text-gray-300 text-xs">0</span>}
                           </td>
                           <td className="px-3 py-3 text-center text-gray-600 font-medium">
                             {topic.verifiedCount}
@@ -556,6 +563,7 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
                                 ? <CountBadge n={sub.total} warn={5} danger={2} />
                                 : <span className="text-xs text-red-300 font-semibold">0</span>}
                             </td>
+                            <td className="px-3 py-2 text-center text-gray-300 text-sm">—</td>
                             <td className="px-3 py-2 text-center text-gray-500 text-sm">
                               {sub.verified > 0 ? sub.verified : <span className="text-gray-300">—</span>}
                             </td>
