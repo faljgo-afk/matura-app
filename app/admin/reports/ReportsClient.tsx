@@ -317,6 +317,7 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
         id: sub.id,
         name: sub.name,
         total: subQs.length,
+        openCount: subQs.filter(q => q.question_type === 'open').length,
         verified: subQs.filter(q => q.verified).length,
         avgDiff,
       }
@@ -563,7 +564,11 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
                                 ? <CountBadge n={sub.total} warn={5} danger={2} />
                                 : <span className="text-xs text-red-300 font-semibold">0</span>}
                             </td>
-                            <td className="px-3 py-2 text-center text-gray-300 text-sm">—</td>
+                            <td className="px-3 py-2 text-center">
+                              {sub.openCount > 0
+                                ? <span className="text-xs font-semibold px-2 py-0.5 rounded bg-violet-100 text-violet-700">{sub.openCount}</span>
+                                : <span className="text-gray-300 text-xs">—</span>}
+                            </td>
                             <td className="px-3 py-2 text-center text-gray-500 text-sm">
                               {sub.verified > 0 ? sub.verified : <span className="text-gray-300">—</span>}
                             </td>
