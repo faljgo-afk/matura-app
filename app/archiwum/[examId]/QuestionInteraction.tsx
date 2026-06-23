@@ -79,16 +79,19 @@ function SingleChoice({ question, onReset }: { question: Question; onReset: () =
         >
           Sprawdź
         </button>
+      ) : selected === correct ? (
+        <div className="rounded-lg px-4 py-3 text-sm font-medium bg-green-50 text-green-800">
+          ✓ Poprawnie! Odpowiedź: {correct}
+        </div>
       ) : (
         <>
-          <div className={`rounded-lg px-4 py-3 text-sm font-medium ${
-            selected === correct ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'
-          }`}>
-            {selected === correct
-              ? `✓ Poprawnie! Odpowiedź: ${correct}`
-              : `✗ Niepoprawnie. Poprawna odpowiedź: ${correct}`}
+          <div className="rounded-lg px-4 py-3 text-sm font-medium bg-red-50 text-red-800">
+            ✗ Niepoprawnie. Spróbuj jeszcze raz.
           </div>
-          <button onClick={onReset} className="w-full py-2 text-sm border border-gray-200 rounded-lg text-gray-500 hover:bg-gray-50">
+          <button
+            onClick={() => { setSelected(null); setConfirmed(false) }}
+            className="w-full py-2.5 text-sm font-semibold border border-amber-300 text-amber-700 rounded-lg hover:bg-amber-50 transition-all"
+          >
             Spróbuj jeszcze raz
           </button>
         </>
