@@ -41,10 +41,10 @@ function SingleChoice({ question, onReset }: { question: Question; onReset: () =
   const [selected, setSelected] = useState<string | null>(null)
   const correct = (question.correct_answer as { letter: string })?.letter
 
-  // Determine option labels: standard A-D or compound like A,B1,B2,C
-  const isCompound = correct && correct.length > 1
+  // Compound answer: letter + digit (e.g. 'C2') → generate all combos A1–C3
+  const isCompound = correct ? /^[A-Z]\d$/.test(correct) : false
   const options = isCompound
-    ? ['A', 'B1', 'B2', 'C', 'D'].filter(o => o.length === correct.length || !o.includes('1') && !o.includes('2'))
+    ? ['A', 'B', 'C'].flatMap(l => ['1', '2', '3'].map(n => l + n))
     : ['A', 'B', 'C', 'D']
 
   function handleSelect(opt: string) {
