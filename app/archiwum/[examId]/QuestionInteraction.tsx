@@ -37,7 +37,7 @@ function ScoreBadge({ score, max }: { score: number; max: number }) {
 }
 
 // ─── Single choice ─────────────────────────────────────────────────────────────
-function SingleChoice({ question, onReset }: { question: Question; onReset: () => void }) {
+function SingleChoice({ question }: { question: Question; onReset: () => void }) {
   const [selected, setSelected] = useState<string | null>(null)
   const [confirmed, setConfirmed] = useState(false)
   const correct = (question.correct_answer as { letter: string })?.letter
