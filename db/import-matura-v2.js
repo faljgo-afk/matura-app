@@ -124,13 +124,13 @@ function parseBlock(num, maxPoints, block) {
 }
 
 function classifyAnswer(answer) {
-  // Single letter: A B C D
-  if (/^[A-D]$/.test(answer)) {
+  // Single letter: A B C D E (5-option questions)
+  if (/^[A-E]$/.test(answer)) {
     return { type: 'single', correct_answer: { letter: answer } }
   }
 
   // Compound single: B1, B2, A1, etc.
-  if (/^[A-D]\d$/.test(answer)) {
+  if (/^[A-E]\d$/.test(answer)) {
     return { type: 'single', correct_answer: { letter: answer } }
   }
 
@@ -313,6 +313,17 @@ async function insertQuestion(examId, q) {
   await supabaseRequest('POST', 'matura_questions', row)
 }
 
+// ─── Option count detection from arkusz ──────────────────────────────────────
+
+function detectNumOptions(arkuszText, num) {
+  const parentNum = num.includes('.') ? num.split('.')[0] : null
+  const block = getArkuszBlock(arkuszText, num) || (parentNum ? getArkuszBlock(arkuszText, parentNum) : '')
+  if (!block) return 4
+  // Check if option E exists (e.g. "E. text" or "E.text")
+  if (/\bE\.\s/.test(block)) return 5
+  return 4
+}
+
 // ─── Compound grid detection from arkusz ─────────────────────────────────────
 
 function getArkuszBlock(arkuszText, num) {
@@ -367,11 +378,18 @@ async function main() {
   console.log('2/4 Parsing questions from klucz...')
   const questions = parseKlucz(kluczText)
 
-  // Enrich compound single answers with grid dimensions from arkusz
+  // Enrich single answers with option count and compound grid dimensions from arkusz
   for (const q of questions) {
-    if (q.question_type === 'single' && q.correct_answer?.letter && /^[A-Z]\d$/.test(q.correct_answer.letter)) {
-      const { rows, cols } = detectCompoundGrid(arkuszText, q.zadanie_number)
-      q.correct_answer = { ...q.correct_answer, rows, cols }
+    if (q.question_type === 'single' && q.correct_answer?.letter) {
+      if (/^[A-Z]\d$/.test(q.correct_answer.letter)) {
+        // Compound grid (e.g. B1, C2)
+        const { rows, cols } = detectCompoundGrid(arkuszText, q.zadanie_number)
+        q.correct_answer = { ...q.correct_answer, rows, cols }
+      } else {
+        // Simple single — detect if 5 options (A–E) or 4 (A–D)
+        const num_options = detectNumOptions(arkuszText, q.zadanie_number)
+        if (num_options !== 4) q.correct_answer = { ...q.correct_answer, num_options }
+      }
     }
   }
 

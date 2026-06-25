@@ -45,11 +45,11 @@ function SingleChoice({ question }: { question: Question; onReset: () => void })
 
   // Compound answer: letter + digit (e.g. 'C2') → generate grid from stored rows/cols
   const isCompound = correct ? /^[A-Z]\d$/.test(correct) : false
-  const ca = question.correct_answer as { letter: string; rows?: number; cols?: number }
+  const ca = question.correct_answer as { letter: string; rows?: number; cols?: number; num_options?: number }
   const options = isCompound
     ? Array.from({ length: ca.rows ?? 3 }, (_, i) => String.fromCharCode(65 + i))
         .flatMap(l => Array.from({ length: ca.cols ?? 3 }, (_, j) => l + (j + 1)))
-    : ['A', 'B', 'C', 'D']
+    : Array.from({ length: ca.num_options ?? 4 }, (_, i) => String.fromCharCode(65 + i))
 
   const isCorrect = selected === correct
 
@@ -150,7 +150,7 @@ function MultipleChoice({ question, onReset }: { question: Question; onReset: ()
     <div className="space-y-3">
       <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Zaznacz wszystkie poprawne</p>
       <div className="flex gap-2 flex-wrap">
-        {['A', 'B', 'C', 'D', 'E'].slice(0, 4).map(opt => (
+        {Array.from({ length: (question.correct_answer as { letters?: string[]; num_options?: number })?.num_options ?? 4 }, (_, i) => String.fromCharCode(65 + i)).map(opt => (
           <button
             key={opt}
             onClick={() => toggle(opt)}
