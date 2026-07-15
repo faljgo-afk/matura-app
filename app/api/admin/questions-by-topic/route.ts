@@ -27,7 +27,8 @@ export async function GET(req: NextRequest) {
       .range(0, 999)
 
     if (error) return NextResponse.json({ error: error.message }, { status: 500 })
-    const filtered = (data ?? []).filter((q: { subtopics?: { topic_id?: string } | null }) => q.subtopics?.topic_id === topicId)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const filtered = (data ?? []).filter((q: any) => q.subtopics?.topic_id === topicId)
     return NextResponse.json(filtered)
   }
 
