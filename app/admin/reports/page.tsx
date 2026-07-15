@@ -18,12 +18,14 @@ async function getReportData() {
     { data: maturaExams },
     { data: maturaQuestions },
   ] = await Promise.all([
-    supabaseAdmin.from('questions').select('id, topic_id, subtopic_id, subtopics(name), difficulty, question_type, verified, question_text, options, correct_answer, explanation, image_url'),
-    supabaseAdmin.from('mock_questions').select('id, subtopic_id, subtopics(id, name, topic_id), difficulty, question_type, verified, question_text, options, correct_answer, explanation, image_url'),
+    // Stats-only fields — no question text/options/explanation to keep payload small
+    // range(0, 9999) overrides Supabase's default 1000-row limit
+    supabaseAdmin.from('questions').select('id, topic_id, subtopic_id, difficulty, question_type, verified').range(0, 9999),
+    supabaseAdmin.from('mock_questions').select('id, subtopic_id, subtopics(id, name, topic_id), difficulty, question_type, verified').range(0, 9999),
     supabaseAdmin.from('topics').select('id, name, order_index').order('order_index'),
     supabaseAdmin.from('subtopics').select('id, name, topic_id, order_index').order('order_index'),
     supabaseAdmin.from('matura_exams').select('id, year, session').order('year', { ascending: false }),
-    supabaseAdmin.from('matura_questions').select('id, exam_id, question_type, max_points, key_points, model_answer, zadanie_number'),
+    supabaseAdmin.from('matura_questions').select('id, exam_id, question_type, max_points, key_points, model_answer, zadanie_number').range(0, 4999),
   ])
 
   return {

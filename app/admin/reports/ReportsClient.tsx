@@ -9,19 +9,14 @@ type Option = {
   is_correct: boolean
 }
 
+// Minimal fields only — full text loaded lazily via API for sidebar
 type Question = {
   id: string
   topic_id: string
   subtopic_id: string | null
-  subtopics: { name: string } | null
   difficulty: number
   question_type: string
   verified: boolean
-  question_text: string
-  options: Option[]
-  correct_answer: string[]
-  explanation: string
-  image_url?: string | null
 }
 
 type MockQuestion = {
@@ -31,11 +26,6 @@ type MockQuestion = {
   difficulty: number
   question_type: string
   verified: boolean
-  question_text: string
-  options: Option[]
-  correct_answer: string[]
-  explanation: string
-  image_url?: string | null
 }
 
 type Topic = {
@@ -175,7 +165,7 @@ function SidebarCard({ q, index }: { q: SidebarQuestion; index: number }) {
   )
 }
 
-function Sidebar({ data, onClose }: { data: SidebarData; onClose: () => void }) {
+function Sidebar({ data, onClose, loading }: { data: SidebarData; onClose: () => void; loading: boolean }) {
   if (!data) return null
   return (
     <>
@@ -186,15 +176,18 @@ function Sidebar({ data, onClose }: { data: SidebarData; onClose: () => void }) 
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-xl leading-none">&times;</button>
         </div>
         <div className="overflow-y-auto flex-1 p-4 space-y-3">
-          {data.questions.length === 0 && (
+          {loading && (
+            <p className="text-sm text-gray-400 text-center py-8">Ładowanie...</p>
+          )}
+          {!loading && data.questions.length === 0 && (
             <p className="text-sm text-gray-400 text-center py-8">Brak pytań</p>
           )}
-          {data.questions.map((q, i) => (
+          {!loading && data.questions.map((q, i) => (
             <SidebarCard key={i} q={q} index={i} />
           ))}
         </div>
         <div className="px-5 py-3 border-t border-gray-100 text-xs text-gray-400 text-right">
-          {data.questions.length} pytań
+          {loading ? '...' : `${data.questions.length} pytań`}
         </div>
       </div>
     </>
@@ -233,15 +226,8 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
 }) {
   const [tab, setTab] = useState(0)
   const [sidebar, setSidebar] = useState<SidebarData>(null)
+  const [sidebarLoading, setSidebarLoading] = useState(false)
   const [expandedTopics, setExpandedTopics] = useState<Set<string>>(new Set())
-
-  function subtopicName(q: Question) {
-    return q.subtopics?.name ?? '—'
-  }
-
-  function mockSubtopicName(q: MockQuestion) {
-    return q.subtopics?.name ?? '—'
-  }
 
   function toggleTopic(id: string) {
     setExpandedTopics(prev => {
@@ -251,38 +237,60 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
     })
   }
 
-  function openTopicSidebar(topic: Topic) {
-    const qs = questions.filter(q => q.topic_id === topic.id && q.verified)
-    setSidebar({
-      title: `${topic.order_index}. ${topic.name} — pytania (${qs.length})`,
-      questions: qs.map(q => ({
-        text: q.question_text,
-        subtopic: subtopicName(q),
-        difficulty: q.difficulty ?? 2,
-        type: q.question_type,
-        image_url: q.image_url,
-        options: q.options ?? [],
-        correct_answer: q.correct_answer ?? [],
-        explanation: q.explanation ?? '',
-      })),
-    })
+  async function openTopicSidebar(topic: Topic) {
+    setSidebarLoading(true)
+    setSidebar({ title: `${topic.order_index}. ${topic.name} — pytania`, questions: [] })
+    try {
+      const res = await fetch(`/api/admin/questions-by-topic?topicId=${topic.id}`)
+      const qs = await res.json()
+      setSidebar({
+        title: `${topic.order_index}. ${topic.name} — pytania (${qs.length})`,
+        questions: qs.map((q: {
+          question_text: string; subtopics?: { name?: string } | null;
+          difficulty: number; question_type: string; image_url?: string | null;
+          options?: Option[]; correct_answer?: string[]; explanation?: string
+        }) => ({
+          text: q.question_text,
+          subtopic: q.subtopics?.name ?? '—',
+          difficulty: q.difficulty ?? 2,
+          type: q.question_type,
+          image_url: q.image_url,
+          options: q.options ?? [],
+          correct_answer: q.correct_answer ?? [],
+          explanation: q.explanation ?? '',
+        })),
+      })
+    } finally {
+      setSidebarLoading(false)
+    }
   }
 
-  function openMockTopicSidebar(topic: Topic) {
-    const qs = mockQuestions.filter(q => q.subtopics?.topic_id === topic.id)
-    setSidebar({
-      title: `Sprawdzian: ${topic.name} (${qs.length} pytań)`,
-      questions: qs.map(q => ({
-        text: q.question_text,
-        subtopic: mockSubtopicName(q),
-        difficulty: q.difficulty ?? 2,
-        type: q.question_type,
-        image_url: q.image_url,
-        options: q.options ?? [],
-        correct_answer: q.correct_answer ?? [],
-        explanation: q.explanation ?? '',
-      })),
-    })
+  async function openMockTopicSidebar(topic: Topic) {
+    setSidebarLoading(true)
+    setSidebar({ title: `Sprawdzian: ${topic.name}`, questions: [] })
+    try {
+      const res = await fetch(`/api/admin/questions-by-topic?topicId=${topic.id}&mock=1`)
+      const qs = await res.json()
+      setSidebar({
+        title: `Sprawdzian: ${topic.name} (${qs.length} pytań)`,
+        questions: qs.map((q: {
+          question_text: string; subtopics?: { name?: string } | null;
+          difficulty: number; question_type: string; image_url?: string | null;
+          options?: Option[]; correct_answer?: string[]; explanation?: string
+        }) => ({
+          text: q.question_text,
+          subtopic: q.subtopics?.name ?? '—',
+          difficulty: q.difficulty ?? 2,
+          type: q.question_type,
+          image_url: q.image_url,
+          options: q.options ?? [],
+          correct_answer: q.correct_answer ?? [],
+          explanation: q.explanation ?? '',
+        })),
+      })
+    } finally {
+      setSidebarLoading(false)
+    }
   }
 
   // --- Computed stats ---
@@ -819,7 +827,7 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
 
       </div>
 
-      <Sidebar data={sidebar} onClose={() => setSidebar(null)} />
+      <Sidebar data={sidebar} onClose={() => setSidebar(null)} loading={sidebarLoading} />
     </main>
   )
 }
