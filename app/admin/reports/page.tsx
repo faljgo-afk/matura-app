@@ -8,37 +8,39 @@ export const dynamic = 'force-dynamic'
 
 const ADMIN_EMAIL = 'faljgo@gmail.com'
 
+// Supabase PostgREST max_rows is 1000 — paginate to get all rows
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function fetchAllRows(table: string, select: string, extra?: (q: any) => any): Promise<any[]> {
+  const PAGE = 1000
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const all: any[] = []
+  let from = 0
+  for (;;) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let q: any = supabaseAdmin.from(table).select(select).range(from, from + PAGE - 1)
+    if (extra) q = extra(q)
+    const { data, error } = await q
+    if (error) { console.error(`fetchAllRows ${table}:`, error); break }
+    if (!data || data.length === 0) break
+    all.push(...data)
+    if (data.length < PAGE) break
+    from += PAGE
+  }
+  return all
+}
+
 async function getReportData() {
   noStore()
-  const [
-    { data: questions },
-    { data: mockQuestions },
-    { data: topics },
-    { data: subtopics },
-    { data: maturaExams },
-    { data: maturaQuestions },
-  ] = await Promise.all([
-    // Stats-only fields — no question text/options/explanation to keep payload small
-    // range(0, 9999) overrides Supabase's default 1000-row limit
-    supabaseAdmin.from('questions').select('id, topic_id, subtopic_id, difficulty, question_type, verified').range(0, 9999),
-    supabaseAdmin.from('mock_questions').select('id, subtopic_id, subtopics(id, name, topic_id), difficulty, question_type, verified').range(0, 9999),
-    supabaseAdmin.from('topics').select('id, name, order_index').order('order_index'),
-    supabaseAdmin.from('subtopics').select('id, name, topic_id, order_index').order('order_index'),
-    supabaseAdmin.from('matura_exams').select('id, year, session').order('year', { ascending: false }),
-    supabaseAdmin.from('matura_questions').select('id, exam_id, question_type, max_points, key_points, model_answer, zadanie_number').range(0, 4999),
+  const [questions, mockQuestions, topics, subtopics, maturaExams, maturaQuestions] = await Promise.all([
+    fetchAllRows('questions', 'id, topic_id, subtopic_id, difficulty, question_type, verified'),
+    fetchAllRows('mock_questions', 'id, subtopic_id, subtopics(id, name, topic_id), difficulty, question_type, verified'),
+    supabaseAdmin.from('topics').select('id, name, order_index').order('order_index').then(r => r.data ?? []),
+    supabaseAdmin.from('subtopics').select('id, name, topic_id, order_index').order('order_index').then(r => r.data ?? []),
+    supabaseAdmin.from('matura_exams').select('id, year, session').order('year', { ascending: false }).then(r => r.data ?? []),
+    fetchAllRows('matura_questions', 'id, exam_id, question_type, max_points, key_points, model_answer, zadanie_number'),
   ])
 
-  return {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    questions: (questions ?? []) as unknown as any,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    mockQuestions: (mockQuestions ?? []) as unknown as any,
-    topics: topics ?? [],
-    subtopics: subtopics ?? [],
-    maturaExams: maturaExams ?? [],
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    maturaQuestions: (maturaQuestions ?? []) as unknown as any,
-  }
+  return { questions, mockQuestions, topics, subtopics, maturaExams, maturaQuestions }
 }
 
 export default async function ReportsPage() {
