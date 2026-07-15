@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase-server'
 import { supabaseAdmin } from '@/lib/supabase-admin'
 import { redirect } from 'next/navigation'
+import { unstable_noStore as noStore } from 'next/cache'
 import ReportsClient from './ReportsClient'
 
 export const dynamic = 'force-dynamic'
@@ -8,6 +9,7 @@ export const dynamic = 'force-dynamic'
 const ADMIN_EMAIL = 'faljgo@gmail.com'
 
 async function getReportData() {
+  noStore()
   const [
     { data: questions },
     { data: mockQuestions },
