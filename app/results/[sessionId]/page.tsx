@@ -217,8 +217,13 @@ export default async function ResultsPage({ params }: { params: { sessionId: str
                         style = 'border-red-400 bg-red-50 text-red-800'
                         badge = <span className="ml-2 text-red-500 font-medium text-xs">✗ Twój wybór (błędna)</span>
                       } else if (!userPicked && isCorrectOption) {
-                        style = 'border-green-300 bg-green-50 text-green-700'
-                        badge = <span className="ml-2 text-green-500 font-medium text-xs">✓ poprawna (nie wybrano)</span>
+                        style = 'border-dashed border-green-400 bg-green-50/50 text-green-800'
+                        badge = (
+                          <span className="ml-2 font-semibold text-xs whitespace-nowrap">
+                            <span className="text-green-600">✓ poprawna</span>
+                            <span className="text-orange-500"> · nie wybrano</span>
+                          </span>
+                        )
                       }
 
                       return (
