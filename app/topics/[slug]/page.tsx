@@ -95,7 +95,17 @@ export default async function TopicPage({ params }: { params: { slug: string } }
                 Brak pytań dla tego tematu. Zajrzyj później!
               </div>
             ) : (
-              <StartTestButton topicId={topic.id} isLoggedIn={isLoggedIn} />
+              <div className="space-y-2">
+                <StartTestButton topicId={topic.id} isLoggedIn={isLoggedIn} />
+                {isLoggedIn && (
+                  <Link
+                    href={`/topics/${topic.slug}/browse`}
+                    className="block w-full text-center py-3 rounded-lg border border-green-300 text-green-700 font-medium hover:bg-green-50 transition-colors text-sm"
+                  >
+                    📖 Przeglądaj pytania i odpowiedzi
+                  </Link>
+                )}
+              </div>
             )}
           </div>
 
