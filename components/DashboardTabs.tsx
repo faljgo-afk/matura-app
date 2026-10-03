@@ -61,7 +61,7 @@ export default function DashboardTabs({
   return (
     <div className="flex flex-col gap-5">
       {/* Tab buttons */}
-      <div role="tablist" className="self-start flex gap-1 bg-white border-[3px] border-brand-deep rounded-full p-1">
+      <div role="tablist" className="self-start flex gap-1 bg-white border-2 border-brand-deep rounded-full p-1">
         <button role="tab" aria-selected={tab === 'progress'} onClick={() => setTab('progress')} className={tabClass(tab === 'progress')}>
           Postęp w tematach
         </button>
@@ -86,8 +86,8 @@ export default function DashboardTabs({
             const learnedPct = topic.totalQ > 0 ? Math.round((topic.learnedQ / topic.totalQ) * 100) : 0
             const st = topic.bestScore !== null ? scoreStyle(topic.bestScore) : null
             return (
-              <div key={topic.id} className="card-game !rounded-[24px] !shadow-hard p-4 sm:p-5 flex items-center gap-4">
-                <span className={`hidden sm:flex w-12 h-12 rounded-2xl border-[3px] border-brand-deep items-center justify-center font-display font-bold text-xl shrink-0 ${TILE_COLORS[i % TILE_COLORS.length]}`}>
+              <div key={topic.id} className="card-game !rounded-[18px] !shadow-hard p-4 sm:p-5 flex items-center gap-4">
+                <span className={`hidden sm:flex w-12 h-12 rounded-2xl border-2 border-brand-deep items-center justify-center font-display font-bold text-xl shrink-0 ${TILE_COLORS[i % TILE_COLORS.length]}`}>
                   {i + 1}
                 </span>
                 <div className="flex-1 min-w-0 flex flex-col gap-2">
@@ -98,11 +98,11 @@ export default function DashboardTabs({
                     </span>
                   </div>
 
-                  <div className="h-3.5 bg-white border-[3px] border-brand-deep rounded-full overflow-hidden" role="img" aria-label={`Najlepszy wynik: ${topic.bestScore ?? 0}%`}>
+                  <div className="h-3.5 bg-white border-2 border-brand-deep rounded-full overflow-hidden" role="img" aria-label={`Najlepszy wynik: ${topic.bestScore ?? 0}%`}>
                     <div className={`h-full ${st ? st.bar : ''}`} style={{ width: `${topic.bestScore ?? 0}%` }} />
                   </div>
                   {topic.totalQ > 0 && (
-                    <div className="h-3.5 bg-white border-[3px] border-brand-deep rounded-full overflow-hidden" role="img" aria-label={`Opanowane pytania: ${topic.learnedQ} z ${topic.totalQ}`}>
+                    <div className="h-3.5 bg-white border-2 border-brand-deep rounded-full overflow-hidden" role="img" aria-label={`Opanowane pytania: ${topic.learnedQ} z ${topic.totalQ}`}>
                       <div className="h-full bg-grape" style={{ width: `${learnedPct}%` }} />
                     </div>
                   )}
@@ -129,7 +129,7 @@ export default function DashboardTabs({
       {tab === 'history' && (
         <div>
           {sessions.length === 0 ? (
-            <div className="card-game !rounded-[28px] text-center py-12 px-6">
+            <div className="card-game !rounded-[20px] text-center py-12 px-6">
               <p className="font-display font-semibold text-2xl mb-1">Nie ukończyłeś jeszcze żadnego testu.</p>
               <p className="text-muted mb-5">Wybierz temat i zdobądź pierwszy wynik.</p>
               <Link href="/" className="btn btn-sun">Zacznij naukę →</Link>
@@ -145,7 +145,7 @@ export default function DashboardTabs({
                   <Link
                     key={session.id}
                     href={`/results/${session.id}`}
-                    className="card-game card-link !rounded-[22px] !shadow-hard px-4 py-3.5 flex items-center justify-between gap-3"
+                    className="card-game card-link !rounded-[16px] !shadow-hard px-4 py-3.5 flex items-center justify-between gap-3"
                   >
                     <div className="min-w-0">
                       <span className={`pill mb-1 ${isMock ? 'bg-sun text-brand-deep' : 'bg-mint text-brand-deep'}`}>

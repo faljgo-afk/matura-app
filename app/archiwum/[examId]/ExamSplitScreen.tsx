@@ -115,7 +115,7 @@ export default function ExamSplitScreen({ exam, questions }: { exam: Exam; quest
       {/* ── Desktop: side-by-side ──────────────────────────────────────────── */}
       <div className="hidden md:flex h-screen overflow-hidden">
         {/* Left: PDF — 55% */}
-        <div className="w-[55%] shrink-0 bg-line border-r-[3px] border-brand-deep h-full">
+        <div className="w-[55%] shrink-0 bg-line border-r-2 border-brand-deep h-full">
           <PdfPanel pdfUrl={pdfUrl} title={title} />
         </div>
 
@@ -123,7 +123,7 @@ export default function ExamSplitScreen({ exam, questions }: { exam: Exam; quest
         <div className="flex-1 min-w-0 bg-white flex flex-col h-full overflow-hidden">
 
           {/* Header */}
-          <div className="px-4 py-3 border-b-[3px] border-line shrink-0">
+          <div className="px-4 py-3 border-b-2 border-line shrink-0">
             <Link href="/archiwum" className="text-sm font-extrabold text-brand hover:underline mb-1 inline-block">
               ← Archiwum
             </Link>
@@ -133,7 +133,7 @@ export default function ExamSplitScreen({ exam, questions }: { exam: Exam; quest
 
           <div className="flex flex-1 overflow-hidden">
             {/* Question list sidebar */}
-            <div className="w-32 shrink-0 border-r-[3px] border-line overflow-y-auto py-2 bg-canvas">
+            <div className="w-32 shrink-0 border-r-2 border-line overflow-y-auto py-2 bg-canvas">
               {groups.map(([parent, qs]) => (
                 <div key={parent} className="mb-3">
                   <div className="px-3 py-1 text-xs font-extrabold text-muted uppercase tracking-wider">
@@ -163,7 +163,7 @@ export default function ExamSplitScreen({ exam, questions }: { exam: Exam; quest
             <div className="flex-1 overflow-y-auto px-4 py-4">
               {activeQuestion && (
                 <>
-                  <div className="mb-4 pb-3 border-b-[3px] border-dotted border-line">
+                  <div className="mb-4 pb-3 border-b-2 border-dotted border-line">
                     <div className="flex items-center gap-2 mb-1">
                       <h2 className="font-display font-semibold text-2xl">
                         Zadanie {activeQuestion.zadanie_number}
@@ -173,7 +173,7 @@ export default function ExamSplitScreen({ exam, questions }: { exam: Exam; quest
                     <p className="text-sm font-bold text-muted">
                       {activeQuestion.max_points} {activeQuestion.max_points === 1 ? 'punkt' : 'punktów'}
                     </p>
-                    <div className="mt-2 flex items-center gap-2 bg-[#fff1bf] border-[3px] border-amberx rounded-2xl px-3 py-2 text-xs font-bold text-amberx">
+                    <div className="mt-2 flex items-center gap-2 bg-[#fff1bf] border-2 border-amberx rounded-2xl px-3 py-2 text-xs font-bold text-amberx">
                       <span>←</span>
                       <span>Treść zadania znajduje się w arkuszu po lewej stronie</span>
                     </div>
@@ -188,7 +188,7 @@ export default function ExamSplitScreen({ exam, questions }: { exam: Exam; quest
 
       {/* ── Mobile: tabs ──────────────────────────────────────────────────── */}
       <div className="flex md:hidden flex-col h-screen overflow-hidden">
-        <div className="flex border-b-[3px] border-brand-deep bg-white shrink-0">
+        <div className="flex border-b-2 border-brand-deep bg-white shrink-0">
           <button
             onClick={() => setMobileTab('pdf')}
             className={`flex-1 py-3 text-sm font-extrabold transition-colors ${
@@ -223,7 +223,7 @@ export default function ExamSplitScreen({ exam, questions }: { exam: Exam; quest
                     <button
                       key={q.id}
                       onClick={() => setActiveId(q.id)}
-                      className={`px-3 py-1.5 text-sm font-extrabold rounded-xl border-[3px] transition-colors ${
+                      className={`px-3 py-1.5 text-sm font-extrabold rounded-xl border-2 transition-colors ${
                         q.id === activeId
                           ? 'bg-sun text-brand-deep border-brand-deep'
                           : 'border-line text-ink hover:border-brand'
@@ -235,7 +235,7 @@ export default function ExamSplitScreen({ exam, questions }: { exam: Exam; quest
                 </div>
                 {activeQuestion && (
                   <>
-                    <div className="mb-4 pb-3 border-b-[3px] border-dotted border-line">
+                    <div className="mb-4 pb-3 border-b-2 border-dotted border-line">
                       <div className="flex items-center gap-2 mb-1">
                         <h2 className="font-display font-semibold text-2xl">Zadanie {activeQuestion.zadanie_number}</h2>
                         <TypeBadge type={activeQuestion.question_type} />

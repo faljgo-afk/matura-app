@@ -149,7 +149,7 @@ export default function TestScreen({
               {questions.map((q, i) => (
                 <span
                   key={q.id}
-                  className={`flex-1 h-3.5 rounded-full border-[3px] border-brand-deep ${
+                  className={`flex-1 h-3.5 rounded-full border-2 border-brand-deep ${
                     i <= current ? 'bg-leaf' : 'bg-white'
                   }`}
                 />
@@ -157,7 +157,7 @@ export default function TestScreen({
             </div>
             {timeLeft !== null && (
               <div
-                className={`inline-flex items-center gap-2 font-mono font-semibold text-base sm:text-xl px-3 py-1 rounded-[14px] border-[3px] ${
+                className={`inline-flex items-center gap-2 font-mono font-semibold text-base sm:text-xl px-3 py-1 rounded-[12px] border-2 ${
                   isTimeLow
                     ? 'bg-coral-bg text-coral border-coral animate-pulse'
                     : 'bg-sun text-brand-deep border-brand-deep'
@@ -172,18 +172,18 @@ export default function TestScreen({
 
           {/* Review badge */}
           {isReview && (
-            <div className="flex items-center gap-2 text-sm font-bold text-amberx bg-amberx-bg border-[3px] border-amberx rounded-2xl px-4 py-2">
+            <div className="flex items-center gap-2 text-sm font-bold text-amberx bg-amberx-bg border-2 border-amberx rounded-2xl px-4 py-2">
               🔄 <span>Pytanie do powtórki — już je znasz, sprawdźmy czy nadal!</span>
             </div>
           )}
 
           {/* Question card */}
-          <article className="card-game !rounded-[32px] !shadow-hard-lg p-5 sm:p-8 flex flex-col gap-5">
+          <article className="card-game !rounded-[24px] !shadow-hard-lg p-5 sm:p-8 flex flex-col gap-5">
             <span className={`pill self-start ${typePill}`}>{typeLabel}</span>
             <h1 className="font-display font-semibold text-2xl sm:text-3xl leading-snug">{question.question_text}</h1>
 
             {question.image_url && (
-              <div className="rounded-2xl overflow-hidden border-[3px] border-line bg-canvas">
+              <div className="rounded-2xl overflow-hidden border-2 border-line bg-canvas">
                 <img
                   src={question.image_url}
                   alt="Ilustracja do pytania"
@@ -199,7 +199,7 @@ export default function TestScreen({
                   return (
                     <div
                       key={option.id}
-                      className={`flex items-center gap-3 px-4 py-3 rounded-2xl border-[3px] transition-colors ${
+                      className={`flex items-center gap-3 px-4 py-3 rounded-2xl border-2 transition-colors ${
                         verdict ? 'border-brand-deep bg-[#fff4c2]' : 'border-line bg-white'
                       }`}
                     >
@@ -209,7 +209,7 @@ export default function TestScreen({
                         <button
                           onClick={() => setTrueFalseVerdict(option.id, 'P')}
                           aria-pressed={verdict === 'P'}
-                          className={`w-11 h-11 font-black rounded-[14px] border-[3px] transition-colors ${
+                          className={`w-11 h-11 font-black rounded-[12px] border-2 transition-colors ${
                             verdict === 'P'
                               ? 'border-brand-deep bg-brand text-white'
                               : 'border-line bg-white text-muted hover:border-brand hover:text-brand'
@@ -218,7 +218,7 @@ export default function TestScreen({
                         <button
                           onClick={() => setTrueFalseVerdict(option.id, 'F')}
                           aria-pressed={verdict === 'F'}
-                          className={`w-11 h-11 font-black rounded-[14px] border-[3px] transition-colors ${
+                          className={`w-11 h-11 font-black rounded-[12px] border-2 transition-colors ${
                             verdict === 'F'
                               ? 'border-coral bg-coral text-white'
                               : 'border-line bg-white text-muted hover:border-coral hover:text-coral'
@@ -238,13 +238,13 @@ export default function TestScreen({
                       key={option.id}
                       onClick={() => toggleOption(option.id)}
                       aria-pressed={isSelected}
-                      className={`w-full text-left flex items-center gap-4 px-4 py-3.5 min-h-[64px] rounded-[20px] border-[3px] mb-[5px] transition-transform active:translate-y-[3px] ${
+                      className={`w-full text-left flex items-center gap-4 px-4 py-3.5 min-h-[64px] rounded-[16px] border-2 mb-[3px] transition-transform active:translate-y-[2px] ${
                         isSelected
                           ? 'border-brand-deep bg-[#fff4c2] shadow-hard font-extrabold'
                           : 'border-line bg-white shadow-hard-line hover:border-brand font-semibold'
                       }`}
                     >
-                      <span className={`shrink-0 w-[38px] h-[38px] rounded-xl border-[3px] flex items-center justify-center text-sm font-black ${
+                      <span className={`shrink-0 w-[38px] h-[38px] rounded-xl border-2 flex items-center justify-center text-sm font-black ${
                         isSelected ? 'bg-sun text-brand-deep border-brand-deep' : 'bg-canvas text-muted border-line'
                       }`}>{option.id}</span>
                       <span className="flex-1 text-base sm:text-[17px]">{option.text}</span>
@@ -296,7 +296,7 @@ export default function TestScreen({
                     aria-label={`Pytanie ${i + 1}`}
                     aria-current={i === current ? 'step' : undefined}
                     title={isReviewDot ? 'Powtórka' : undefined}
-                    className={`w-11 h-11 rounded-[14px] border-[3px] font-mono font-semibold text-[15px] transition-colors ${
+                    className={`w-11 h-11 rounded-[12px] border-2 font-mono font-semibold text-[15px] transition-colors ${
                       i === current
                         ? 'bg-sun text-brand-deep border-brand-deep'
                         : isAnswered

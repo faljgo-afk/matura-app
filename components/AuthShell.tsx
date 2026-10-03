@@ -12,7 +12,7 @@ export default function AuthShell({
 }) {
   return (
     <main className="bg-canvas min-h-[75vh] flex items-center justify-center px-4 sm:px-8 py-8 sm:py-12">
-      <section className="card-game !rounded-[32px] !shadow-hard-lg p-6 sm:p-8 w-full max-w-md">
+      <section className="card-game !rounded-[24px] !shadow-hard-lg p-6 sm:p-8 w-full max-w-md">
         <h1 className="font-display font-bold text-3xl sm:text-4xl mb-1">{title}</h1>
         <p className="text-muted mb-6">{subtitle}</p>
         {children}

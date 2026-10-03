@@ -24,7 +24,7 @@ const Check = () => (
 function Feature({ tile, children }: { tile: string; children: React.ReactNode }) {
   return (
     <li className="flex items-center gap-3 text-[15px] sm:text-base">
-      <span className={`shrink-0 w-9 h-9 rounded-xl border-[3px] border-brand-deep flex items-center justify-center text-brand-deep ${tile}`}>
+      <span className={`shrink-0 w-9 h-9 rounded-xl border-2 border-brand-deep flex items-center justify-center text-brand-deep ${tile}`}>
         <Check />
       </span>
       <span>{children}</span>
@@ -43,9 +43,9 @@ export default async function MockExamPage() {
       <div className="max-w-3xl mx-auto px-4 sm:px-8 py-8 sm:py-10 flex flex-col gap-8">
 
         {/* Hero */}
-        <section className="relative overflow-hidden rounded-[36px] border-4 border-brand-deep shadow-hard-lg mb-2 text-white bg-gradient-to-br from-[#0b5a33] to-[#12803f] px-6 py-8 sm:px-10 sm:py-10 flex items-center justify-between gap-6">
+        <section className="relative overflow-hidden rounded-[26px] border-2 border-brand-deep shadow-hard-lg mb-2 text-white bg-gradient-to-br from-[#0b5a33] to-[#12803f] px-6 py-8 sm:px-10 sm:py-10 flex items-center justify-between gap-6">
           <div className="relative flex-1 min-w-0 flex flex-col gap-3">
-            <span className="self-start text-sm font-extrabold px-3.5 py-1.5 rounded-full bg-sun text-brand-deep border-[3px] border-brand-deep">
+            <span className="self-start text-sm font-extrabold px-3.5 py-1.5 rounded-full bg-sun text-brand-deep border-2 border-brand-deep">
               Ogólny sprawdzian
             </span>
             <h1 className="font-display font-bold text-4xl sm:text-5xl leading-[1.05]">
@@ -61,8 +61,8 @@ export default async function MockExamPage() {
         </section>
 
         {/* What you get + start */}
-        <section className="card-game !rounded-[32px] !shadow-hard-lg p-6 sm:p-8 flex flex-col gap-6">
-          <ul className="flex flex-col gap-3 rounded-2xl bg-canvas border-[3px] border-line p-5">
+        <section className="card-game !rounded-[24px] !shadow-hard-lg p-6 sm:p-8 flex flex-col gap-6">
+          <ul className="flex flex-col gap-3 rounded-2xl bg-canvas border-2 border-line p-5">
             <Feature tile="bg-leaf"><strong>20 pytań</strong> losowanych ze wszystkich tematów</Feature>
             <Feature tile="bg-sun">Po zakończeniu — wynik i <strong>wyjaśnienia błędów</strong></Feature>
             <Feature tile="bg-aqua">Baza zawiera <strong>{questionCount} pytań</strong> do sprawdzianu</Feature>

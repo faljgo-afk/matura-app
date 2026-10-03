@@ -61,7 +61,7 @@ export default async function OpenQuestionsPage({ params }: { params: { slug: st
         </div>
 
         {questions.length === 0 ? (
-          <div className="card-game !rounded-[28px] p-8 text-center font-semibold text-muted">
+          <div className="card-game !rounded-[20px] p-8 text-center font-semibold text-muted">
             Brak pytań otwartych dla tego tematu. Zajrzyj później!
           </div>
         ) : (

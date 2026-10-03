@@ -95,7 +95,7 @@ export default async function MaturaQuestionPage({
           <div className="flex gap-1">
             {allQuestions.map((q, i) => (
               <Link key={q.id} href={`/archiwum/${params.examId}/${q.id}`}>
-                <div className={`h-3.5 rounded-full border-[3px] border-brand-deep transition-all ${
+                <div className={`h-3.5 rounded-full border-2 border-brand-deep transition-all ${
                   i === currentIdx ? 'bg-sun w-6' : 'bg-white w-3.5 hover:bg-mint'
                 }`} />
               </Link>
@@ -110,7 +110,7 @@ export default async function MaturaQuestionPage({
               key={i}
               src={url}
               alt={`Zadanie ${question.zadanie_number} — strona ${i + 1}`}
-              className="w-full rounded-2xl border-[3px] border-brand-deep"
+              className="w-full rounded-2xl border-2 border-brand-deep"
             />
           ))}
         </div>

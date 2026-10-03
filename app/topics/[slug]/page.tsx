@@ -71,11 +71,11 @@ export default async function TopicPage({ params }: { params: { slug: string } }
         </header>
 
         {/* Closed questions */}
-        <section className="card-game !shadow-hard-lg !rounded-[32px] p-6 sm:p-8 flex flex-col gap-5">
+        <section className="card-game !shadow-hard-lg !rounded-[24px] p-6 sm:p-8 flex flex-col gap-5">
           <div className="flex flex-wrap items-center gap-3">
             <span className="pill bg-mint text-brand-deep">Pytania testowe</span>
           </div>
-          <div className="flex items-center gap-5 rounded-2xl bg-canvas border-[3px] border-line p-4">
+          <div className="flex items-center gap-5 rounded-2xl bg-canvas border-2 border-line p-4">
             <div className="text-center shrink-0 min-w-[72px]">
               <div className="font-mono font-semibold text-3xl leading-none">{closedCount}</div>
               <div className="text-xs font-bold text-muted mt-1">pytań w bazie</div>
@@ -103,12 +103,12 @@ export default async function TopicPage({ params }: { params: { slug: string } }
         </section>
 
         {/* Open questions */}
-        <section className="card-game !shadow-hard-lg !rounded-[32px] p-6 sm:p-8 flex flex-col gap-5">
+        <section className="card-game !shadow-hard-lg !rounded-[24px] p-6 sm:p-8 flex flex-col gap-5">
           <div className="flex flex-wrap items-center gap-3">
             <span className="pill bg-[#e3dcff] text-[#3b2a9e]">Pytania otwarte</span>
             <span className="text-sm font-semibold text-muted">jak na prawdziwej maturze</span>
           </div>
-          <div className="flex items-center gap-5 rounded-2xl bg-canvas border-[3px] border-line p-4">
+          <div className="flex items-center gap-5 rounded-2xl bg-canvas border-2 border-line p-4">
             <div className="text-center shrink-0 min-w-[72px]">
               <div className="font-mono font-semibold text-3xl leading-none">{openCount}</div>
               <div className="text-xs font-bold text-muted mt-1">pytań</div>

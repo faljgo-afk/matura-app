@@ -32,7 +32,7 @@ function ScoreBadge({ score, max }: { score: number; max: number }) {
     ? 'bg-sun text-brand-deep'
     : 'bg-candy text-brand-deep'
   return (
-    <span className={`inline-flex items-center font-mono font-semibold text-lg px-4 py-1.5 rounded-full border-[3px] border-brand-deep ${color}`}>
+    <span className={`inline-flex items-center font-mono font-semibold text-lg px-4 py-1.5 rounded-full border-2 border-brand-deep ${color}`}>
       {score}/{max} pkt
     </span>
   )
@@ -125,7 +125,7 @@ export default function OpenPractice({ questions }: { questions: Question[] }) {
     const totalScore = answered.reduce((s, [, r]) => s + r.score, 0)
     const totalMax = answered.reduce((s, [, r]) => s + r.maxPoints, 0)
     return (
-      <div className="card-game !rounded-[32px] !shadow-hard-lg p-8 text-center">
+      <div className="card-game !rounded-[24px] !shadow-hard-lg p-8 text-center">
         <h2 className="font-display font-bold text-3xl mb-1">Wszystkie pytania ukończone!</h2>
         <p className="text-muted text-lg mb-6">
           Łączny wynik: <strong>{totalScore}/{totalMax} pkt</strong> ({answered.length} pytań)
@@ -153,7 +153,7 @@ export default function OpenPractice({ questions }: { questions: Question[] }) {
     <div>
       {/* Review skipped banner */}
       {reviewingSkipped && (
-        <div className="mb-4 bg-amberx-bg border-[3px] border-amberx rounded-2xl px-4 py-3 text-sm text-amberx font-bold">
+        <div className="mb-4 bg-amberx-bg border-2 border-amberx rounded-2xl px-4 py-3 text-sm text-amberx font-bold">
           Wracasz do pominiętych pytań ({order.length} {order.length === 1 ? 'pytanie' : 'pytania'})
         </div>
       )}
@@ -175,7 +175,7 @@ export default function OpenPractice({ questions }: { questions: Question[] }) {
             return (
               <div
                 key={i}
-                className={`h-3.5 rounded-full border-[3px] border-brand-deep transition-all ${
+                className={`h-3.5 rounded-full border-2 border-brand-deep transition-all ${
                   i === pos
                     ? 'bg-sun w-6'
                     : r
@@ -191,7 +191,7 @@ export default function OpenPractice({ questions }: { questions: Question[] }) {
       </div>
 
       {/* Question card */}
-      <div className="card-game !rounded-[32px] !shadow-hard-lg p-5 sm:p-8 mb-4">
+      <div className="card-game !rounded-[24px] !shadow-hard-lg p-5 sm:p-8 mb-4">
         <div className="flex items-center gap-2 mb-4 flex-wrap">
           <span className="pill bg-[#e3dcff] text-[#3b2a9e]">
             {question.max_points} {question.max_points === 1 ? 'punkt' : 'punkty'}
@@ -221,7 +221,7 @@ export default function OpenPractice({ questions }: { questions: Question[] }) {
               className="field resize-y"
             />
             {loading ? (
-              <div className="mt-4 flex items-center gap-4 bg-[#eee9ff] border-[3px] border-grape rounded-2xl px-5 py-4">
+              <div className="mt-4 flex items-center gap-4 bg-[#eee9ff] border-2 border-grape rounded-2xl px-5 py-4">
                 <div className="flex gap-1.5 shrink-0">
                   <span className="w-2.5 h-2.5 bg-grape rounded-full animate-bounce [animation-delay:-0.3s]" />
                   <span className="w-2.5 h-2.5 bg-grape rounded-full animate-bounce [animation-delay:-0.15s]" />
@@ -252,7 +252,7 @@ export default function OpenPractice({ questions }: { questions: Question[] }) {
                 </div>
               </div>
             )}
-            {error && <p role="alert" className="text-sm font-bold text-coral bg-coral-bg border-[3px] border-coral rounded-2xl px-4 py-2.5 mt-3">{error}</p>}
+            {error && <p role="alert" className="text-sm font-bold text-coral bg-coral-bg border-2 border-coral rounded-2xl px-4 py-2.5 mt-3">{error}</p>}
           </div>
         )}
       </div>
@@ -260,7 +260,7 @@ export default function OpenPractice({ questions }: { questions: Question[] }) {
       {/* Results */}
       {result && (
         <div className="flex flex-col gap-5">
-          <div className="card-game !rounded-[28px] p-5 sm:p-6">
+          <div className="card-game !rounded-[20px] p-5 sm:p-6">
             <div className="flex items-center gap-4 mb-4">
               <ScoreBadge score={result.score} max={result.maxPoints} />
               <p className="text-[15px] font-semibold">{result.feedback}</p>
@@ -270,7 +270,7 @@ export default function OpenPractice({ questions }: { questions: Question[] }) {
               {result.criteria.map((c, i) => (
                 <div
                   key={i}
-                  className={`flex items-start gap-3 rounded-2xl border-[3px] px-4 py-3 text-[15px] font-semibold ${
+                  className={`flex items-start gap-3 rounded-2xl border-2 px-4 py-3 text-[15px] font-semibold ${
                     c.met
                       ? 'bg-mint border-brand text-brand-deep'
                       : 'bg-coral-bg border-coral text-coral'
@@ -283,13 +283,13 @@ export default function OpenPractice({ questions }: { questions: Question[] }) {
             </div>
           </div>
 
-          <div className="bg-white rounded-3xl border-[3px] border-line p-5">
+          <div className="bg-white rounded-[20px] border-2 border-line p-5">
             <p className="text-xs font-extrabold text-muted uppercase tracking-wider mb-2">Twoja odpowiedź</p>
             <p className="text-[15px] whitespace-pre-wrap">{answer}</p>
           </div>
 
           {result.modelAnswer && (
-            <div className="card-game !rounded-[24px] !shadow-hard p-5">
+            <div className="card-game !rounded-[18px] !shadow-hard p-5">
               <button
                 aria-expanded={showModel}
                 onClick={() => setShowModel(v => !v)}
@@ -299,7 +299,7 @@ export default function OpenPractice({ questions }: { questions: Question[] }) {
                 <span className="text-muted">{showModel ? '▲' : '▼'}</span>
               </button>
               {showModel && (
-                <p className="mt-3 text-[15px] leading-relaxed whitespace-pre-wrap border-t-[3px] border-dotted border-line pt-3">
+                <p className="mt-3 text-[15px] leading-relaxed whitespace-pre-wrap border-t-2 border-dotted border-line pt-3">
                   {result.modelAnswer}
                 </p>
               )}

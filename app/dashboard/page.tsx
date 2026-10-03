@@ -73,8 +73,8 @@ export default async function DashboardPage() {
       <div className="max-w-[1000px] mx-auto px-4 sm:px-8 py-8 sm:py-10 flex flex-col gap-8">
 
         {/* Profile card */}
-        <section className="relative overflow-hidden rounded-[32px] border-4 border-brand-deep shadow-hard-lg mb-2 text-white bg-gradient-to-br from-[#0b5a33] to-[#12803f] p-6 sm:p-8 flex items-center gap-5">
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-sun border-[3px] border-brand-deep flex items-center justify-center shrink-0 select-none">
+        <section className="relative overflow-hidden rounded-[24px] border-2 border-brand-deep shadow-hard-lg mb-2 text-white bg-gradient-to-br from-[#0b5a33] to-[#12803f] p-6 sm:p-8 flex items-center gap-5">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-[20px] bg-sun border-2 border-brand-deep flex items-center justify-center shrink-0 select-none">
             <span className="font-display text-3xl sm:text-4xl font-bold text-brand-deep">
               {((user.user_metadata?.name || user.email || '?')[0]).toUpperCase()}
             </span>
@@ -101,8 +101,8 @@ export default async function DashboardPage() {
             { value: avgMockScore !== null ? `${avgMockScore}%` : '—', label: 'Średni wynik (sprawdziany)', tile: 'bg-candy' },
             { value: `${totalLearned}/${totalQuestions}`, label: 'Pytań opanowanych', tile: 'bg-grape text-white' },
           ].map((s) => (
-            <div key={s.label} className="card-game !rounded-[24px] p-4 flex flex-col gap-2 last:col-span-2 lg:last:col-span-1">
-              <span className={`self-start font-mono font-semibold text-2xl sm:text-3xl leading-none px-3 py-2 rounded-2xl border-[3px] border-brand-deep text-brand-deep ${s.tile}`}>
+            <div key={s.label} className="card-game !rounded-[18px] p-4 flex flex-col gap-2 last:col-span-2 lg:last:col-span-1">
+              <span className={`self-start font-mono font-semibold text-2xl sm:text-3xl leading-none px-3 py-2 rounded-2xl border-2 border-brand-deep text-brand-deep ${s.tile}`}>
                 {s.value}
               </span>
               <span className="text-sm font-bold text-muted leading-snug">{s.label}</span>

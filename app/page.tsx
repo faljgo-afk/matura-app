@@ -39,7 +39,7 @@ async function getTopics(): Promise<Topic[]> {
 function ModeCard({ href, title, text, tag, tile, icon }: { href: string; title: string; text: string; tag: string; tile: string; icon: React.ReactNode }) {
   return (
     <Link href={href} className="card-game card-link flex flex-col gap-3 p-6 min-h-[210px] shadow-hard-lg">
-      <span className={`w-[60px] h-[60px] rounded-[20px] border-[3px] border-brand-deep flex items-center justify-center text-brand-deep ${tile}`}>
+      <span className={`w-[60px] h-[60px] rounded-[16px] border-2 border-brand-deep flex items-center justify-center text-brand-deep ${tile}`}>
         {icon}
       </span>
       <h3 className="font-display font-semibold text-2xl leading-tight">{title}</h3>
@@ -59,15 +59,15 @@ export default async function HomePage() {
       <div className="max-w-[1200px] mx-auto px-4 sm:px-8 pt-2 pb-16 flex flex-col gap-14">
 
         {/* Hero */}
-        <section className="relative overflow-hidden rounded-[40px] border-4 border-brand-deep shadow-hard-lg mb-2 text-white bg-gradient-to-br from-[#0b5a33] via-[#12803f] to-[#1e9d4a] px-6 py-10 sm:px-12 sm:py-12 flex flex-wrap items-center justify-between gap-6">
+        <section className="relative overflow-hidden rounded-[28px] border-2 border-brand-deep shadow-hard-lg mb-2 text-white bg-gradient-to-br from-[#0b5a33] via-[#12803f] to-[#1e9d4a] px-6 py-10 sm:px-12 sm:py-12 flex flex-wrap items-center justify-between gap-6">
           <div aria-hidden="true" className="pointer-events-none absolute -left-6 top-6 w-24 h-24 rounded-full bg-white/10" />
           <div aria-hidden="true" className="pointer-events-none absolute left-1/2 -bottom-10 w-32 h-32 rounded-full bg-white/10" />
           <div className="relative flex-1 basis-[420px] max-w-[600px] flex flex-col gap-5">
-            <span className="self-start inline-flex items-center gap-2 text-sm font-extrabold px-3.5 py-1.5 rounded-full bg-sun text-brand-deep border-[3px] border-brand-deep">
+            <span className="self-start inline-flex items-center gap-2 text-sm font-extrabold px-3.5 py-1.5 rounded-full bg-sun text-brand-deep border-2 border-brand-deep">
               Przygotowanie do matury z biologii
             </span>
             <h1 className="font-display font-bold text-5xl sm:text-6xl leading-[1.03]">
-              Ucz się biologii <span className="text-sun">z uśmiechem</span> i zdaj na 100%
+              Ucz się skutecznie. <span className="text-sun">Zdaj biologię</span> na 100%
             </h1>
             <p className="text-lg text-[#e9fbe0] max-w-[520px]">
               Trenuj i sprawdzaj swoją wiedzę — testy tematyczne i sprawdziany z całego materiału.
@@ -110,7 +110,7 @@ export default async function HomePage() {
         {/* Archive */}
         <Link
           href="/archiwum"
-          className="card-game card-link !rounded-[32px] !shadow-hard-lg bg-amberx-bg flex flex-wrap items-center justify-between gap-4 px-6 py-7 sm:px-9"
+          className="card-game card-link !rounded-[24px] !shadow-hard-lg bg-amberx-bg flex flex-wrap items-center justify-between gap-4 px-6 py-7 sm:px-9"
           style={{ backgroundColor: '#fff1bf' }}
         >
           <div className="max-w-[640px]">
@@ -134,9 +134,9 @@ export default async function HomePage() {
               <Link
                 key={topic.id}
                 href={`/topics/${topic.slug}`}
-                className="card-game card-link !rounded-[22px] !shadow-hard flex items-center gap-4 p-4"
+                className="card-game card-link !rounded-[16px] !shadow-hard flex items-center gap-4 p-4"
               >
-                <span className={`w-[52px] h-[52px] rounded-2xl border-[3px] border-brand-deep flex items-center justify-center font-display font-bold text-[22px] shrink-0 ${TILE_COLORS[i % TILE_COLORS.length]}`}>
+                <span className={`w-[52px] h-[52px] rounded-2xl border-2 border-brand-deep flex items-center justify-center font-display font-bold text-[22px] shrink-0 ${TILE_COLORS[i % TILE_COLORS.length]}`}>
                   {topic.order_index}
                 </span>
                 <div className="min-w-0 flex-1">
@@ -150,7 +150,7 @@ export default async function HomePage() {
         </section>
 
         {/* Mock exam CTA */}
-        <section className="rounded-[32px] border-[3px] border-brand-deep shadow-hard-lg mb-2 bg-brand text-white text-center px-6 py-8">
+        <section className="rounded-[24px] border-2 border-brand-deep shadow-hard-lg mb-2 bg-brand text-white text-center px-6 py-8">
           <h2 className="font-display font-bold text-3xl mb-2">Sprawdzian z całego materiału</h2>
           <p className="text-[#e9fbe0] mb-5">20 pytań ze wszystkich tematów — kompleksowy test wiedzy</p>
           <Link href="/mock-exam" className="btn btn-sun">Rozpocznij sprawdzian<Arrow /></Link>

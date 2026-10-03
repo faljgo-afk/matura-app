@@ -47,7 +47,7 @@ export default function EditNameForm({ currentName }: { currentName: string }) {
         onChange={e => setName(e.target.value)}
         autoFocus
         aria-label="Imię"
-        className="font-display text-xl font-bold rounded-xl border-[3px] border-brand-deep bg-white text-ink px-3 py-1 w-48 outline-none focus:border-sun"
+        className="font-display text-xl font-bold rounded-xl border-2 border-brand-deep bg-white text-ink px-3 py-1 w-48 outline-none focus:border-sun"
         onKeyDown={e => { if (e.key === 'Enter') handleSave(); if (e.key === 'Escape') setEditing(false) }}
       />
       <button onClick={handleSave} disabled={loading} className="btn btn-sun btn-sm !mb-0 disabled:opacity-50">

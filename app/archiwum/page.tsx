@@ -47,7 +47,7 @@ export default async function ArchiwumPage() {
         </Link>
 
         <header>
-          <span className="pill bg-sun text-brand-deep border-[3px] border-brand-deep mb-3">Archiwum matur</span>
+          <span className="pill bg-sun text-brand-deep border-2 border-brand-deep mb-3">Archiwum matur</span>
           <h1 className="font-display font-bold text-4xl sm:text-5xl leading-tight">Prawdziwe zadania maturalne</h1>
           <p className="text-muted text-lg mt-2">
             Zadania otwarte z arkuszy CKE. Napisz odpowiedź — AI oceni ją według oficjalnego klucza.
@@ -55,7 +55,7 @@ export default async function ArchiwumPage() {
         </header>
 
         {exams.length === 0 ? (
-          <div className="card-game !rounded-[28px] p-8 text-center font-semibold text-muted">
+          <div className="card-game !rounded-[20px] p-8 text-center font-semibold text-muted">
             Brak arkuszy w bazie. Zajrzyj później!
           </div>
         ) : (
@@ -64,7 +64,7 @@ export default async function ArchiwumPage() {
               <Link
                 key={exam.id}
                 href={`/archiwum/${exam.id}`}
-                className="card-game card-link !rounded-[24px] !shadow-hard flex items-center justify-between gap-4 px-5 py-4 sm:px-6"
+                className="card-game card-link !rounded-[18px] !shadow-hard flex items-center justify-between gap-4 px-5 py-4 sm:px-6"
               >
                 <div className="min-w-0">
                   <div className="font-display font-semibold text-xl leading-snug">
@@ -74,7 +74,7 @@ export default async function ArchiwumPage() {
                     Biologia · Poziom rozszerzony
                   </div>
                 </div>
-                <div className="shrink-0 text-center rounded-2xl bg-[#fff1bf] border-[3px] border-brand-deep px-4 py-1.5">
+                <div className="shrink-0 text-center rounded-2xl bg-[#fff1bf] border-2 border-brand-deep px-4 py-1.5">
                   <div className="font-mono font-semibold text-2xl leading-none">{exam.question_count}</div>
                   <div className="text-xs font-bold text-muted">zadań</div>
                 </div>

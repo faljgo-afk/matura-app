@@ -34,7 +34,7 @@ export default function FeedbackWidget({
 
   if (submitted) {
     return (
-      <div className="bg-mint border-[3px] border-brand-deep rounded-3xl p-5 text-center text-brand-deep font-bold">
+      <div className="bg-mint border-2 border-brand-deep rounded-[20px] p-5 text-center text-brand-deep font-bold">
         Dziękujemy za opinię! Twój feedback pomaga nam ulepszać testy. 🙏
       </div>
     )
@@ -50,7 +50,7 @@ export default function FeedbackWidget({
           <button
             key={r.value}
             onClick={() => setRating(r.value)}
-            className={`flex-1 flex flex-col items-center py-2.5 rounded-2xl border-[3px] transition-colors text-sm font-bold ${
+            className={`flex-1 flex flex-col items-center py-2.5 rounded-2xl border-2 transition-colors text-sm font-bold ${
               rating === r.value
                 ? 'border-brand-deep bg-[#fff4c2] text-ink'
                 : 'border-line text-muted hover:border-brand'
@@ -67,7 +67,7 @@ export default function FeedbackWidget({
         onChange={e => setComment(e.target.value)}
         placeholder="Opcjonalny komentarz — co było niejasne, co warto poprawić?"
         rows={3}
-        className="w-full border-[3px] border-line rounded-2xl px-4 py-3 text-[15px] text-ink resize-none focus:outline-none focus:border-brand mb-3"
+        className="w-full border-2 border-line rounded-2xl px-4 py-3 text-[15px] text-ink resize-none focus:outline-none focus:border-brand mb-3"
       />
 
       <button

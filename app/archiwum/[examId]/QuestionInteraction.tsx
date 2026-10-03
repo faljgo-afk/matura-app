@@ -30,7 +30,7 @@ function ScoreBadge({ score, max }: { score: number; max: number }) {
       ? 'bg-sun text-brand-deep border-brand-deep'
       : 'bg-candy text-brand-deep border-brand-deep'
   return (
-    <span className={`inline-flex items-center font-mono font-semibold text-base px-3 py-1 rounded-full border-[3px] ${color}`}>
+    <span className={`inline-flex items-center font-mono font-semibold text-base px-3 py-1 rounded-full border-2 ${color}`}>
       {score}/{max} pkt
     </span>
   )
@@ -71,7 +71,7 @@ function SingleChoice({ question }: { question: Question; onReset: () => void })
           <button
             key={opt}
             onClick={() => { if (!confirmed) setSelected(opt) }}
-            className={`w-12 h-12 rounded-2xl border-[3px] text-base font-black transition-colors ${getColor(opt)}`}
+            className={`w-12 h-12 rounded-2xl border-2 text-base font-black transition-colors ${getColor(opt)}`}
           >
             {opt}
           </button>
@@ -86,12 +86,12 @@ function SingleChoice({ question }: { question: Question; onReset: () => void })
           Sprawdź
         </button>
       ) : selected === correct ? (
-        <div className="rounded-2xl border-[3px] border-brand px-4 py-3 text-sm font-extrabold bg-mint text-brand-deep">
+        <div className="rounded-2xl border-2 border-brand px-4 py-3 text-sm font-extrabold bg-mint text-brand-deep">
           ✓ Poprawnie! Odpowiedź: {correct}
         </div>
       ) : (
         <>
-          <div className="rounded-2xl border-[3px] border-coral px-4 py-3 text-sm font-extrabold bg-coral-bg text-coral">
+          <div className="rounded-2xl border-2 border-coral px-4 py-3 text-sm font-extrabold bg-coral-bg text-coral">
             ✗ Niepoprawnie. Spróbuj jeszcze raz.
           </div>
           <div className="flex gap-2">
@@ -154,7 +154,7 @@ function MultipleChoice({ question, onReset }: { question: Question; onReset: ()
           <button
             key={opt}
             onClick={() => toggle(opt)}
-            className={`w-12 h-12 rounded-2xl border-[3px] text-base font-black transition-colors ${getColor(opt)}`}
+            className={`w-12 h-12 rounded-2xl border-2 text-base font-black transition-colors ${getColor(opt)}`}
           >
             {opt}
           </button>
@@ -170,7 +170,7 @@ function MultipleChoice({ question, onReset }: { question: Question; onReset: ()
         </button>
       ) : (
         <>
-          <div className={`rounded-2xl border-[3px] border-brand-deep px-4 py-3 text-sm font-bold ${
+          <div className={`rounded-2xl border-2 border-brand-deep px-4 py-3 text-sm font-bold ${
             score === question.max_points ? 'bg-mint text-brand-deep' : 'bg-amberx-bg text-amberx'
           }`}>
             <ScoreBadge score={score} max={question.max_points} />
@@ -226,7 +226,7 @@ function TrueFalse({ question, onReset }: { question: Question; onReset: () => v
                   <button
                     key={val}
                     onClick={() => setAnswer(i, val)}
-                    className={`px-4 py-2 text-sm font-extrabold rounded-xl border-[3px] transition-colors ${
+                    className={`px-4 py-2 text-sm font-extrabold rounded-xl border-2 transition-colors ${
                       isCorrect
                         ? 'border-brand bg-mint text-brand-deep font-bold'
                         : isWrong
@@ -254,7 +254,7 @@ function TrueFalse({ question, onReset }: { question: Question; onReset: () => v
         </button>
       ) : (
         <>
-          <div className={`rounded-2xl border-[3px] border-brand-deep px-4 py-3 text-sm font-bold ${
+          <div className={`rounded-2xl border-2 border-brand-deep px-4 py-3 text-sm font-bold ${
             isPerfect ? 'bg-mint text-brand-deep' : 'bg-amberx-bg text-amberx'
           }`}>
             <ScoreBadge score={scaledScore} max={question.max_points} />
@@ -331,7 +331,7 @@ function OpenQuestion({ question, onReset }: { question: Question; onReset: () =
       />
       {!result && (
         loading ? (
-          <div className="flex items-center gap-4 bg-[#fff1bf] border-[3px] border-amberx rounded-2xl px-5 py-4">
+          <div className="flex items-center gap-4 bg-[#fff1bf] border-2 border-amberx rounded-2xl px-5 py-4">
             <div className="flex gap-1.5 shrink-0">
               <span className="w-2.5 h-2.5 bg-amberx rounded-full animate-bounce [animation-delay:-0.3s]" />
               <span className="w-2.5 h-2.5 bg-amberx rounded-full animate-bounce [animation-delay:-0.15s]" />
@@ -355,11 +355,11 @@ function OpenQuestion({ question, onReset }: { question: Question; onReset: () =
           </div>
         )
       )}
-      {error && <p className="text-sm font-bold text-coral bg-coral-bg border-[3px] border-coral rounded-2xl px-4 py-2.5">{error}</p>}
+      {error && <p className="text-sm font-bold text-coral bg-coral-bg border-2 border-coral rounded-2xl px-4 py-2.5">{error}</p>}
 
       {result && (
         <div className="space-y-3">
-          <div className="card-game !rounded-[24px] !shadow-hard p-4">
+          <div className="card-game !rounded-[18px] !shadow-hard p-4">
             <div className="flex items-center gap-3 mb-3">
               <ScoreBadge score={result.score} max={result.maxPoints} />
               <p className="text-sm font-semibold">{result.feedback}</p>
@@ -367,7 +367,7 @@ function OpenQuestion({ question, onReset }: { question: Question; onReset: () =
             <div className="space-y-2">
               {result.criteria.map((c, i) => (
                 <div key={i} className={`flex items-start gap-2 rounded-2xl px-3 py-2 text-sm ${
-                  c.met ? 'bg-mint border-[3px] border-brand text-brand-deep font-semibold' : 'bg-coral-bg border-[3px] border-coral text-coral font-semibold'
+                  c.met ? 'bg-mint border-2 border-brand text-brand-deep font-semibold' : 'bg-coral-bg border-2 border-coral text-coral font-semibold'
                 }`}>
                   <span className="shrink-0">{c.met ? '✓' : '✗'}</span>
                   <span>{c.text}</span>
@@ -377,7 +377,7 @@ function OpenQuestion({ question, onReset }: { question: Question; onReset: () =
           </div>
 
           {result.modelAnswer && (
-            <div className="card-game !rounded-[24px] !shadow-hard p-4">
+            <div className="card-game !rounded-[18px] !shadow-hard p-4">
               <button
                 onClick={() => setShowModel(v => !v)}
                 className="w-full text-left flex items-center justify-between text-sm font-extrabold hover:text-brand"
@@ -386,7 +386,7 @@ function OpenQuestion({ question, onReset }: { question: Question; onReset: () =
                 <span className="text-muted">{showModel ? '▲' : '▼'}</span>
               </button>
               {showModel && (
-                <p className="mt-2 text-sm leading-relaxed whitespace-pre-wrap border-t-[3px] border-dotted border-line pt-2">
+                <p className="mt-2 text-sm leading-relaxed whitespace-pre-wrap border-t-2 border-dotted border-line pt-2">
                   {result.modelAnswer}
                 </p>
               )}

@@ -58,7 +58,7 @@ export default function BrowseClient({
       <div className="flex gap-2 flex-wrap mb-6" role="group" aria-label="Filtr podtematów">
         <button
           onClick={() => setFilter('all')}
-          className={`px-4 py-2 rounded-full text-sm font-extrabold border-[3px] transition-colors ${
+          className={`px-4 py-2 rounded-full text-sm font-extrabold border-2 transition-colors ${
             filter === 'all'
               ? 'bg-sun text-brand-deep border-brand-deep'
               : 'bg-white text-muted border-line hover:border-brand'
@@ -73,7 +73,7 @@ export default function BrowseClient({
             <button
               key={s.id}
               onClick={() => setFilter(s.name)}
-              className={`px-4 py-2 rounded-full text-sm font-extrabold border-[3px] transition-colors ${
+              className={`px-4 py-2 rounded-full text-sm font-extrabold border-2 transition-colors ${
                 filter === s.name
                   ? 'bg-sun text-brand-deep border-brand-deep'
                   : 'bg-white text-muted border-line hover:border-brand'
@@ -90,7 +90,7 @@ export default function BrowseClient({
         {filtered.map((q, i) => {
           const isRevealed = revealed.has(q.id)
           return (
-            <article key={q.id} className="card-game !rounded-[28px] p-5 sm:p-6">
+            <article key={q.id} className="card-game !rounded-[20px] p-5 sm:p-6">
               {/* Header */}
               <div className="flex items-start justify-between gap-3 mb-3">
                 <div className="flex-1">
@@ -124,7 +124,7 @@ export default function BrowseClient({
                         ? (q.correct_answer.find(c => c.startsWith(opt.id + '-'))?.split('-')[1] ?? null)
                         : null
                       return (
-                        <div key={opt.id} className={`flex items-center gap-3 px-4 py-3 rounded-2xl border-[3px] text-[15px] font-semibold transition-colors ${
+                        <div key={opt.id} className={`flex items-center gap-3 px-4 py-3 rounded-2xl border-2 text-[15px] font-semibold transition-colors ${
                           isRevealed
                             ? verdict === 'P'
                               ? 'border-brand bg-mint text-brand-deep'
@@ -145,7 +145,7 @@ export default function BrowseClient({
                     q.options.map(opt => {
                       const isCorrect = q.correct_answer.includes(opt.id)
                       return (
-                        <div key={opt.id} className={`px-4 py-3 rounded-2xl border-[3px] text-[15px] transition-colors ${
+                        <div key={opt.id} className={`px-4 py-3 rounded-2xl border-2 text-[15px] transition-colors ${
                           isRevealed && isCorrect
                             ? 'border-brand bg-mint text-brand-deep font-extrabold'
                             : 'border-line bg-white text-ink font-semibold'
@@ -166,13 +166,13 @@ export default function BrowseClient({
               {isRevealed && (
                 <div className="mt-3 flex flex-col gap-3">
                   {q.kind === 'open' && (
-                    <div className="bg-mint border-[3px] border-brand rounded-2xl p-4 text-[15px] text-brand-deep">
+                    <div className="bg-mint border-2 border-brand rounded-2xl p-4 text-[15px] text-brand-deep">
                       <span className="font-extrabold block mb-1">Wzorcowa odpowiedź:</span>
                       {q.sample_answer}
                     </div>
                   )}
                   {(q.kind === 'closed' ? q.explanation : q.explanation) && (
-                    <div className="rounded-2xl border-[3px] border-dashed border-aqua bg-[#eaf9f8] p-4 text-[15px] text-ink">
+                    <div className="rounded-2xl border-2 border-dashed border-aqua bg-[#eaf9f8] p-4 text-[15px] text-ink">
                       <span className="font-extrabold">Wyjaśnienie: </span>
                       {q.kind === 'closed' ? q.explanation : q.explanation}
                     </div>

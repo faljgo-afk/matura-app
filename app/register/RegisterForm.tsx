@@ -45,7 +45,7 @@ export default function RegisterForm() {
   if (success) {
     return (
       <div className="text-center py-4 flex flex-col items-center gap-3">
-        <span className="w-16 h-16 rounded-3xl bg-sun border-[3px] border-brand-deep flex items-center justify-center text-brand-deep">
+        <span className="w-16 h-16 rounded-[20px] bg-sun border-2 border-brand-deep flex items-center justify-center text-brand-deep">
           <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <rect x="3" y="5" width="18" height="14" rx="3" /><path d="M3 8l9 6 9-6" />
           </svg>
@@ -101,7 +101,7 @@ export default function RegisterForm() {
         />
       </div>
       {error && (
-        <p role="alert" className="text-sm font-bold text-coral bg-coral-bg border-[3px] border-coral rounded-2xl px-4 py-2.5">
+        <p role="alert" className="text-sm font-bold text-coral bg-coral-bg border-2 border-coral rounded-2xl px-4 py-2.5">
           {error}
         </p>
       )}

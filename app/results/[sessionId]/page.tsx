@@ -122,9 +122,9 @@ export default async function ResultsPage({ params }: { params: { sessionId: str
         <BackButton />
 
         {/* Score summary */}
-        <section className="relative overflow-hidden rounded-[36px] border-4 border-brand-deep shadow-hard-lg mb-2 text-white bg-gradient-to-br from-[#0b5a33] to-[#12803f] p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6">
+        <section className="relative overflow-hidden rounded-[26px] border-2 border-brand-deep shadow-hard-lg mb-2 text-white bg-gradient-to-br from-[#0b5a33] to-[#12803f] p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6">
           <div
-            className="w-[168px] h-[168px] rounded-full shrink-0 border-4 border-brand-deep flex items-center justify-center"
+            className="w-[168px] h-[168px] rounded-full shrink-0 border-2 border-brand-deep flex items-center justify-center"
             style={{ background: `conic-gradient(${ringColor} ${percent}%, rgba(255,255,255,.2) 0)` }}
           >
             <div className="w-[132px] h-[132px] rounded-full bg-[#0b5a33] flex flex-col items-center justify-center">
@@ -158,11 +158,11 @@ export default async function ResultsPage({ params }: { params: { sessionId: str
             return (
               <article
                 key={question.id}
-                className={`card-game !rounded-[28px] p-5 sm:p-6 ${isCorrect ? '' : '!border-coral !shadow-[0_6px_0_#c93a2b]'}`}
+                className={`card-game !rounded-[20px] p-5 sm:p-6 ${isCorrect ? '' : '!border-coral !shadow-[0_3px_0_#c93a2b]'}`}
               >
                 <div className="flex items-start gap-3 mb-4">
                   <span
-                    className={`shrink-0 w-9 h-9 rounded-xl border-[3px] flex items-center justify-center font-black ${
+                    className={`shrink-0 w-9 h-9 rounded-xl border-2 flex items-center justify-center font-black ${
                       isCorrect ? 'bg-brand text-white border-brand-deep' : 'bg-coral text-white border-coral'
                     }`}
                     aria-label={isCorrect ? 'Poprawnie' : 'Błędnie'}
@@ -175,7 +175,7 @@ export default async function ResultsPage({ params }: { params: { sessionId: str
                 </div>
 
                 {question.image_url && (
-                  <div className="mb-4 rounded-2xl overflow-hidden border-[3px] border-line bg-canvas">
+                  <div className="mb-4 rounded-2xl overflow-hidden border-2 border-line bg-canvas">
                     <img
                       src={question.image_url}
                       alt="Ilustracja do pytania"
@@ -199,7 +199,7 @@ export default async function ResultsPage({ params }: { params: { sessionId: str
                       }
 
                       return (
-                        <div key={option.id} className={`px-4 py-3 rounded-2xl border-[3px] text-[15px] font-semibold flex items-center justify-between gap-3 ${style}`}>
+                        <div key={option.id} className={`px-4 py-3 rounded-2xl border-2 text-[15px] font-semibold flex items-center justify-between gap-3 ${style}`}>
                           <span>
                             <span className="font-extrabold mr-1">{option.id}.</span>
                             {option.text}
@@ -240,7 +240,7 @@ export default async function ResultsPage({ params }: { params: { sessionId: str
                       }
 
                       return (
-                        <div key={option.id} className={`px-4 py-3 rounded-2xl border-[3px] text-[15px] font-semibold flex items-center justify-between gap-3 ${style}`}>
+                        <div key={option.id} className={`px-4 py-3 rounded-2xl border-2 text-[15px] font-semibold flex items-center justify-between gap-3 ${style}`}>
                           <span>
                             <span className="font-extrabold mr-1">{option.id}.</span>
                             {option.text}
@@ -253,13 +253,13 @@ export default async function ResultsPage({ params }: { params: { sessionId: str
                 </div>
 
                 {!isCorrect && (
-                  <div className="rounded-2xl border-[3px] border-dashed border-aqua bg-[#eaf9f8] p-4 text-[15px] text-ink">
+                  <div className="rounded-2xl border-2 border-dashed border-aqua bg-[#eaf9f8] p-4 text-[15px] text-ink">
                     <span className="font-extrabold">Wyjaśnienie: </span>
                     {question.explanation}
                   </div>
                 )}
 
-                <div className="mt-4 pt-3 border-t-[3px] border-dotted border-line flex items-center justify-between flex-wrap gap-2">
+                <div className="mt-4 pt-3 border-t-2 border-dotted border-line flex items-center justify-between flex-wrap gap-2">
                   {/* Learn button — only for logged-in users on correctly answered questions */}
                   {user && isCorrect ? (
                     <LearnButton

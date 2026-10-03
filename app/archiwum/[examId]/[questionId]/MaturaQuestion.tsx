@@ -20,7 +20,7 @@ function ScoreBadge({ score, max }: { score: number; max: number }) {
     ? 'bg-sun text-brand-deep border-brand-deep'
     : 'bg-candy text-brand-deep border-brand-deep'
   return (
-    <span className={`inline-flex items-center font-mono font-semibold text-lg px-4 py-1.5 rounded-full border-[3px] ${color}`}>
+    <span className={`inline-flex items-center font-mono font-semibold text-lg px-4 py-1.5 rounded-full border-2 ${color}`}>
       {score}/{max} pkt
     </span>
   )
@@ -64,7 +64,7 @@ export default function MaturaQuestion({
   return (
     <div className="flex flex-col gap-5">
       {/* Answer box */}
-      <div className="card-game !rounded-[28px] !shadow-hard p-5">
+      <div className="card-game !rounded-[20px] !shadow-hard p-5">
         <label htmlFor="matura-answer" className="field-label uppercase tracking-wider text-xs text-muted">
           Twoja odpowiedź
         </label>
@@ -89,13 +89,13 @@ export default function MaturaQuestion({
             </button>
           </div>
         )}
-        {error && <p role="alert" className="text-sm font-bold text-coral bg-coral-bg border-[3px] border-coral rounded-2xl px-4 py-2.5 mt-3">{error}</p>}
+        {error && <p role="alert" className="text-sm font-bold text-coral bg-coral-bg border-2 border-coral rounded-2xl px-4 py-2.5 mt-3">{error}</p>}
       </div>
 
       {/* Results */}
       {result && (
         <>
-          <div className="card-game !rounded-[28px] !shadow-hard p-5 sm:p-6">
+          <div className="card-game !rounded-[20px] !shadow-hard p-5 sm:p-6">
             <div className="flex items-center gap-4 mb-4">
               <ScoreBadge score={result.score} max={result.maxPoints} />
               <p className="text-[15px] font-semibold">{result.feedback}</p>
@@ -107,7 +107,7 @@ export default function MaturaQuestion({
               {result.criteria.map((c, i) => (
                 <div
                   key={i}
-                  className={`flex items-start gap-3 rounded-2xl border-[3px] px-4 py-3 text-[15px] font-semibold ${
+                  className={`flex items-start gap-3 rounded-2xl border-2 px-4 py-3 text-[15px] font-semibold ${
                     c.met
                       ? 'bg-mint border-brand text-brand-deep'
                       : 'bg-coral-bg border-coral text-coral'
@@ -121,7 +121,7 @@ export default function MaturaQuestion({
           </div>
 
           {modelAnswer && (
-            <div className="card-game !rounded-[28px] !shadow-hard p-5">
+            <div className="card-game !rounded-[20px] !shadow-hard p-5">
               <button
                 onClick={() => setShowModel(v => !v)}
                 className="w-full text-left flex items-center justify-between font-extrabold hover:text-brand"
@@ -130,7 +130,7 @@ export default function MaturaQuestion({
                 <span className="text-muted">{showModel ? '▲' : '▼'}</span>
               </button>
               {showModel && (
-                <p className="mt-3 text-[15px] leading-relaxed whitespace-pre-wrap border-t-[3px] border-dotted border-line pt-3">
+                <p className="mt-3 text-[15px] leading-relaxed whitespace-pre-wrap border-t-2 border-dotted border-line pt-3">
                   {modelAnswer}
                 </p>
               )}

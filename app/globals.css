@@ -3,17 +3,17 @@
 @tailwind utilities;
 
 body {
-  font-family: var(--font-nunito), system-ui, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
   color: #12261c;
 }
 
 @layer components {
-  /* Game-style buttons: thick border + hard shadow that "presses" on click */
+  /* Buttons: outlined with a shallow hard shadow that "presses" on click */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 min-h-[52px] px-5 py-3 rounded-2xl
-      border-[3px] border-brand-deep font-extrabold text-base cursor-pointer select-none
-      shadow-hard mb-[5px] transition-transform
-      active:translate-y-[3px] active:shadow-[0_2px_0_#0b3d2a]
+    @apply inline-flex items-center justify-center gap-2 min-h-[52px] px-5 py-3 rounded-xl
+      border-2 border-brand-deep font-bold text-base cursor-pointer select-none
+      shadow-hard mb-[3px] transition-transform
+      active:translate-y-[2px] active:shadow-[0_1px_0_#0b3d2a]
       disabled:opacity-60 disabled:cursor-not-allowed disabled:active:translate-y-0;
   }
   .btn-primary { @apply bg-brand text-white hover:brightness-110; }
@@ -21,13 +21,13 @@ body {
   .btn-white { @apply bg-white text-brand-deep hover:bg-mint; }
   .btn-ghost {
     @apply bg-white text-ink border-line shadow-hard-line hover:bg-canvas
-      active:shadow-[0_1px_0_#d5e6c8];
+      active:shadow-[0_0px_0_#d5e6c8];
   }
   .btn-sm { @apply min-h-[44px] px-4 py-2 text-sm; }
 
   /* Cards */
   .card-game {
-    @apply bg-white border-[3px] border-brand-deep rounded-3xl shadow-[0_6px_0_#0b3d2a] mb-[6px];
+    @apply bg-white border-2 border-brand-deep rounded-[20px] shadow-[0_3px_0_#0b3d2a] mb-[3px];
   }
   .card-link {
     @apply transition-transform hover:-translate-y-0.5;
@@ -41,10 +41,10 @@ body {
   /* Form fields */
   .field-label { @apply block text-sm font-extrabold text-ink mb-1.5; }
   .field {
-    @apply w-full rounded-2xl border-[3px] border-line bg-white px-4 py-3 text-base font-semibold text-ink
+    @apply w-full rounded-xl border-2 border-line bg-white px-4 py-3 text-base font-semibold text-ink
       placeholder:font-medium placeholder:text-muted/70 transition-colors
-      focus:outline-none focus:border-brand-deep focus:shadow-[0_0_0_4px_#ffd23f];
+      focus:outline-none focus:border-brand-deep focus:shadow-[0_0_0_3px_#f5c842];
   }
 
-  .font-display { font-family: var(--font-fredoka), var(--font-nunito), sans-serif; }
+  .font-display { font-family: var(--font-display), var(--font-sans), sans-serif; letter-spacing: -0.02em; }
 }

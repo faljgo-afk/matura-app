@@ -48,7 +48,7 @@ export default function MockExamStarter({ isLoggedIn }: { isLoggedIn: boolean })
   }
 
   const modeCard = (active: boolean) =>
-    `flex-1 text-left rounded-[22px] border-[3px] px-4 py-3.5 mb-[5px] transition-transform active:translate-y-[3px] ${
+    `flex-1 text-left rounded-[16px] border-2 px-4 py-3.5 mb-[3px] transition-transform active:translate-y-[2px] ${
       active
         ? 'border-brand-deep bg-[#fff4c2] shadow-hard'
         : 'border-line bg-white shadow-hard-line hover:border-brand'
@@ -75,7 +75,7 @@ export default function MockExamStarter({ isLoggedIn }: { isLoggedIn: boolean })
       </div>
 
       {timed && (
-        <div className="flex items-center gap-3 text-sm font-bold text-amberx bg-amberx-bg border-[3px] border-amberx rounded-2xl px-4 py-3">
+        <div className="flex items-center gap-3 text-sm font-bold text-amberx bg-amberx-bg border-2 border-amberx rounded-2xl px-4 py-3">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="shrink-0"><path d="M12 3l10 18H2z" /><path d="M12 10v5M12 18h.01" /></svg>
           <span>Czas mija automatycznie — test zostanie przesłany gdy skończy się czas</span>
         </div>

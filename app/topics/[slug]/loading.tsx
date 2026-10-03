@@ -12,7 +12,7 @@ export default function TopicLoading() {
         </div>
 
         {[0, 1].map((i) => (
-          <div key={i} className="card-game !rounded-[32px] p-6 sm:p-8 flex flex-col gap-5">
+          <div key={i} className="card-game !rounded-[24px] p-6 sm:p-8 flex flex-col gap-5">
             <div className={`h-7 w-36 rounded-full ${block}`} />
             <div className={`h-20 w-full rounded-2xl ${block}`} />
             <div className={`h-14 w-full rounded-2xl ${block}`} />
