@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase-server'
 import { redirect } from 'next/navigation'
 import EditNameForm from '@/components/EditNameForm'
 import DashboardTabs from '@/components/DashboardTabs'
+import { fetchAll } from '@/lib/fetch-all'
 
 export const dynamic = 'force-dynamic'
 
@@ -11,20 +12,24 @@ async function getStats(userId: string) {
   const [
     { data: sessions },
     { data: topics },
-    { data: allQuestions },
-    { data: learnedRows },
+    allQuestions,
+    learnedRows,
   ] = await Promise.all([
     supabase.from('test_sessions').select('*').eq('user_id', userId).not('completed_at', 'is', null).order('created_at', { ascending: false }),
     supabase.from('topics').select('*').order('order_index'),
-    supabase.from('questions').select('id, topic_id').eq('verified', true),
-    supabase.from('user_learned_questions').select('question_id').eq('user_id', userId),
+    fetchAll<{ id: string; topic_id: string }>(
+      (from, to) => supabase.from('questions').select('id, topic_id').eq('verified', true).order('id').range(from, to)
+    ),
+    fetchAll<{ question_id: string }>(
+      (from, to) => supabase.from('user_learned_questions').select('question_id').eq('user_id', userId).order('question_id').range(from, to)
+    ),
   ])
 
   return {
     sessions: sessions ?? [],
     topics: topics ?? [],
-    allQuestions: allQuestions ?? [],
-    learnedIds: new Set((learnedRows ?? []).map(r => r.question_id)),
+    allQuestions,
+    learnedIds: new Set(learnedRows.map(r => r.question_id)),
   }
 }
 
@@ -37,7 +42,7 @@ export default async function DashboardPage() {
   const { sessions, topics, allQuestions, learnedIds } = await getStats(user.id)
 
   const topicSessions = sessions.filter(s => s.session_type === 'topic')
-  const mockSessions = sessions.filter(s => s.session_type === 'mock_exam')
+  const mockSessions = sessions.filter(s => s.session_type === 'mock_exam' || s.session_type === 'mock_exam_free')
 
   const totalTests = topicSessions.length
   const avgTopicScore = topicSessions.length > 0

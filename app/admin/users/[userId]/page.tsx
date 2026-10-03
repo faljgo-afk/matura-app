@@ -12,7 +12,7 @@ async function getUserDetail(userId: string) {
     { data: { user }, error: userError },
     { data: sessions },
     { data: topics },
-    { data: learned },
+    { count: learnedCount },
   ] = await Promise.all([
     supabaseAdmin.auth.admin.getUserById(userId),
     supabaseAdmin
@@ -22,7 +22,7 @@ async function getUserDetail(userId: string) {
       .not('completed_at', 'is', null)
       .order('completed_at', { ascending: false }),
     supabaseAdmin.from('topics').select('id, name, slug').order('order_index'),
-    supabaseAdmin.from('user_learned_questions').select('question_id').eq('user_id', userId),
+    supabaseAdmin.from('user_learned_questions').select('question_id', { count: 'exact', head: true }).eq('user_id', userId),
   ])
 
   if (userError || !user) return null
@@ -31,7 +31,7 @@ async function getUserDetail(userId: string) {
     user,
     sessions: sessions ?? [],
     topics: topics ?? [],
-    learnedCount: learned?.length ?? 0,
+    learnedCount: learnedCount ?? 0,
   }
 }
 
@@ -52,7 +52,7 @@ export default async function AdminUserPage({ params }: { params: { userId: stri
 
   const topicMap = Object.fromEntries(topics.map(t => [t.id, t]))
   const topicSessions = sessions.filter(s => s.session_type === 'topic')
-  const mockSessions = sessions.filter(s => s.session_type === 'mock_exam')
+  const mockSessions = sessions.filter(s => s.session_type === 'mock_exam' || s.session_type === 'mock_exam_free')
 
   const topicScores = topicSessions.map(s => Math.round(((s.score ?? 0) / (s.max_score ?? 1)) * 100))
   const mockScores = mockSessions.map(s => Math.round(((s.score ?? 0) / (s.max_score ?? 1)) * 100))
@@ -107,7 +107,7 @@ export default async function AdminUserPage({ params }: { params: { userId: stri
             {sessions.map(session => {
               const percent = Math.round(((session.score ?? 0) / (session.max_score ?? 1)) * 100)
               const topic = session.topic_id ? topicMap[session.topic_id] : null
-              const isMock = session.session_type === 'mock_exam'
+              const isMock = session.session_type === 'mock_exam' || session.session_type === 'mock_exam_free'
               return (
                 <Link
                   key={session.id}

@@ -2,23 +2,45 @@ import { createClient } from '@/lib/supabase-server'
 import { supabaseAdmin } from '@/lib/supabase-admin'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
+import type { User } from '@supabase/supabase-js'
+import { fetchAll } from '@/lib/fetch-all'
 
 export const dynamic = 'force-dynamic'
 
 const ADMIN_EMAIL = 'faljgo@gmail.com'
 
-async function getAdminData() {
-  const { data: { users }, error } = await supabaseAdmin.auth.admin.listUsers()
-  if (error || !users) return { users: [], sessionsByUser: {}, learnedByUser: {} }
+// listUsers() returns only 50 users per page by default
+async function listAllUsers() {
+  const users: User[] = []
+  for (let page = 1; ; page++) {
+    const { data, error } = await supabaseAdmin.auth.admin.listUsers({ page, perPage: 1000 })
+    if (error) return null
+    users.push(...data.users)
+    if (data.users.length < 1000) return users
+  }
+}
 
-  const [{ data: sessions }, { data: learned }] = await Promise.all([
-    supabaseAdmin
-      .from('test_sessions')
-      .select('user_id, score, max_score, session_type, completed_at, topic_id')
-      .not('completed_at', 'is', null),
-    supabaseAdmin
-      .from('user_learned_questions')
-      .select('user_id'),
+async function getAdminData() {
+  const users = await listAllUsers()
+  if (!users) return { users: [], sessionsByUser: {}, learnedByUser: {} }
+
+  const [sessions, learned] = await Promise.all([
+    fetchAll<{ user_id: string | null; score: number | null; max_score: number | null; session_type: string; completed_at: string; topic_id: string | null }>(
+      (from, to) => supabaseAdmin
+        .from('test_sessions')
+        .select('user_id, score, max_score, session_type, completed_at, topic_id')
+        .not('completed_at', 'is', null)
+        .order('id')
+        .range(from, to)
+    ),
+    fetchAll<{ user_id: string | null }>(
+      (from, to) => supabaseAdmin
+        .from('user_learned_questions')
+        .select('user_id')
+        .order('user_id')
+        .order('question_id')
+        .range(from, to)
+    ),
   ])
 
   const sessionsByUser: Record<string, typeof sessions> = {}
@@ -91,7 +113,7 @@ export default async function AdminPage() {
               {users.map(u => {
                 const userSessions = sessionsByUser[u.id] ?? []
                 const topicTests = userSessions.filter(s => s.session_type === 'topic')
-                const mockTests = userSessions.filter(s => s.session_type === 'mock_exam')
+                const mockTests = userSessions.filter(s => s.session_type === 'mock_exam' || s.session_type === 'mock_exam_free')
 
                 const topicScores = topicTests.map(s => Math.round(((s.score ?? 0) / (s.max_score ?? 1)) * 100))
                 const mockScores = mockTests.map(s => Math.round(((s.score ?? 0) / (s.max_score ?? 1)) * 100))

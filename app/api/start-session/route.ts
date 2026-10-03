@@ -1,6 +1,21 @@
 import { supabase } from '@/lib/supabase'
 import { createClient } from '@/lib/supabase-server'
 import { NextRequest, NextResponse } from 'next/server'
+import { fetchAll } from '@/lib/fetch-all'
+
+type PoolQuestion = { id: string; subtopic_id: string | null }
+
+async function getLearnedIds(userId: string): Promise<Set<string>> {
+  const rows = await fetchAll<{ question_id: string }>(
+    (from, to) => supabase
+      .from('user_learned_questions')
+      .select('question_id')
+      .eq('user_id', userId)
+      .order('question_id')
+      .range(from, to)
+  )
+  return new Set(rows.map(r => r.question_id))
+}
 
 function pickWithSubtopicDiversity(
   questions: { id: string; subtopic_id?: string | null }[],
@@ -36,25 +51,29 @@ export async function POST(req: NextRequest) {
   let reviewQuestionIds: string[] = []
 
   if (sessionType === 'mock_exam' || sessionType === 'mock_exam_free') {
-    const [{ data: mockData }, { data: topicData }] = await Promise.all([
-      supabase.from('mock_questions').select('id, subtopic_id').eq('verified', true).limit(200),
-      supabase.from('questions').select('id, subtopic_id')
-        .eq('verified', true)
-        .in('question_type', ['single', 'multiple', 'true_false'])
-        .limit(300),
+    const [mockData, topicData] = await Promise.all([
+      fetchAll<PoolQuestion>(
+        (from, to) => supabase.from('mock_questions').select('id, subtopic_id')
+          .eq('verified', true)
+          .order('id')
+          .range(from, to)
+      ),
+      fetchAll<PoolQuestion>(
+        (from, to) => supabase.from('questions').select('id, subtopic_id')
+          .eq('verified', true)
+          .in('question_type', ['single', 'multiple', 'true_false'])
+          .order('id')
+          .range(from, to)
+      ),
     ])
 
-    const combined = [...(mockData ?? []), ...(topicData ?? [])]
+    const combined = [...mockData, ...topicData]
     if (combined.length === 0) {
       return NextResponse.json({ error: 'No mock questions found' }, { status: 404 })
     }
 
     if (user) {
-      const { data: learned } = await supabase
-        .from('user_learned_questions')
-        .select('question_id')
-        .eq('user_id', user.id)
-      const learnedIds = new Set((learned ?? []).map(q => q.question_id))
+      const learnedIds = await getLearnedIds(user.id)
       const unlearned = combined.filter(q => !learnedIds.has(q.id))
       questionIds = pickWithSubtopicDiversity(
         unlearned.length >= questionCount ? unlearned : combined,
@@ -64,26 +83,24 @@ export async function POST(req: NextRequest) {
       questionIds = pickWithSubtopicDiversity(combined, questionCount)
     }
   } else {
-    const { data, error } = await supabase
-      .from('questions')
-      .select('id, subtopic_id')
-      .eq('topic_id', topicId)
-      .eq('verified', true)
-      .in('question_type', ['single', 'multiple', 'true_false'])
-      .limit(100)
+    const data = await fetchAll<PoolQuestion>(
+      (from, to) => supabase
+        .from('questions')
+        .select('id, subtopic_id')
+        .eq('topic_id', topicId)
+        .eq('verified', true)
+        .in('question_type', ['single', 'multiple', 'true_false'])
+        .order('id')
+        .range(from, to)
+    )
 
-    if (error || !data || data.length === 0) {
+    if (data.length === 0) {
       return NextResponse.json({ error: 'No questions found' }, { status: 404 })
     }
 
     // For logged-in users: exclude learned questions, fill with review if needed
     if (user) {
-      const { data: learned } = await supabase
-        .from('user_learned_questions')
-        .select('question_id')
-        .eq('user_id', user.id)
-
-      const learnedIds = new Set((learned ?? []).map(q => q.question_id))
+      const learnedIds = await getLearnedIds(user.id)
       const unlearned = data.filter(q => !learnedIds.has(q.id))
       const learnedPool = data.filter(q => learnedIds.has(q.id))
 
