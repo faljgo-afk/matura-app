@@ -107,6 +107,22 @@ export default async function HomePage() {
           </div>
         </section>
 
+        {/* Archive */}
+        <Link
+          href="/archiwum"
+          className="card-game card-link !rounded-[32px] !shadow-hard-lg bg-amberx-bg flex flex-wrap items-center justify-between gap-4 px-6 py-7 sm:px-9"
+          style={{ backgroundColor: '#fff1bf' }}
+        >
+          <div className="max-w-[640px]">
+            <span className="pill bg-sun text-brand-deep border-2 border-brand-deep mb-2">Nowość</span>
+            <h2 className="font-display font-bold text-3xl leading-tight">Archiwum matur CKE</h2>
+            <p className="text-[#5a4a1f] mt-1">
+              Prawdziwe zadania otwarte z egzaminów — napisz odpowiedź i sprawdź ją według oficjalnego klucza
+            </p>
+          </div>
+          <span className="btn btn-primary">Otwórz archiwum<Arrow /></span>
+        </Link>
+
         {/* Topics */}
         <section className="flex flex-col gap-5">
           <div>
@@ -139,22 +155,6 @@ export default async function HomePage() {
           <p className="text-[#e9fbe0] mb-5">20 pytań ze wszystkich tematów — kompleksowy test wiedzy</p>
           <Link href="/mock-exam" className="btn btn-sun">Rozpocznij sprawdzian<Arrow /></Link>
         </section>
-
-        {/* Archive */}
-        <Link
-          href="/archiwum"
-          className="card-game card-link !rounded-[32px] !shadow-hard-lg bg-amberx-bg flex flex-wrap items-center justify-between gap-4 px-6 py-7 sm:px-9"
-          style={{ backgroundColor: '#fff1bf' }}
-        >
-          <div className="max-w-[640px]">
-            <span className="pill bg-sun text-brand-deep border-2 border-brand-deep mb-2">Nowość</span>
-            <h2 className="font-display font-bold text-3xl leading-tight">Archiwum matur CKE</h2>
-            <p className="text-[#5a4a1f] mt-1">
-              Prawdziwe zadania otwarte z egzaminów — napisz odpowiedź i sprawdź ją według oficjalnego klucza
-            </p>
-          </div>
-          <span className="btn btn-primary">Otwórz archiwum<Arrow /></span>
-        </Link>
 
       </div>
     </main>
