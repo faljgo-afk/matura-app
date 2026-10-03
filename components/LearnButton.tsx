@@ -28,7 +28,7 @@ export default function LearnButton({
       <button
         onClick={toggle}
         disabled={loading}
-        className="group flex items-center gap-1.5 text-sm text-green-700 font-medium bg-green-100 border border-green-300 rounded-lg px-3 py-1.5 hover:bg-red-50 hover:border-red-200 hover:text-red-600 transition-colors disabled:opacity-50"
+        className="group flex items-center gap-1.5 text-sm text-brand-deep font-extrabold bg-mint border-[3px] border-brand rounded-xl px-3 py-1.5 hover:bg-coral-bg hover:border-coral hover:text-coral transition-colors disabled:opacity-50"
       >
         <svg className="w-4 h-4 shrink-0" viewBox="0 0 20 20" fill="currentColor">
           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -44,7 +44,7 @@ export default function LearnButton({
       <button
         onClick={toggle}
         disabled={loading}
-        className="flex items-center gap-1.5 text-sm font-semibold text-white bg-green-600 rounded-lg px-3 py-1.5 hover:bg-green-700 transition-colors disabled:opacity-50 shadow-sm"
+        className="flex items-center gap-1.5 text-sm font-extrabold text-brand-deep bg-sun border-[3px] border-brand-deep rounded-xl px-3 py-1.5 hover:brightness-105 transition disabled:opacity-50"
       >
         {loading ? (
           <svg className="w-4 h-4 animate-spin shrink-0" viewBox="0 0 24 24" fill="none">

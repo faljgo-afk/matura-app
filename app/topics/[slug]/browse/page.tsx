@@ -77,19 +77,19 @@ export default async function BrowsePage({ params }: { params: { slug: string } 
   })
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <div className="max-w-2xl mx-auto px-4 py-10">
+    <main className="bg-canvas min-h-[70vh]">
+      <div className="max-w-3xl mx-auto px-4 sm:px-8 py-8 sm:py-10 flex flex-col gap-6">
 
         <Link
           href={`/topics/${params.slug}`}
-          className="text-green-600 hover:text-green-800 text-sm mb-6 inline-block"
+          className="self-start text-brand font-extrabold hover:underline"
         >
           ← {topic.name}
         </Link>
 
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">{topic.name}</h1>
-          <p className="text-gray-500 text-sm mt-1">
+        <div>
+          <h1 className="font-display font-bold text-4xl sm:text-5xl leading-tight">{topic.name}</h1>
+          <p className="text-muted text-lg mt-1">
             Przeglądaj pytania i odpowiedzi — {questions.length} pytań
           </p>
         </div>

@@ -35,14 +35,14 @@ export default function ReportQuestionButton({
   }
 
   if (submitted) {
-    return <p className="text-xs text-gray-400">✓ Zgłoszenie wysłane — dziękujemy!</p>
+    return <p className="text-xs font-bold text-muted">✓ Zgłoszenie wysłane — dziękujemy!</p>
   }
 
   return (
     <>
       <button
         onClick={() => setOpen(true)}
-        className="text-xs text-gray-400 hover:text-red-500 transition-colors flex items-center gap-1"
+        className="text-xs font-bold text-muted hover:text-coral transition-colors flex items-center gap-1"
       >
         🚩 Zgłoś błąd w pytaniu
       </button>

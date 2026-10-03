@@ -58,94 +58,80 @@ export default async function TopicPage({ params }: { params: { slug: string } }
   const isLoggedIn = !!user
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <div className="max-w-2xl mx-auto px-4 py-12">
+    <main className="bg-canvas min-h-[70vh]">
+      <div className="max-w-3xl mx-auto px-4 sm:px-8 py-8 sm:py-10 flex flex-col gap-8">
 
-        <Link href="/" className="text-green-600 hover:text-green-800 text-sm mb-8 inline-block">
+        <Link href="/#topics" className="self-start text-brand font-extrabold hover:underline">
           ← Powrót do listy tematów
         </Link>
 
-        <div className="bg-white rounded-xl p-5 sm:p-8 shadow-sm border border-gray-200">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">{topic.name}</h1>
-          {topic.description && (
-            <p className="text-gray-500 mb-6">{topic.description}</p>
+        <header className="flex flex-col gap-2">
+          <h1 className="font-display font-bold text-4xl sm:text-5xl leading-tight">{topic.name}</h1>
+          {topic.description && <p className="text-lg text-muted">{topic.description}</p>}
+        </header>
+
+        {/* Closed questions */}
+        <section className="card-game !shadow-hard-lg !rounded-[32px] p-6 sm:p-8 flex flex-col gap-5">
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="pill bg-mint text-brand-deep">Pytania testowe</span>
+          </div>
+          <div className="flex items-center gap-5 rounded-2xl bg-canvas border-[3px] border-line p-4">
+            <div className="text-center shrink-0 min-w-[72px]">
+              <div className="font-mono font-semibold text-3xl leading-none">{closedCount}</div>
+              <div className="text-xs font-bold text-muted mt-1">pytań w bazie</div>
+            </div>
+            <p className="text-[15px] text-ink">
+              Test losuje <strong>10 pytań</strong> z bazy i sprawdza Twoją wiedzę.
+              Po zakończeniu zobaczysz wynik i wyjaśnienia błędów.
+            </p>
+          </div>
+
+          {closedCount < 1 ? (
+            <div className="text-center py-4 text-muted font-semibold">
+              Brak pytań dla tego tematu. Zajrzyj później!
+            </div>
+          ) : (
+            <div className="flex flex-col gap-2">
+              <StartTestButton topicId={topic.id} isLoggedIn={isLoggedIn} />
+              {isLoggedIn && (
+                <Link href={`/topics/${topic.slug}/browse`} className="btn btn-ghost w-full">
+                  Przeglądaj pytania i odpowiedzi
+                </Link>
+              )}
+            </div>
           )}
+        </section>
 
-          {/* Closed questions section */}
-          <div className="mb-6">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-xs font-semibold text-blue-700 bg-blue-100 px-2.5 py-1 rounded-full">
-                Pytania testowe
-              </span>
+        {/* Open questions */}
+        <section className="card-game !shadow-hard-lg !rounded-[32px] p-6 sm:p-8 flex flex-col gap-5">
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="pill bg-[#e3dcff] text-[#3b2a9e]">Pytania otwarte</span>
+            <span className="text-sm font-semibold text-muted">jak na prawdziwej maturze</span>
+          </div>
+          <div className="flex items-center gap-5 rounded-2xl bg-canvas border-[3px] border-line p-4">
+            <div className="text-center shrink-0 min-w-[72px]">
+              <div className="font-mono font-semibold text-3xl leading-none">{openCount}</div>
+              <div className="text-xs font-bold text-muted mt-1">pytań</div>
             </div>
-            <div className="bg-gray-50 rounded-lg p-4 mb-4 flex items-center gap-4">
-              <div className="text-center shrink-0">
-                <div className="text-xl font-semibold text-gray-600">{closedCount}</div>
-                <div className="text-xs text-gray-400">pytań w bazie</div>
-              </div>
-              <div className="text-gray-300 text-xl hidden sm:block">|</div>
-              <div className="text-sm text-gray-600">
-                Test losuje <strong>10 pytań</strong> z bazy i sprawdza Twoją wiedzę.
-                Po zakończeniu zobaczysz wynik i wyjaśnienia błędów.
-              </div>
-            </div>
-
-            {closedCount < 1 ? (
-              <div className="text-center py-4 text-gray-400 text-sm">
-                Brak pytań dla tego tematu. Zajrzyj później!
-              </div>
-            ) : (
-              <div className="space-y-2">
-                <StartTestButton topicId={topic.id} isLoggedIn={isLoggedIn} />
-                {isLoggedIn && (
-                  <Link
-                    href={`/topics/${topic.slug}/browse`}
-                    className="block w-full text-center py-3 rounded-lg border border-green-300 text-green-700 font-medium hover:bg-green-50 transition-colors text-sm"
-                  >
-                    📖 Przeglądaj pytania i odpowiedzi
-                  </Link>
-                )}
-              </div>
-            )}
+            <p className="text-[15px] text-ink">
+              Pisz pełne odpowiedzi. AI oceni je według kryteriów CKE —
+              tak jak prawdziwy egzaminator.
+            </p>
           </div>
 
-          {/* Divider */}
-          <div className="border-t border-gray-100 my-6" />
-
-          {/* Open questions section */}
-          <div>
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-xs font-semibold text-violet-700 bg-violet-100 px-2.5 py-1 rounded-full">
-                Pytania otwarte
-              </span>
-              <span className="text-xs text-gray-400">jak na prawdziwej maturze</span>
+          {openCount < 1 ? (
+            <div className="text-center py-4 text-muted font-semibold">
+              Pytania otwarte dla tego tematu wkrótce!
             </div>
-            <div className="bg-gray-50 rounded-lg p-4 mb-4 flex items-center gap-4">
-              <div className="text-center shrink-0">
-                <div className="text-xl font-semibold text-gray-600">{openCount}</div>
-                <div className="text-xs text-gray-400">pytań</div>
-              </div>
-              <div className="text-gray-300 text-xl hidden sm:block">|</div>
-              <div className="text-sm text-gray-600">
-                Pisz pełne odpowiedzi. AI oceni je według kryteriów CKE —
-                tak jak prawdziwy egzaminator.
-              </div>
-            </div>
-
-            {openCount < 1 ? (
-              <div className="text-center py-4 text-gray-400 text-sm">
-                Pytania otwarte dla tego tematu wkrótce!
-              </div>
-            ) : (
-              <Link
-                href={`/topics/${topic.slug}/open`}
-                className="block w-full text-center py-3 rounded-lg bg-violet-600 text-white font-semibold hover:bg-violet-700 transition-colors"
-              >
-                Ćwicz pytania otwarte →
-              </Link>
-            )}
-          </div>
-        </div>
+          ) : (
+            <Link
+              href={`/topics/${topic.slug}/open`}
+              className="btn w-full bg-grape text-white hover:brightness-110"
+            >
+              Ćwicz pytania otwarte →
+            </Link>
+          )}
+        </section>
 
       </div>
     </main>

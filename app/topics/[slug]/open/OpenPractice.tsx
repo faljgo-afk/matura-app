@@ -27,12 +27,12 @@ type EvalResult = {
 function ScoreBadge({ score, max }: { score: number; max: number }) {
   const pct = max > 0 ? score / max : 0
   const color = pct === 1
-    ? 'bg-green-100 text-green-800 border-green-300'
+    ? 'bg-leaf text-brand-deep'
     : pct >= 0.5
-    ? 'bg-yellow-100 text-yellow-800 border-yellow-300'
-    : 'bg-red-100 text-red-800 border-red-300'
+    ? 'bg-sun text-brand-deep'
+    : 'bg-candy text-brand-deep'
   return (
-    <span className={`inline-flex items-center font-bold text-lg px-4 py-1.5 rounded-full border ${color}`}>
+    <span className={`inline-flex items-center font-mono font-semibold text-lg px-4 py-1.5 rounded-full border-[3px] border-brand-deep ${color}`}>
       {score}/{max} pkt
     </span>
   )
@@ -125,10 +125,9 @@ export default function OpenPractice({ questions }: { questions: Question[] }) {
     const totalScore = answered.reduce((s, [, r]) => s + r.score, 0)
     const totalMax = answered.reduce((s, [, r]) => s + r.maxPoints, 0)
     return (
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-8 text-center">
-        <div className="text-4xl mb-3">🎉</div>
-        <h2 className="text-xl font-bold text-gray-900 mb-1">Wszystkie pytania ukończone!</h2>
-        <p className="text-gray-500 text-sm mb-6">
+      <div className="card-game !rounded-[32px] !shadow-hard-lg p-8 text-center">
+        <h2 className="font-display font-bold text-3xl mb-1">Wszystkie pytania ukończone!</h2>
+        <p className="text-muted text-lg mb-6">
           Łączny wynik: <strong>{totalScore}/{totalMax} pkt</strong> ({answered.length} pytań)
         </p>
         <button
@@ -142,7 +141,7 @@ export default function OpenPractice({ questions }: { questions: Question[] }) {
             setReviewingSkipped(false)
             setDone(false)
           }}
-          className="px-6 py-2.5 bg-violet-600 text-white text-sm font-semibold rounded-lg hover:bg-violet-700"
+          className="btn btn-sun"
         >
           Zacznij od nowa
         </button>
@@ -154,17 +153,17 @@ export default function OpenPractice({ questions }: { questions: Question[] }) {
     <div>
       {/* Review skipped banner */}
       {reviewingSkipped && (
-        <div className="mb-4 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 text-sm text-amber-800 font-medium">
+        <div className="mb-4 bg-amberx-bg border-[3px] border-amberx rounded-2xl px-4 py-3 text-sm text-amberx font-bold">
           Wracasz do pominiętych pytań ({order.length} {order.length === 1 ? 'pytanie' : 'pytania'})
         </div>
       )}
 
       {/* Progress */}
-      <div className="flex items-center justify-between mb-4 text-sm text-gray-500">
+      <div className="flex items-center justify-between gap-3 mb-4 font-display font-semibold text-lg">
         <span>
           {reviewingSkipped ? 'Pominięte' : 'Pytanie'} {pos + 1} z {order.length}
           {skipped.size > 0 && (
-            <span className="ml-2 text-xs text-amber-600 font-medium">
+            <span className="ml-2 text-xs text-amberx font-bold font-sans">
               · {skipped.size} pominięte
             </span>
           )}
@@ -176,14 +175,14 @@ export default function OpenPractice({ questions }: { questions: Question[] }) {
             return (
               <div
                 key={i}
-                className={`h-2 rounded-full transition-all ${
+                className={`h-3.5 rounded-full border-[3px] border-brand-deep transition-all ${
                   i === pos
-                    ? 'bg-violet-600 w-4'
+                    ? 'bg-sun w-6'
                     : r
-                    ? 'bg-green-400 w-2'
+                    ? 'bg-leaf w-3.5'
                     : isSkippedNow
-                    ? 'bg-amber-300 w-2'
-                    : 'bg-gray-300 w-2'
+                    ? 'bg-candy w-3.5'
+                    : 'bg-white w-3.5'
                 }`}
               />
             )
@@ -192,129 +191,131 @@ export default function OpenPractice({ questions }: { questions: Question[] }) {
       </div>
 
       {/* Question card */}
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 mb-4">
+      <div className="card-game !rounded-[32px] !shadow-hard-lg p-5 sm:p-8 mb-4">
         <div className="flex items-center gap-2 mb-4 flex-wrap">
-          <span className="text-xs font-semibold bg-violet-100 text-violet-700 px-2.5 py-1 rounded-full">
+          <span className="pill bg-[#e3dcff] text-[#3b2a9e]">
             {question.max_points} {question.max_points === 1 ? 'punkt' : 'punkty'}
           </span>
           {question.source && (
-            <span className="text-xs text-gray-400 border border-gray-200 px-2.5 py-1 rounded-full">
+            <span className="pill border-2 border-line text-muted bg-white">
               {question.source}
             </span>
           )}
         </div>
 
-        <p className="text-gray-900 text-base leading-relaxed whitespace-pre-wrap mb-5">
+        <p className="font-display font-semibold text-xl sm:text-2xl leading-snug whitespace-pre-wrap mb-5">
           {question.question_text}
         </p>
 
         {!result && (
           <div>
-            <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 block">
+            <label htmlFor="open-answer" className="field-label uppercase tracking-wider text-xs text-muted">
               Twoja odpowiedź
             </label>
             <textarea
+              id="open-answer"
               value={answer}
               onChange={e => setAnswer(e.target.value)}
               rows={5}
               placeholder="Napisz pełną odpowiedź..."
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent resize-y"
+              className="field resize-y"
             />
             {loading ? (
-              <div className="mt-4 flex items-center gap-4 bg-violet-50 border border-violet-200 rounded-xl px-5 py-4">
+              <div className="mt-4 flex items-center gap-4 bg-[#eee9ff] border-[3px] border-grape rounded-2xl px-5 py-4">
                 <div className="flex gap-1.5 shrink-0">
-                  <span className="w-2.5 h-2.5 bg-violet-400 rounded-full animate-bounce [animation-delay:-0.3s]" />
-                  <span className="w-2.5 h-2.5 bg-violet-400 rounded-full animate-bounce [animation-delay:-0.15s]" />
-                  <span className="w-2.5 h-2.5 bg-violet-400 rounded-full animate-bounce" />
+                  <span className="w-2.5 h-2.5 bg-grape rounded-full animate-bounce [animation-delay:-0.3s]" />
+                  <span className="w-2.5 h-2.5 bg-grape rounded-full animate-bounce [animation-delay:-0.15s]" />
+                  <span className="w-2.5 h-2.5 bg-grape rounded-full animate-bounce" />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-violet-800">AI ocenia odpowiedź...</p>
-                  <p className="text-xs text-violet-500 mt-0.5">Porównuję z kryteriami oceniania CKE</p>
+                  <p className="text-sm font-extrabold text-[#3b2a9e]">AI ocenia odpowiedź...</p>
+                  <p className="text-xs font-semibold text-muted mt-0.5">Porównuję z kryteriami oceniania CKE</p>
                 </div>
               </div>
             ) : (
               <div className="flex items-center justify-between mt-3 gap-3">
                 <button
                   onClick={handleSkip}
-                  className="px-4 py-2.5 text-sm font-medium border border-gray-300 text-gray-600 rounded-lg hover:border-amber-400 hover:text-amber-700 hover:bg-amber-50 transition-all whitespace-nowrap"
+                  className="btn btn-ghost btn-sm whitespace-nowrap"
                 >
                   Pomiń na razie
                 </button>
                 <div className="flex items-center gap-3 ml-auto">
-                  <span className="text-xs text-gray-400">{answer.trim().length} znaków</span>
+                  <span className="text-xs font-bold text-muted">{answer.trim().length} znaków</span>
                   <button
                     onClick={handleEvaluate}
                     disabled={answer.trim().length < 5}
-                    className="px-5 py-2.5 bg-violet-600 text-white text-sm font-semibold rounded-lg hover:bg-violet-700 disabled:bg-gray-200 disabled:text-gray-400 transition-all"
+                    className="btn bg-grape text-white hover:brightness-110"
                   >
                     Sprawdź odpowiedź
                   </button>
                 </div>
               </div>
             )}
-            {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+            {error && <p role="alert" className="text-sm font-bold text-coral bg-coral-bg border-[3px] border-coral rounded-2xl px-4 py-2.5 mt-3">{error}</p>}
           </div>
         )}
       </div>
 
       {/* Results */}
       {result && (
-        <div className="space-y-4">
-          <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
+        <div className="flex flex-col gap-5">
+          <div className="card-game !rounded-[28px] p-5 sm:p-6">
             <div className="flex items-center gap-4 mb-4">
               <ScoreBadge score={result.score} max={result.maxPoints} />
-              <p className="text-sm text-gray-600">{result.feedback}</p>
+              <p className="text-[15px] font-semibold">{result.feedback}</p>
             </div>
-            <div className="space-y-2">
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Kryteria oceniania</p>
+            <div className="flex flex-col gap-2">
+              <p className="text-xs font-extrabold text-muted uppercase tracking-wider">Kryteria oceniania</p>
               {result.criteria.map((c, i) => (
                 <div
                   key={i}
-                  className={`flex items-start gap-3 rounded-lg px-4 py-3 text-sm ${
+                  className={`flex items-start gap-3 rounded-2xl border-[3px] px-4 py-3 text-[15px] font-semibold ${
                     c.met
-                      ? 'bg-green-50 border border-green-200 text-green-900'
-                      : 'bg-red-50 border border-red-200 text-red-900'
+                      ? 'bg-mint border-brand text-brand-deep'
+                      : 'bg-coral-bg border-coral text-coral'
                   }`}
                 >
-                  <span className="text-base mt-0.5 shrink-0">{c.met ? '✓' : '✗'}</span>
+                  <span className="text-base font-black shrink-0" aria-label={c.met ? 'Spełnione' : 'Niespełnione'}>{c.met ? '✓' : '✗'}</span>
                   <span>{c.text}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="bg-gray-50 rounded-xl border border-gray-200 p-5">
-            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Twoja odpowiedź</p>
-            <p className="text-sm text-gray-700 whitespace-pre-wrap">{answer}</p>
+          <div className="bg-white rounded-3xl border-[3px] border-line p-5">
+            <p className="text-xs font-extrabold text-muted uppercase tracking-wider mb-2">Twoja odpowiedź</p>
+            <p className="text-[15px] whitespace-pre-wrap">{answer}</p>
           </div>
 
           {result.modelAnswer && (
-            <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5">
+            <div className="card-game !rounded-[24px] !shadow-hard p-5">
               <button
+                aria-expanded={showModel}
                 onClick={() => setShowModel(v => !v)}
-                className="w-full text-left flex items-center justify-between text-sm font-semibold text-gray-600 hover:text-gray-900"
+                className="w-full text-left flex items-center justify-between font-extrabold hover:text-brand"
               >
                 <span>Wzorcowa odpowiedź</span>
-                <span className="text-gray-400">{showModel ? '▲' : '▼'}</span>
+                <span className="text-muted">{showModel ? '▲' : '▼'}</span>
               </button>
               {showModel && (
-                <p className="mt-3 text-sm text-gray-700 leading-relaxed whitespace-pre-wrap border-t border-gray-100 pt-3">
+                <p className="mt-3 text-[15px] leading-relaxed whitespace-pre-wrap border-t-[3px] border-dotted border-line pt-3">
                   {result.modelAnswer}
                 </p>
               )}
             </div>
           )}
 
-          <div className="flex gap-3 pt-2">
+          <div className="flex flex-col sm:flex-row gap-3 pt-2">
             <button
               onClick={() => setResults(prev => { const m = new Map(prev); m.delete(qIdx); return m })}
-              className="px-4 py-2.5 text-sm border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50"
+              className="btn btn-ghost"
             >
               Popraw odpowiedź
             </button>
             <button
               onClick={advance}
-              className="flex-1 py-2.5 bg-violet-600 text-white text-sm font-semibold rounded-lg hover:bg-violet-700"
+              className="btn btn-sun flex-1"
             >
               {pos + 1 < order.length
                 ? 'Następne pytanie →'

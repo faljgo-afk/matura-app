@@ -30,35 +30,39 @@ export default function LoginForm({ next }: { next: string }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-5">
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+        <label htmlFor="login-email" className="field-label">Email</label>
         <input
+          id="login-email"
           type="email"
+          autoComplete="email"
           value={email}
           onChange={e => setEmail(e.target.value)}
           required
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+          className="field"
           placeholder="twoj@email.com"
         />
       </div>
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Hasło</label>
+        <label htmlFor="login-password" className="field-label">Hasło</label>
         <input
+          id="login-password"
           type="password"
+          autoComplete="current-password"
           value={password}
           onChange={e => setPassword(e.target.value)}
           required
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+          className="field"
           placeholder="••••••••"
         />
       </div>
-      {error && <p className="text-red-500 text-sm">{error}</p>}
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full bg-green-600 hover:bg-green-700 disabled:bg-green-300 text-white font-semibold py-2.5 rounded-lg transition-colors"
-      >
+      {error && (
+        <p role="alert" className="text-sm font-bold text-coral bg-coral-bg border-[3px] border-coral rounded-2xl px-4 py-2.5">
+          {error}
+        </p>
+      )}
+      <button type="submit" disabled={loading} className="btn btn-sun w-full !min-h-[56px] text-lg">
         {loading ? 'Logowanie...' : 'Zaloguj się'}
       </button>
     </form>

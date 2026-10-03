@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { createClient } from '@/lib/supabase-browser'
 import { useRouter } from 'next/navigation'
 
+// Designed for the dark-green profile card: text inherits white from the parent
 export default function EditNameForm({ currentName }: { currentName: string }) {
   const [editing, setEditing] = useState(false)
   const [name, setName] = useState(currentName)
@@ -22,14 +23,15 @@ export default function EditNameForm({ currentName }: { currentName: string }) {
 
   if (!editing) {
     return (
-      <div className="flex items-center gap-2 group">
-        <span className="text-xl font-bold text-gray-900">{currentName || 'Brak imienia'}</span>
+      <div className="flex items-center gap-2">
+        <span className="font-display text-2xl sm:text-3xl font-bold truncate">{currentName || 'Brak imienia'}</span>
         <button
           onClick={() => setEditing(true)}
-          className="opacity-0 group-hover:opacity-100 transition-opacity text-gray-300 hover:text-green-500"
+          className="shrink-0 w-9 h-9 rounded-xl flex items-center justify-center text-sun hover:bg-white/15 transition-colors"
           title="Edytuj imię"
+          aria-label="Edytuj imię"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
             <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
           </svg>
         </button>
@@ -38,23 +40,20 @@ export default function EditNameForm({ currentName }: { currentName: string }) {
   }
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex flex-wrap items-center gap-2">
       <input
         type="text"
         value={name}
         onChange={e => setName(e.target.value)}
         autoFocus
-        className="text-xl font-bold border-b-2 border-green-500 outline-none bg-transparent text-gray-900 w-48"
+        aria-label="Imię"
+        className="font-display text-xl font-bold rounded-xl border-[3px] border-brand-deep bg-white text-ink px-3 py-1 w-48 outline-none focus:border-sun"
         onKeyDown={e => { if (e.key === 'Enter') handleSave(); if (e.key === 'Escape') setEditing(false) }}
       />
-      <button
-        onClick={handleSave}
-        disabled={loading}
-        className="text-xs text-green-600 font-semibold hover:text-green-800 disabled:opacity-50"
-      >
+      <button onClick={handleSave} disabled={loading} className="btn btn-sun btn-sm !mb-0 disabled:opacity-50">
         {loading ? '...' : 'Zapisz'}
       </button>
-      <button onClick={() => setEditing(false)} className="text-xs text-gray-400 hover:text-gray-600">
+      <button onClick={() => setEditing(false)} className="text-sm font-extrabold text-[#e9fbe0] hover:underline px-2">
         Anuluj
       </button>
     </div>

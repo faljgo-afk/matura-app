@@ -1,46 +1,23 @@
 export default function TopicLoading() {
+  const block = 'bg-line/70 animate-pulse'
   return (
-    <main className="min-h-screen bg-gray-50">
-      <div className="max-w-2xl mx-auto px-4 py-12">
+    <main className="bg-canvas min-h-[70vh]">
+      <div className="max-w-3xl mx-auto px-4 sm:px-8 py-8 sm:py-10 flex flex-col gap-8">
 
-        <div className="h-4 w-32 bg-gray-200 rounded animate-pulse mb-8" />
+        <div className={`h-5 w-48 rounded-full ${block}`} />
 
-        <div className="bg-white rounded-xl p-5 sm:p-8 shadow-sm border border-gray-200">
-          <div className="h-8 w-56 bg-gray-200 rounded animate-pulse mb-2" />
-          <div className="h-4 w-80 bg-gray-100 rounded animate-pulse mb-8" />
-
-          <div className="mb-6">
-            <div className="h-6 w-28 bg-blue-100 rounded-full animate-pulse mb-3" />
-            <div className="bg-gray-50 rounded-lg p-4 mb-4 flex items-center gap-4">
-              <div className="text-center shrink-0">
-                <div className="h-7 w-8 bg-gray-200 rounded animate-pulse mx-auto mb-1" />
-                <div className="h-3 w-16 bg-gray-100 rounded animate-pulse" />
-              </div>
-              <div className="flex-1 space-y-2">
-                <div className="h-3 w-full bg-gray-100 rounded animate-pulse" />
-                <div className="h-3 w-3/4 bg-gray-100 rounded animate-pulse" />
-              </div>
-            </div>
-            <div className="h-14 w-full bg-gray-100 rounded-xl animate-pulse" />
-          </div>
-
-          <div className="border-t border-gray-100 my-6" />
-
-          <div>
-            <div className="h-6 w-32 bg-violet-100 rounded-full animate-pulse mb-3" />
-            <div className="bg-gray-50 rounded-lg p-4 mb-4 flex items-center gap-4">
-              <div className="text-center shrink-0">
-                <div className="h-7 w-8 bg-gray-200 rounded animate-pulse mx-auto mb-1" />
-                <div className="h-3 w-12 bg-gray-100 rounded animate-pulse" />
-              </div>
-              <div className="flex-1 space-y-2">
-                <div className="h-3 w-full bg-gray-100 rounded animate-pulse" />
-                <div className="h-3 w-2/3 bg-gray-100 rounded animate-pulse" />
-              </div>
-            </div>
-            <div className="h-12 w-full bg-violet-100 rounded-lg animate-pulse" />
-          </div>
+        <div className="flex flex-col gap-3">
+          <div className={`h-12 w-72 rounded-2xl ${block}`} />
+          <div className={`h-5 w-96 max-w-full rounded-full ${block}`} />
         </div>
+
+        {[0, 1].map((i) => (
+          <div key={i} className="card-game !rounded-[32px] p-6 sm:p-8 flex flex-col gap-5">
+            <div className={`h-7 w-36 rounded-full ${block}`} />
+            <div className={`h-20 w-full rounded-2xl ${block}`} />
+            <div className={`h-14 w-full rounded-2xl ${block}`} />
+          </div>
+        ))}
 
       </div>
     </main>

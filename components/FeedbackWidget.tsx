@@ -34,26 +34,26 @@ export default function FeedbackWidget({
 
   if (submitted) {
     return (
-      <div className="mt-8 bg-green-50 border border-green-200 rounded-xl p-5 text-center text-green-700 text-sm">
+      <div className="bg-mint border-[3px] border-brand-deep rounded-3xl p-5 text-center text-brand-deep font-bold">
         Dziękujemy za opinię! Twój feedback pomaga nam ulepszać testy. 🙏
       </div>
     )
   }
 
   return (
-    <div className="mt-8 bg-white border border-gray-200 rounded-xl p-5">
-      <p className="text-sm font-semibold text-gray-700 mb-1">Oceń ten test</p>
-      <p className="text-xs text-gray-400 mb-4">Powiedz nam, co możemy poprawić — każda opinia jest dla nas ważna</p>
+    <div className="card-game p-5 sm:p-6">
+      <p className="font-display font-semibold text-xl mb-1">Oceń ten test</p>
+      <p className="text-sm text-muted mb-4">Powiedz nam, co możemy poprawić — każda opinia jest dla nas ważna</p>
 
       <div className="flex gap-3 mb-4">
         {RATINGS.map(r => (
           <button
             key={r.value}
             onClick={() => setRating(r.value)}
-            className={`flex-1 flex flex-col items-center py-2.5 rounded-lg border-2 transition-all text-sm ${
+            className={`flex-1 flex flex-col items-center py-2.5 rounded-2xl border-[3px] transition-colors text-sm font-bold ${
               rating === r.value
-                ? 'border-green-500 bg-green-50 text-green-700 font-semibold'
-                : 'border-gray-200 text-gray-500 hover:border-gray-300'
+                ? 'border-brand-deep bg-[#fff4c2] text-ink'
+                : 'border-line text-muted hover:border-brand'
             }`}
           >
             <span className="text-2xl mb-1">{r.emoji}</span>
@@ -67,13 +67,13 @@ export default function FeedbackWidget({
         onChange={e => setComment(e.target.value)}
         placeholder="Opcjonalny komentarz — co było niejasne, co warto poprawić?"
         rows={3}
-        className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 resize-none focus:outline-none focus:border-green-400 mb-3"
+        className="w-full border-[3px] border-line rounded-2xl px-4 py-3 text-[15px] text-ink resize-none focus:outline-none focus:border-brand mb-3"
       />
 
       <button
         onClick={handleSubmit}
         disabled={!rating || loading}
-        className="w-full py-2.5 rounded-lg bg-green-600 text-white text-sm font-semibold hover:bg-green-700 disabled:bg-gray-200 disabled:text-gray-400 transition-colors"
+        className="btn btn-primary btn-sm w-full"
       >
         {loading ? 'Wysyłanie...' : 'Wyślij opinię'}
       </button>

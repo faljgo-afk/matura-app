@@ -51,6 +51,13 @@ async function main() {
       continue
     }
 
+    // Skip legacy single-statement questions (options T/F = Prawda/Fałsz): the UI treats them
+    // as single choice, so their correct_answer must stay ['T'] or ['F']
+    if (Array.isArray(q.options) && q.options.some(o => o.id === 'T' || o.id === 'F')) {
+      skipped++
+      continue
+    }
+
     // Build new correct_answer from options[].is_correct
     const options = q.options
     if (!options || !Array.isArray(options)) {

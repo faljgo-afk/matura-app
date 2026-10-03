@@ -58,13 +58,13 @@ type SidebarData = {
 } | null
 
 function DifficultyBadge({ d }: { d: number }) {
-  if (d === 1) return <span className="text-xs bg-green-100 text-green-700 px-1.5 py-0.5 rounded">łatwe</span>
+  if (d === 1) return <span className="text-xs bg-[#e8f5ec] text-brand px-1.5 py-0.5 rounded">łatwe</span>
   if (d === 3) return <span className="text-xs bg-red-100 text-red-700 px-1.5 py-0.5 rounded">trudne</span>
   return <span className="text-xs bg-yellow-100 text-yellow-700 px-1.5 py-0.5 rounded">średnie</span>
 }
 
 function CountBadge({ n, warn, danger }: { n: number; warn: number; danger: number }) {
-  const cls = n <= danger ? 'bg-red-100 text-red-700' : n <= warn ? 'bg-yellow-100 text-yellow-700' : 'bg-green-100 text-green-700'
+  const cls = n <= danger ? 'bg-red-100 text-red-700' : n <= warn ? 'bg-yellow-100 text-yellow-700' : 'bg-[#e8f5ec] text-brand'
   return <span className={`text-xs font-semibold px-2 py-0.5 rounded ${cls}`}>{n}</span>
 }
 
@@ -72,17 +72,17 @@ function SidebarCard({ q, index }: { q: SidebarQuestion; index: number }) {
   const [showExplanation, setShowExplanation] = useState(false)
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+    <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
       {/* Question text */}
       <div className="px-4 pt-4 pb-3">
-        <p className="text-sm font-medium text-gray-900 leading-snug">
-          <span className="text-gray-400 mr-1">{index + 1}.</span> {q.text}
+        <p className="text-sm font-medium text-slate-900 leading-snug">
+          <span className="text-slate-400 mr-1">{index + 1}.</span> {q.text}
         </p>
       </div>
 
       {/* Image */}
       {q.image_url && (
-        <div className="mx-4 mb-3 rounded-lg overflow-hidden border border-gray-100 bg-gray-50">
+        <div className="mx-4 mb-3 rounded-lg overflow-hidden border border-slate-100 bg-slate-50">
           <img src={q.image_url} alt="Ilustracja" className="w-full max-h-48 object-contain p-1" />
         </div>
       )}
@@ -101,15 +101,15 @@ function SidebarCard({ q, index }: { q: SidebarQuestion; index: number }) {
                   <div
                     key={opt.id}
                     className={`flex items-start gap-2 text-xs px-3 py-2 rounded-lg border ${
-                      isPrawda ? 'border-green-300 bg-green-50 text-green-800' : 'border-red-100 bg-red-50 text-red-700'
+                      isPrawda ? 'border-[#cfe8d7] bg-[#e8f5ec] text-brand-deep' : 'border-red-100 bg-red-50 text-red-700'
                     }`}
                   >
-                    <span className={`font-bold shrink-0 ${isPrawda ? 'text-green-600' : 'text-red-400'}`}>
+                    <span className={`font-bold shrink-0 ${isPrawda ? 'text-brand' : 'text-red-400'}`}>
                       {opt.id}.
                     </span>
                     <span>{opt.text}</span>
                     <span className={`ml-auto shrink-0 font-bold text-xs px-1.5 py-0.5 rounded ${
-                      isPrawda ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600'
+                      isPrawda ? 'bg-[#e8f5ec] text-brand' : 'bg-red-100 text-red-600'
                     }`}>
                       {verdict}
                     </span>
@@ -122,16 +122,16 @@ function SidebarCard({ q, index }: { q: SidebarQuestion; index: number }) {
                   key={opt.id}
                   className={`flex items-start gap-2 text-xs px-3 py-2 rounded-lg border ${
                     isCorrect
-                      ? 'border-green-300 bg-green-50 text-green-800'
-                      : 'border-gray-100 bg-gray-50 text-gray-500'
+                      ? 'border-[#cfe8d7] bg-[#e8f5ec] text-brand-deep'
+                      : 'border-slate-100 bg-slate-50 text-slate-500'
                   }`}
                 >
-                  <span className={`font-bold shrink-0 ${isCorrect ? 'text-green-600' : 'text-gray-400'}`}>
+                  <span className={`font-bold shrink-0 ${isCorrect ? 'text-brand' : 'text-slate-400'}`}>
                     {opt.id}.
                   </span>
                   <span>{opt.text}</span>
                   {isCorrect && (
-                    <span className="ml-auto shrink-0 text-green-500 font-bold">✓</span>
+                    <span className="ml-auto shrink-0 text-brand font-bold">✓</span>
                   )}
                 </div>
               )
@@ -144,11 +144,11 @@ function SidebarCard({ q, index }: { q: SidebarQuestion; index: number }) {
       <div className="px-4 pb-3 flex items-center gap-2 flex-wrap">
         <span className="text-xs bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full">{q.subtopic}</span>
         <DifficultyBadge d={q.difficulty} />
-        <span className="text-xs text-gray-400">{q.type}</span>
+        <span className="text-xs text-slate-400">{q.type}</span>
         {q.explanation && (
           <button
             onClick={() => setShowExplanation(v => !v)}
-            className="ml-auto text-xs text-gray-400 hover:text-blue-600 transition-colors"
+            className="ml-auto text-xs text-slate-400 hover:text-blue-600 transition-colors"
           >
             {showExplanation ? 'Ukryj wyjaśnienie ▲' : 'Wyjaśnienie ▼'}
           </button>
@@ -171,22 +171,22 @@ function Sidebar({ data, onClose, loading }: { data: SidebarData; onClose: () =>
     <>
       <div className="fixed inset-0 bg-black/20 z-40" onClick={onClose} />
       <div className="fixed right-0 top-0 h-full w-1/2 min-w-96 bg-white shadow-2xl z-50 flex flex-col">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-200">
-          <h3 className="font-semibold text-gray-800 text-sm">{data.title}</h3>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-xl leading-none">&times;</button>
+        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200">
+          <h3 className="font-semibold text-slate-800 text-sm">{data.title}</h3>
+          <button onClick={onClose} className="text-slate-400 hover:text-slate-600 text-xl leading-none">&times;</button>
         </div>
         <div className="overflow-y-auto flex-1 p-4 space-y-3">
           {loading && (
-            <p className="text-sm text-gray-400 text-center py-8">Ładowanie...</p>
+            <p className="text-sm text-slate-400 text-center py-8">Ładowanie...</p>
           )}
           {!loading && data.questions.length === 0 && (
-            <p className="text-sm text-gray-400 text-center py-8">Brak pytań</p>
+            <p className="text-sm text-slate-400 text-center py-8">Brak pytań</p>
           )}
           {!loading && data.questions.map((q, i) => (
             <SidebarCard key={i} q={q} index={i} />
           ))}
         </div>
-        <div className="px-5 py-3 border-t border-gray-100 text-xs text-gray-400 text-right">
+        <div className="px-5 py-3 border-t border-slate-100 text-xs text-slate-400 text-right">
           {loading ? '...' : `${data.questions.length} pytań`}
         </div>
       </div>
@@ -384,28 +384,27 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
   const totalCovered = subtopics.filter(s => mockQuestions.some(q => q.subtopic_id === s.id)).length
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <div className="max-w-6xl mx-auto px-4 py-10">
+    <main className="min-h-[70vh]">
+      <div className="max-w-6xl mx-auto px-4 sm:px-8 py-8 sm:py-10">
 
         <div className="mb-6 flex items-center justify-between">
           <div>
             <div className="flex items-center gap-3 mb-1">
-              <Link href="/admin" className="text-sm text-gray-400 hover:text-gray-600">← Panel</Link>
-              <span className="text-gray-300">/</span>
-              <span className="text-sm font-semibold text-gray-700">Raporty</span>
+              <Link href="/admin" className="text-sm text-slate-400 hover:text-slate-600">← Panel</Link>
+              <span className="text-slate-300">/</span>
+              <span className="text-sm font-semibold text-slate-700">Raporty</span>
             </div>
-            <h1 className="text-2xl font-bold text-gray-900">Raporty bazy pytań</h1>
+            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">Raporty bazy pytań</h1>
           </div>
-          <span className="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">Admin</span>
         </div>
 
-        <div className="flex border-b border-gray-200 mb-8">
+        <div className="flex border-b border-slate-200 mb-8">
           {TABS.map((label, i) => (
             <button
               key={i}
               onClick={() => setTab(i)}
               className={`px-5 py-2.5 text-sm font-medium border-b-2 whitespace-nowrap transition-colors -mb-px ${
-                tab === i ? 'border-green-500 text-green-700' : 'border-transparent text-gray-500 hover:text-gray-700'
+                tab === i ? 'border-brand text-slate-900' : 'border-transparent text-slate-500 hover:text-slate-700'
               }`}
             >
               {label}
@@ -417,34 +416,34 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
         {tab === 0 && (
           <div className="space-y-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="bg-white rounded-xl p-5 border border-gray-200">
-                <div className="text-3xl font-bold text-green-600">{questions.length}</div>
-                <div className="text-sm text-gray-500 mt-1">Pytań tematycznych</div>
-                <div className="text-xs text-gray-400 mt-1">{verified.length} verified · {unverified.length} oczekuje</div>
+              <div className="bg-white rounded-xl p-5 border border-slate-200">
+                <div className="text-3xl font-bold text-brand">{questions.length}</div>
+                <div className="text-sm text-slate-500 mt-1">Pytań tematycznych</div>
+                <div className="text-xs text-slate-400 mt-1">{verified.length} verified · {unverified.length} oczekuje</div>
               </div>
-              <div className="bg-white rounded-xl p-5 border border-gray-200">
+              <div className="bg-white rounded-xl p-5 border border-slate-200">
                 <div className="text-3xl font-bold text-blue-600">{mockQuestions.length}</div>
-                <div className="text-sm text-gray-500 mt-1">Pytań sprawdzianu</div>
-                <div className="text-xs text-gray-400 mt-1">{mockVerified} verified · {mockQuestions.length - mockVerified} oczekuje</div>
+                <div className="text-sm text-slate-500 mt-1">Pytań sprawdzianu</div>
+                <div className="text-xs text-slate-400 mt-1">{mockVerified} verified · {mockQuestions.length - mockVerified} oczekuje</div>
               </div>
-              <div className="bg-white rounded-xl p-5 border border-gray-200">
-                <div className="text-sm font-semibold text-gray-600 mb-3">Trudność</div>
+              <div className="bg-white rounded-xl p-5 border border-slate-200">
+                <div className="text-sm font-semibold text-slate-600 mb-3">Trudność</div>
                 <div className="space-y-1.5">
                   {byDifficulty.map(({ d, count }) => (
                     <div key={d} className="flex items-center justify-between">
                       <DifficultyBadge d={d} />
-                      <span className="text-sm font-semibold text-gray-700">{count}</span>
+                      <span className="text-sm font-semibold text-slate-700">{count}</span>
                     </div>
                   ))}
                 </div>
               </div>
-              <div className="bg-white rounded-xl p-5 border border-gray-200">
-                <div className="text-sm font-semibold text-gray-600 mb-3">Typy pytań</div>
+              <div className="bg-white rounded-xl p-5 border border-slate-200">
+                <div className="text-sm font-semibold text-slate-600 mb-3">Typy pytań</div>
                 <div className="space-y-1.5">
                   {byType.map(({ t, count }) => (
                     <div key={t} className="flex items-center justify-between">
-                      <span className="text-xs text-gray-500">{t}</span>
-                      <span className={`text-sm font-semibold ${count === 0 ? 'text-gray-300' : 'text-gray-700'}`}>{count}</span>
+                      <span className="text-xs text-slate-500">{t}</span>
+                      <span className={`text-sm font-semibold ${count === 0 ? 'text-slate-300' : 'text-slate-700'}`}>{count}</span>
                     </div>
                   ))}
                 </div>
@@ -454,7 +453,7 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
             {/* Archiwum summary */}
             <div className="bg-white rounded-xl border border-amber-200 p-5">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-sm font-semibold text-gray-700">Archiwum matur CKE</h2>
+                <h2 className="text-sm font-semibold text-slate-700">Archiwum matur CKE</h2>
                 <button onClick={() => setTab(3)} className="text-xs text-amber-600 hover:text-amber-800 hover:underline">
                   Szczegóły →
                 </button>
@@ -462,15 +461,15 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div>
                   <div className="text-2xl font-bold text-amber-600">{maturaExams.length}</div>
-                  <div className="text-xs text-gray-500 mt-0.5">Arkuszy CKE</div>
+                  <div className="text-xs text-slate-500 mt-0.5">Arkuszy CKE</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-amber-600">{maturaQuestions.length}</div>
-                  <div className="text-xs text-gray-500 mt-0.5">Zadań łącznie</div>
+                  <div className="text-xs text-slate-500 mt-0.5">Zadań łącznie</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-gray-700">{maturaQuestions.filter(q => q.question_type === 'open').length}</div>
-                  <div className="text-xs text-gray-500 mt-0.5">Otwartych</div>
+                  <div className="text-2xl font-bold text-slate-700">{maturaQuestions.filter(q => q.question_type === 'open').length}</div>
+                  <div className="text-xs text-slate-500 mt-0.5">Otwartych</div>
                 </div>
                 <div>
                   {(() => {
@@ -479,8 +478,8 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
                     const pct = open.length > 0 ? Math.round(withKp / open.length * 100) : 0
                     return (
                       <>
-                        <div className={`text-2xl font-bold ${pct < 80 ? 'text-red-500' : 'text-green-600'}`}>{pct}%</div>
-                        <div className="text-xs text-gray-500 mt-0.5">Ma key_points ({withKp}/{open.length})</div>
+                        <div className={`text-2xl font-bold ${pct < 80 ? 'text-red-500' : 'text-brand'}`}>{pct}%</div>
+                        <div className="text-xs text-slate-500 mt-0.5">Ma key_points ({withKp}/{open.length})</div>
                       </>
                     )
                   })()}
@@ -493,16 +492,16 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
         {/* Tab 1: Pokrycie tematów — expandable table */}
         {tab === 1 && (
           <div>
-            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden mb-3">
+            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden mb-3">
               <table className="w-full text-sm">
-                <thead className="bg-gray-50 border-b border-gray-200">
+                <thead className="bg-slate-50 border-b border-slate-200">
                   <tr>
-                    <th className="text-left px-4 py-3 text-gray-600 font-medium">Temat / Podtemat</th>
-                    <th className="text-center px-3 py-3 text-gray-600 font-medium">Pytań</th>
-                    <th className="text-center px-3 py-3 text-gray-600 font-medium">Otwartych</th>
-                    <th className="text-center px-3 py-3 text-gray-600 font-medium">Verified</th>
-                    <th className="text-center px-3 py-3 text-gray-600 font-medium">Podtematów</th>
-                    <th className="text-center px-3 py-3 text-gray-600 font-medium">Śr. trudność</th>
+                    <th className="text-left px-4 py-3 text-slate-600 font-medium">Temat / Podtemat</th>
+                    <th className="text-center px-3 py-3 text-slate-600 font-medium">Pytań</th>
+                    <th className="text-center px-3 py-3 text-slate-600 font-medium">Otwartych</th>
+                    <th className="text-center px-3 py-3 text-slate-600 font-medium">Verified</th>
+                    <th className="text-center px-3 py-3 text-slate-600 font-medium">Podtematów</th>
+                    <th className="text-center px-3 py-3 text-slate-600 font-medium">Śr. trudność</th>
                     <th className="px-3 py-3"></th>
                   </tr>
                 </thead>
@@ -514,15 +513,15 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
                         {/* Topic row */}
                         <tr
                           key={topic.id}
-                          className="border-t border-gray-100 hover:bg-gray-50 cursor-pointer"
+                          className="border-t border-slate-100 hover:bg-slate-50 cursor-pointer"
                           onClick={() => toggleTopic(topic.id)}
                         >
                           <td className="px-4 py-3">
                             <div className="flex items-center gap-2">
-                              <span className="text-gray-400 text-xs w-4 shrink-0 select-none">
+                              <span className="text-slate-400 text-xs w-4 shrink-0 select-none">
                                 {isExpanded ? '▼' : '▶'}
                               </span>
-                              <span className="font-semibold text-gray-800">
+                              <span className="font-semibold text-slate-800">
                                 {topic.order_index}. {topic.name}
                               </span>
                             </div>
@@ -533,23 +532,23 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
                           <td className="px-3 py-3 text-center">
                             {topic.openCount > 0
                               ? <span className="text-xs font-semibold px-2 py-0.5 rounded bg-violet-100 text-violet-700">{topic.openCount}</span>
-                              : <span className="text-gray-300 text-xs">0</span>}
+                              : <span className="text-slate-300 text-xs">0</span>}
                           </td>
-                          <td className="px-3 py-3 text-center text-gray-600 font-medium">
+                          <td className="px-3 py-3 text-center text-slate-600 font-medium">
                             {topic.verifiedCount}
                           </td>
-                          <td className="px-3 py-3 text-center text-gray-500">
+                          <td className="px-3 py-3 text-center text-slate-500">
                             {topic.subtopicCount}
                           </td>
                           <td className="px-3 py-3 text-center">
                             {topic.avgDiff > 0
                               ? <DifficultyBadge d={Math.round(topic.avgDiff)} />
-                              : <span className="text-gray-300">—</span>}
+                              : <span className="text-slate-300">—</span>}
                           </td>
                           <td className="px-3 py-3 text-right">
                             <button
                               onClick={e => { e.stopPropagation(); openTopicSidebar(topic) }}
-                              className="text-xs text-green-600 hover:text-green-800 hover:underline whitespace-nowrap"
+                              className="text-xs text-brand hover:text-brand-deep hover:underline whitespace-nowrap"
                             >
                               Lista →
                             </button>
@@ -558,12 +557,12 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
 
                         {/* Subtopic rows — expanded inline */}
                         {isExpanded && topic.subtopicRows.map(sub => (
-                          <tr key={sub.id} className="bg-gray-50/60 border-t border-gray-50">
+                          <tr key={sub.id} className="bg-slate-50/60 border-t border-slate-50">
                             <td className="pl-10 pr-4 py-2">
-                              <span className={`text-sm ${sub.total === 0 ? 'text-red-400' : 'text-gray-600'}`}>
+                              <span className={`text-sm ${sub.total === 0 ? 'text-red-400' : 'text-slate-600'}`}>
                                 {sub.total === 0
                                   ? <span className="mr-1.5">○</span>
-                                  : <span className="mr-1.5 text-green-400">●</span>}
+                                  : <span className="mr-1.5 text-brand">●</span>}
                                 {sub.name}
                               </span>
                             </td>
@@ -575,16 +574,16 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
                             <td className="px-3 py-2 text-center">
                               {sub.openCount > 0
                                 ? <span className="text-xs font-semibold px-2 py-0.5 rounded bg-violet-100 text-violet-700">{sub.openCount}</span>
-                                : <span className="text-gray-300 text-xs">—</span>}
+                                : <span className="text-slate-300 text-xs">—</span>}
                             </td>
-                            <td className="px-3 py-2 text-center text-gray-500 text-sm">
-                              {sub.verified > 0 ? sub.verified : <span className="text-gray-300">—</span>}
+                            <td className="px-3 py-2 text-center text-slate-500 text-sm">
+                              {sub.verified > 0 ? sub.verified : <span className="text-slate-300">—</span>}
                             </td>
-                            <td className="px-3 py-2 text-center text-gray-300 text-sm">—</td>
+                            <td className="px-3 py-2 text-center text-slate-300 text-sm">—</td>
                             <td className="px-3 py-2 text-center">
                               {sub.avgDiff > 0
                                 ? <DifficultyBadge d={Math.round(sub.avgDiff)} />
-                                : <span className="text-gray-300 text-xs">—</span>}
+                                : <span className="text-slate-300 text-xs">—</span>}
                             </td>
                             <td className="px-3 py-2"></td>
                           </tr>
@@ -595,11 +594,11 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
                 </tbody>
               </table>
             </div>
-            <div className="flex gap-4 text-xs text-gray-400 flex-wrap">
+            <div className="flex gap-4 text-xs text-slate-400 flex-wrap">
               <span><span className="inline-block w-3 h-3 bg-red-100 rounded mr-1"></span>≤ 5 pytań</span>
               <span><span className="inline-block w-3 h-3 bg-yellow-100 rounded mr-1"></span>6–10 pytań</span>
-              <span><span className="inline-block w-3 h-3 bg-green-100 rounded mr-1"></span>&gt; 10 pytań</span>
-              <span><span className="text-green-400 mr-1">●</span>podtemat pokryty</span>
+              <span><span className="inline-block w-3 h-3 bg-[#e8f5ec] rounded mr-1"></span>&gt; 10 pytań</span>
+              <span><span className="text-brand mr-1">●</span>podtemat pokryty</span>
               <span><span className="text-red-300 mr-1">○</span>brak pytań</span>
             </div>
           </div>
@@ -608,19 +607,19 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
         {/* Tab 2: Sprawdzian */}
         {tab === 2 && (
           <div>
-            <p className="text-sm text-gray-500 mb-4">
+            <p className="text-sm text-slate-500 mb-4">
               Pokryto {totalCovered} z {subtopics.length} podtematów (
               {subtopics.length > 0 ? Math.round(totalCovered / subtopics.length * 100) : 0}%)
             </p>
-            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden mb-3">
+            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden mb-3">
               <table className="w-full text-sm">
-                <thead className="bg-gray-50 border-b border-gray-200">
+                <thead className="bg-slate-50 border-b border-slate-200">
                   <tr>
-                    <th className="text-left px-4 py-3 text-gray-600 font-medium">Temat / Podtemat</th>
-                    <th className="text-center px-3 py-3 text-gray-600 font-medium">Pytań</th>
-                    <th className="text-center px-3 py-3 text-gray-600 font-medium">Verified</th>
-                    <th className="text-center px-3 py-3 text-gray-600 font-medium">Pokrycie</th>
-                    <th className="text-center px-3 py-3 text-gray-600 font-medium">Śr. trudność</th>
+                    <th className="text-left px-4 py-3 text-slate-600 font-medium">Temat / Podtemat</th>
+                    <th className="text-center px-3 py-3 text-slate-600 font-medium">Pytań</th>
+                    <th className="text-center px-3 py-3 text-slate-600 font-medium">Verified</th>
+                    <th className="text-center px-3 py-3 text-slate-600 font-medium">Pokrycie</th>
+                    <th className="text-center px-3 py-3 text-slate-600 font-medium">Śr. trudność</th>
                     <th className="px-3 py-3"></th>
                   </tr>
                 </thead>
@@ -634,15 +633,15 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
                         {/* Topic row */}
                         <tr
                           key={topic.id}
-                          className="border-t border-gray-100 hover:bg-gray-50 cursor-pointer"
+                          className="border-t border-slate-100 hover:bg-slate-50 cursor-pointer"
                           onClick={() => toggleTopic(topic.id + '_mock')}
                         >
                           <td className="px-4 py-3">
                             <div className="flex items-center gap-2">
-                              <span className="text-gray-400 text-xs w-4 shrink-0 select-none">
+                              <span className="text-slate-400 text-xs w-4 shrink-0 select-none">
                                 {isExpanded ? '▼' : '▶'}
                               </span>
-                              <span className="font-semibold text-gray-800">
+                              <span className="font-semibold text-slate-800">
                                 {topic.order_index}. {topic.name}
                               </span>
                             </div>
@@ -650,12 +649,12 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
                           <td className="px-3 py-3 text-center">
                             <CountBadge n={topic.mockCount} warn={5} danger={2} />
                           </td>
-                          <td className="px-3 py-3 text-center text-gray-600 font-medium">
+                          <td className="px-3 py-3 text-center text-slate-600 font-medium">
                             {topic.verifiedCount}
                           </td>
                           <td className="px-3 py-3 text-center">
                             <span className={`text-xs px-2 py-0.5 rounded font-semibold ${
-                              allCovered ? 'bg-green-100 text-green-700' :
+                              allCovered ? 'bg-[#e8f5ec] text-brand' :
                               noneCovered ? 'bg-red-100 text-red-600' :
                               'bg-yellow-100 text-yellow-700'
                             }`}>
@@ -665,12 +664,12 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
                           <td className="px-3 py-3 text-center">
                             {topic.avgDiff > 0
                               ? <DifficultyBadge d={Math.round(topic.avgDiff)} />
-                              : <span className="text-gray-300">—</span>}
+                              : <span className="text-slate-300">—</span>}
                           </td>
                           <td className="px-3 py-3 text-right">
                             <button
                               onClick={e => { e.stopPropagation(); openMockTopicSidebar(topic) }}
-                              className="text-xs text-green-600 hover:text-green-800 hover:underline whitespace-nowrap"
+                              className="text-xs text-brand hover:text-brand-deep hover:underline whitespace-nowrap"
                             >
                               Lista →
                             </button>
@@ -679,12 +678,12 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
 
                         {/* Subtopic rows — expanded inline */}
                         {isExpanded && topic.subtopicRows.map(sub => (
-                          <tr key={sub.id} className="bg-gray-50/60 border-t border-gray-50">
+                          <tr key={sub.id} className="bg-slate-50/60 border-t border-slate-50">
                             <td className="pl-10 pr-4 py-2">
-                              <span className={`text-sm ${sub.total === 0 ? 'text-red-400' : 'text-gray-600'}`}>
+                              <span className={`text-sm ${sub.total === 0 ? 'text-red-400' : 'text-slate-600'}`}>
                                 {sub.total === 0
                                   ? <span className="mr-1.5">○</span>
-                                  : <span className="mr-1.5 text-green-400">●</span>}
+                                  : <span className="mr-1.5 text-brand">●</span>}
                                 {sub.name}
                               </span>
                             </td>
@@ -693,14 +692,14 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
                                 ? <CountBadge n={sub.total} warn={3} danger={1} />
                                 : <span className="text-xs text-red-300 font-semibold">0</span>}
                             </td>
-                            <td className="px-3 py-2 text-center text-gray-500 text-sm">
-                              {sub.verified > 0 ? sub.verified : <span className="text-gray-300">—</span>}
+                            <td className="px-3 py-2 text-center text-slate-500 text-sm">
+                              {sub.verified > 0 ? sub.verified : <span className="text-slate-300">—</span>}
                             </td>
-                            <td className="px-3 py-2 text-center text-gray-300 text-sm">—</td>
+                            <td className="px-3 py-2 text-center text-slate-300 text-sm">—</td>
                             <td className="px-3 py-2 text-center">
                               {sub.avgDiff > 0
                                 ? <DifficultyBadge d={Math.round(sub.avgDiff)} />
-                                : <span className="text-gray-300 text-xs">—</span>}
+                                : <span className="text-slate-300 text-xs">—</span>}
                             </td>
                             <td className="px-3 py-2"></td>
                           </tr>
@@ -711,11 +710,11 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
                 </tbody>
               </table>
             </div>
-            <div className="flex gap-4 text-xs text-gray-400 flex-wrap">
+            <div className="flex gap-4 text-xs text-slate-400 flex-wrap">
               <span><span className="inline-block w-3 h-3 bg-red-100 rounded mr-1"></span>≤ 2 pytania</span>
               <span><span className="inline-block w-3 h-3 bg-yellow-100 rounded mr-1"></span>3–5 pytań</span>
-              <span><span className="inline-block w-3 h-3 bg-green-100 rounded mr-1"></span>&gt; 5 pytań</span>
-              <span><span className="text-green-400 mr-1">●</span>podtemat pokryty</span>
+              <span><span className="inline-block w-3 h-3 bg-[#e8f5ec] rounded mr-1"></span>&gt; 5 pytań</span>
+              <span><span className="text-brand mr-1">●</span>podtemat pokryty</span>
               <span><span className="text-red-300 mr-1">○</span>brak pytań</span>
             </div>
           </div>
@@ -727,13 +726,13 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
             {maturaByExam.map(({ exam, qs, open, closed, withKeyPoints, withModelAnswer, totalPoints }) => {
               const kpPct = open.length > 0 ? Math.round(withKeyPoints.length / open.length * 100) : 100
               return (
-                <div key={exam.id} className="bg-white rounded-xl border border-gray-200 p-5">
+                <div key={exam.id} className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
                   <div className="flex items-center justify-between mb-4">
                     <div>
-                      <h2 className="font-bold text-gray-900">
+                      <h2 className="font-bold text-slate-900">
                         Matura {exam.year} — {SESSION_LABEL[exam.session] ?? exam.session}
                       </h2>
-                      <p className="text-xs text-gray-400 mt-0.5">exam_id: {exam.id}</p>
+                      <p className="text-xs text-slate-400 mt-0.5">exam_id: {exam.id}</p>
                     </div>
                     <a
                       href={`/archiwum/${exam.id}`}
@@ -745,25 +744,25 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
                   </div>
 
                   <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-4">
-                    <div className="bg-gray-50 rounded-lg p-3 text-center">
-                      <div className="text-xl font-bold text-gray-800">{qs.length}</div>
-                      <div className="text-xs text-gray-500 mt-0.5">Zadań</div>
+                    <div className="bg-slate-50 rounded-lg p-3 text-center">
+                      <div className="text-xl font-bold text-slate-800">{qs.length}</div>
+                      <div className="text-xs text-slate-500 mt-0.5">Zadań</div>
                     </div>
-                    <div className="bg-gray-50 rounded-lg p-3 text-center">
-                      <div className="text-xl font-bold text-gray-800">{totalPoints}</div>
-                      <div className="text-xs text-gray-500 mt-0.5">Punktów</div>
+                    <div className="bg-slate-50 rounded-lg p-3 text-center">
+                      <div className="text-xl font-bold text-slate-800">{totalPoints}</div>
+                      <div className="text-xs text-slate-500 mt-0.5">Punktów</div>
                     </div>
                     <div className="bg-amber-50 rounded-lg p-3 text-center">
                       <div className="text-xl font-bold text-amber-700">{open.length}</div>
-                      <div className="text-xs text-gray-500 mt-0.5">Otwartych</div>
+                      <div className="text-xs text-slate-500 mt-0.5">Otwartych</div>
                     </div>
                     <div className="bg-blue-50 rounded-lg p-3 text-center">
                       <div className="text-xl font-bold text-blue-700">{closed.length}</div>
-                      <div className="text-xs text-gray-500 mt-0.5">Zamkniętych</div>
+                      <div className="text-xs text-slate-500 mt-0.5">Zamkniętych</div>
                     </div>
-                    <div className={`rounded-lg p-3 text-center ${kpPct < 80 ? 'bg-red-50' : 'bg-green-50'}`}>
-                      <div className={`text-xl font-bold ${kpPct < 80 ? 'text-red-600' : 'text-green-700'}`}>{kpPct}%</div>
-                      <div className="text-xs text-gray-500 mt-0.5">Ma key_points</div>
+                    <div className={`rounded-lg p-3 text-center ${kpPct < 80 ? 'bg-red-50' : 'bg-[#e8f5ec]'}`}>
+                      <div className={`text-xl font-bold ${kpPct < 80 ? 'text-red-600' : 'text-brand'}`}>{kpPct}%</div>
+                      <div className="text-xs text-slate-500 mt-0.5">Ma key_points</div>
                     </div>
                   </div>
 
@@ -791,7 +790,7 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
                     <div className="space-y-1.5">
                       {withKeyPoints.length < open.length && (
                         <div className="flex items-start gap-2 text-xs bg-red-50 border border-red-100 rounded-lg px-3 py-2 text-red-700">
-                          <span className="shrink-0">⚠</span>
+                          <span className="shrink-0 font-black">!</span>
                           <span>
                             {open.length - withKeyPoints.length} otwartych zadań bez key_points:{' '}
                             {open.filter(q => !q.key_points?.length).map(q => `Zad. ${q.zadanie_number}`).join(', ')}
@@ -807,7 +806,7 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
                         </div>
                       )}
                       {withKeyPoints.length === open.length && withModelAnswer.length === open.length && (
-                        <div className="text-xs text-green-600 bg-green-50 border border-green-100 rounded-lg px-3 py-2">
+                        <div className="text-xs text-brand bg-[#e8f5ec] border border-[#cfe8d7] rounded-lg px-3 py-2">
                           ✓ Wszystkie otwarte zadania mają key_points i model_answer
                         </div>
                       )}
@@ -818,7 +817,7 @@ export default function ReportsClient({ questions, mockQuestions, topics, subtop
             })}
 
             {maturaExams.length === 0 && (
-              <div className="bg-white rounded-xl p-8 border border-gray-200 text-center text-gray-400">
+              <div className="bg-white rounded-xl p-8 border border-slate-200 text-center text-slate-400">
                 Brak arkuszy w bazie. Uruchom import-matura-v2.js.
               </div>
             )}

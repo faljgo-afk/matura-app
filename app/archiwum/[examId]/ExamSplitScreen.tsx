@@ -61,13 +61,13 @@ function groupByParent(questions: Question[]) {
 function TypeBadge({ type }: { type: string }) {
   const label = TYPE_ICON[type] ?? type
   const colors: Record<string, string> = {
-    single: 'bg-blue-50 text-blue-600 border-blue-200',
-    multiple: 'bg-purple-50 text-purple-600 border-purple-200',
-    true_false: 'bg-orange-50 text-orange-600 border-orange-200',
-    open: 'bg-gray-50 text-gray-500 border-gray-200',
+    single: 'bg-mint text-brand-deep border-brand',
+    multiple: 'bg-[#ffd9e6] text-[#8a1d4a] border-candy',
+    true_false: 'bg-amberx-bg text-amberx border-amberx',
+    open: 'bg-[#e3dcff] text-[#3b2a9e] border-grape',
   }
   return (
-    <span className={`text-xs font-medium px-1.5 py-0.5 rounded border ${colors[type] ?? colors.open}`}>
+    <span className={`text-xs font-extrabold px-2 py-0.5 rounded-lg border-2 ${colors[type] ?? colors.open}`}>
       {label}
     </span>
   )
@@ -77,7 +77,7 @@ function TypeBadge({ type }: { type: string }) {
 function PdfPanel({ pdfUrl, title }: { pdfUrl: string | null; title: string }) {
   if (!pdfUrl) {
     return (
-      <div className="h-full flex items-center justify-center text-gray-400 text-sm">
+      <div className="h-full flex items-center justify-center text-muted font-semibold text-sm">
         PDF niedostępny
       </div>
     )
@@ -115,7 +115,7 @@ export default function ExamSplitScreen({ exam, questions }: { exam: Exam; quest
       {/* ── Desktop: side-by-side ──────────────────────────────────────────── */}
       <div className="hidden md:flex h-screen overflow-hidden">
         {/* Left: PDF — 55% */}
-        <div className="w-[55%] shrink-0 bg-gray-200 border-r border-gray-300 h-full">
+        <div className="w-[55%] shrink-0 bg-line border-r-[3px] border-brand-deep h-full">
           <PdfPanel pdfUrl={pdfUrl} title={title} />
         </div>
 
@@ -123,34 +123,34 @@ export default function ExamSplitScreen({ exam, questions }: { exam: Exam; quest
         <div className="flex-1 min-w-0 bg-white flex flex-col h-full overflow-hidden">
 
           {/* Header */}
-          <div className="px-4 py-3 border-b border-gray-100 shrink-0">
-            <Link href="/archiwum" className="text-xs text-amber-600 hover:text-amber-800 mb-1 inline-block">
+          <div className="px-4 py-3 border-b-[3px] border-line shrink-0">
+            <Link href="/archiwum" className="text-sm font-extrabold text-brand hover:underline mb-1 inline-block">
               ← Archiwum
             </Link>
-            <h1 className="text-sm font-bold text-gray-900 leading-tight">{title}</h1>
-            <p className="text-xs text-gray-400 mt-0.5">Biologia · Poziom rozszerzony · {sorted.length} zadań</p>
+            <h1 className="font-display font-semibold text-xl leading-tight">{title}</h1>
+            <p className="text-xs font-bold text-muted mt-0.5">Biologia · Poziom rozszerzony · {sorted.length} zadań</p>
           </div>
 
           <div className="flex flex-1 overflow-hidden">
             {/* Question list sidebar */}
-            <div className="w-32 shrink-0 border-r border-gray-100 overflow-y-auto py-2">
+            <div className="w-32 shrink-0 border-r-[3px] border-line overflow-y-auto py-2 bg-canvas">
               {groups.map(([parent, qs]) => (
                 <div key={parent} className="mb-3">
-                  <div className="px-3 py-1 text-xs font-bold text-gray-400 uppercase tracking-wide">
+                  <div className="px-3 py-1 text-xs font-extrabold text-muted uppercase tracking-wider">
                     Zad. {parent}
                   </div>
                   {qs.map(q => (
                     <button
                       key={q.id}
                       onClick={() => selectQuestion(q.id)}
-                      className={`w-full text-left px-3 py-2 text-xs transition-colors flex items-center justify-between gap-1 ${
+                      className={`w-full text-left px-3 py-2 text-sm transition-colors flex items-center justify-between gap-1 ${
                         q.id === activeId
-                          ? 'bg-amber-50 text-amber-800 font-semibold'
-                          : 'text-gray-600 hover:bg-gray-50'
+                          ? 'bg-sun text-brand-deep font-extrabold'
+                          : 'text-ink font-bold hover:bg-mint'
                       }`}
                     >
                       <span>{q.zadanie_number}</span>
-                      <span className={`shrink-0 text-xs ${q.id === activeId ? 'text-amber-600' : 'text-gray-400'}`}>
+                      <span className={`shrink-0 text-xs ${q.id === activeId ? 'text-brand-deep' : 'text-muted'}`}>
                         {q.max_points}p
                       </span>
                     </button>
@@ -163,17 +163,17 @@ export default function ExamSplitScreen({ exam, questions }: { exam: Exam; quest
             <div className="flex-1 overflow-y-auto px-4 py-4">
               {activeQuestion && (
                 <>
-                  <div className="mb-4 pb-3 border-b border-gray-100">
+                  <div className="mb-4 pb-3 border-b-[3px] border-dotted border-line">
                     <div className="flex items-center gap-2 mb-1">
-                      <h2 className="text-base font-bold text-gray-900">
+                      <h2 className="font-display font-semibold text-2xl">
                         Zadanie {activeQuestion.zadanie_number}
                       </h2>
                       <TypeBadge type={activeQuestion.question_type} />
                     </div>
-                    <p className="text-xs text-gray-400">
+                    <p className="text-sm font-bold text-muted">
                       {activeQuestion.max_points} {activeQuestion.max_points === 1 ? 'punkt' : 'punktów'}
                     </p>
-                    <div className="mt-2 flex items-center gap-2 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 text-xs font-medium text-amber-800">
+                    <div className="mt-2 flex items-center gap-2 bg-[#fff1bf] border-[3px] border-amberx rounded-2xl px-3 py-2 text-xs font-bold text-amberx">
                       <span>←</span>
                       <span>Treść zadania znajduje się w arkuszu po lewej stronie</span>
                     </div>
@@ -188,26 +188,26 @@ export default function ExamSplitScreen({ exam, questions }: { exam: Exam; quest
 
       {/* ── Mobile: tabs ──────────────────────────────────────────────────── */}
       <div className="flex md:hidden flex-col h-screen overflow-hidden">
-        <div className="flex border-b border-gray-200 bg-white shrink-0">
+        <div className="flex border-b-[3px] border-brand-deep bg-white shrink-0">
           <button
             onClick={() => setMobileTab('pdf')}
-            className={`flex-1 py-3 text-sm font-semibold transition-colors ${
+            className={`flex-1 py-3 text-sm font-extrabold transition-colors ${
               mobileTab === 'pdf'
-                ? 'text-amber-700 border-b-2 border-amber-500'
-                : 'text-gray-500 hover:text-gray-700'
+                ? 'bg-sun text-brand-deep'
+                : 'text-muted hover:bg-mint'
             }`}
           >
-            📄 Arkusz
+            Arkusz
           </button>
           <button
             onClick={() => setMobileTab('answer')}
-            className={`flex-1 py-3 text-sm font-semibold transition-colors ${
+            className={`flex-1 py-3 text-sm font-extrabold transition-colors ${
               mobileTab === 'answer'
-                ? 'text-amber-700 border-b-2 border-amber-500'
-                : 'text-gray-500 hover:text-gray-700'
+                ? 'bg-sun text-brand-deep'
+                : 'text-muted hover:bg-mint'
             }`}
           >
-            ✏️ Odpowiedzi
+            Odpowiedzi
           </button>
         </div>
         <div className="flex-1 overflow-hidden">
@@ -215,7 +215,7 @@ export default function ExamSplitScreen({ exam, questions }: { exam: Exam; quest
             ? <PdfPanel pdfUrl={pdfUrl} title={title} />
             : (
               <div className="h-full overflow-y-auto bg-white p-4">
-                <Link href="/archiwum" className="text-xs text-amber-600 hover:text-amber-800 mb-3 inline-block">
+                <Link href="/archiwum" className="text-sm font-extrabold text-brand hover:underline mb-3 inline-block">
                   ← Archiwum
                 </Link>
                 <div className="flex gap-2 flex-wrap mb-4">
@@ -223,10 +223,10 @@ export default function ExamSplitScreen({ exam, questions }: { exam: Exam; quest
                     <button
                       key={q.id}
                       onClick={() => setActiveId(q.id)}
-                      className={`px-2 py-1 text-xs rounded border transition-colors ${
+                      className={`px-3 py-1.5 text-sm font-extrabold rounded-xl border-[3px] transition-colors ${
                         q.id === activeId
-                          ? 'bg-amber-500 text-white border-amber-500'
-                          : 'border-gray-300 text-gray-600 hover:border-amber-300'
+                          ? 'bg-sun text-brand-deep border-brand-deep'
+                          : 'border-line text-ink hover:border-brand'
                       }`}
                     >
                       {q.zadanie_number}
@@ -235,12 +235,12 @@ export default function ExamSplitScreen({ exam, questions }: { exam: Exam; quest
                 </div>
                 {activeQuestion && (
                   <>
-                    <div className="mb-4 pb-3 border-b border-gray-100">
+                    <div className="mb-4 pb-3 border-b-[3px] border-dotted border-line">
                       <div className="flex items-center gap-2 mb-1">
-                        <h2 className="text-base font-bold text-gray-900">Zadanie {activeQuestion.zadanie_number}</h2>
+                        <h2 className="font-display font-semibold text-2xl">Zadanie {activeQuestion.zadanie_number}</h2>
                         <TypeBadge type={activeQuestion.question_type} />
                       </div>
-                      <p className="text-xs text-gray-400">
+                      <p className="text-sm font-bold text-muted">
                         {activeQuestion.max_points} {activeQuestion.max_points === 1 ? 'punkt' : 'punktów'}
                       </p>
                     </div>

@@ -7,6 +7,7 @@ import LearnButton from '@/components/LearnButton'
 import BackButton from '@/components/BackButton'
 import FeedbackWidget from '@/components/FeedbackWidget'
 import ReportQuestionButton from '@/components/ReportQuestionButton'
+import Mascot from '@/components/Mascot'
 
 export const dynamic = 'force-dynamic'
 
@@ -104,38 +105,49 @@ export default async function ResultsPage({ params }: { params: { sessionId: str
   const maxScore: number = session.max_score ?? questions.length
   const percent = Math.round((score / maxScore) * 100)
 
-  const scoreColor =
-    percent >= 75 ? 'text-green-600' :
-    percent >= 50 ? 'text-yellow-600' :
-    'text-red-600'
-
-  const scoreBg =
-    percent >= 75 ? 'bg-green-50 border-green-200' :
-    percent >= 50 ? 'bg-yellow-50 border-yellow-200' :
-    'bg-red-50 border-red-200'
+  const ringColor = percent >= 75 ? '#ffd23f' : percent >= 50 ? '#35c4e0' : '#ff7aa8'
+  const heading =
+    percent >= 75 ? 'Świetny wynik! Dobra robota.' :
+    percent >= 50 ? 'Nieźle, ale jest pole do poprawy.' :
+    'Warto powtórzyć ten temat.'
+  const wrongCount = questions.filter(q => {
+    const ua = answers[q.id] ?? []
+    return !(ua.length === q.correct_answer.length && q.correct_answer.every(id => ua.includes(id)))
+  }).length
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <div className="max-w-2xl mx-auto px-4 py-10">
+    <main className="bg-canvas">
+      <div className="max-w-3xl mx-auto px-4 sm:px-8 py-8 sm:py-10 flex flex-col gap-8">
 
         <BackButton />
 
         {/* Score summary */}
-        <div className={`rounded-xl p-6 border mb-8 text-center ${scoreBg}`}>
-          <div className={`text-4xl sm:text-6xl font-bold mb-1 ${scoreColor}`}>{percent}%</div>
-          <div className="text-gray-600 text-lg">
-            {score} / {maxScore} poprawnych odpowiedzi
+        <section className="relative overflow-hidden rounded-[36px] border-4 border-brand-deep shadow-hard-lg mb-2 text-white bg-gradient-to-br from-[#0b5a33] to-[#12803f] p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6">
+          <div
+            className="w-[168px] h-[168px] rounded-full shrink-0 border-4 border-brand-deep flex items-center justify-center"
+            style={{ background: `conic-gradient(${ringColor} ${percent}%, rgba(255,255,255,.2) 0)` }}
+          >
+            <div className="w-[132px] h-[132px] rounded-full bg-[#0b5a33] flex flex-col items-center justify-center">
+              <div className="font-display font-bold text-5xl leading-none">{percent}%</div>
+              <div className="font-mono text-sm text-mint mt-1">{score} / {maxScore}</div>
+            </div>
           </div>
-          <div className="text-sm text-gray-500 mt-2">
-            {percent >= 75 ? 'Świetny wynik! Dobra robota.' :
-             percent >= 50 ? 'Nieźle, ale jest pole do poprawy.' :
-             'Warto powtórzyć ten temat.'}
+          <div className="relative flex-1 text-center sm:text-left">
+            <div className="text-sm font-extrabold uppercase tracking-wider text-sun">Twój wynik</div>
+            <h1 className="font-display font-bold text-3xl sm:text-4xl leading-tight mt-1">{heading}</h1>
+            <p className="text-[#e9fbe0] mt-2">
+              {score} / {maxScore} poprawnych odpowiedzi
+              {wrongCount > 0 && <> · {wrongCount} do poprawy</>}
+            </p>
           </div>
-        </div>
+          <div className="hidden lg:block shrink-0 pointer-events-none">
+            <Mascot width={190} />
+          </div>
+        </section>
 
         {/* Question review */}
-        <h2 className="text-xl font-bold text-gray-800 mb-4">Przegląd odpowiedzi</h2>
-        <div className="space-y-6">
+        <h2 className="font-display font-bold text-3xl">Przegląd odpowiedzi</h2>
+        <div className="flex flex-col gap-6">
           {questions.map((question, index) => {
             const userAnswer = answers[question.id] ?? []
             const correct = question.correct_answer
@@ -144,23 +156,26 @@ export default async function ResultsPage({ params }: { params: { sessionId: str
               correct.every(id => userAnswer.includes(id))
 
             return (
-              <div
+              <article
                 key={question.id}
-                className={`bg-white rounded-xl p-5 border-2 ${
-                  isCorrect ? 'border-green-200' : 'border-red-200'
-                }`}
+                className={`card-game !rounded-[28px] p-5 sm:p-6 ${isCorrect ? '' : '!border-coral !shadow-[0_6px_0_#c93a2b]'}`}
               >
-                <div className="flex items-start gap-2 mb-3">
-                  <span className={`text-lg font-bold ${isCorrect ? 'text-green-500' : 'text-red-500'}`}>
+                <div className="flex items-start gap-3 mb-4">
+                  <span
+                    className={`shrink-0 w-9 h-9 rounded-xl border-[3px] flex items-center justify-center font-black ${
+                      isCorrect ? 'bg-brand text-white border-brand-deep' : 'bg-coral text-white border-coral'
+                    }`}
+                    aria-label={isCorrect ? 'Poprawnie' : 'Błędnie'}
+                  >
                     {isCorrect ? '✓' : '✗'}
                   </span>
-                  <p className="font-medium text-gray-900">
+                  <p className="font-display font-semibold text-xl leading-snug pt-0.5">
                     {index + 1}. {question.question_text}
                   </p>
                 </div>
 
                 {question.image_url && (
-                  <div className="mb-3 rounded-lg overflow-hidden border border-gray-200 bg-gray-50">
+                  <div className="mb-4 rounded-2xl overflow-hidden border-[3px] border-line bg-canvas">
                     <img
                       src={question.image_url}
                       alt="Ilustracja do pytania"
@@ -169,34 +184,32 @@ export default async function ResultsPage({ params }: { params: { sessionId: str
                   </div>
                 )}
 
-                <div className="space-y-2 mb-4">
+                <div className="flex flex-col gap-2 mb-4">
                   {question.question_type === 'true_false' && correct.some((c: string) => c.includes('-')) ? (
                     question.options.map((option) => {
                       const correctVerdict = correct.find((c: string) => c.startsWith(option.id + '-'))?.split('-')[1] ?? ''
                       const userVerdict = userAnswer.find((a: string) => a.startsWith(option.id + '-'))?.split('-')[1] ?? null
                       const statementCorrect = userVerdict === correctVerdict
 
-                      let style = 'border-gray-200 text-gray-500'
+                      let style = 'border-line bg-white text-muted'
                       if (userVerdict) {
                         style = statementCorrect
-                          ? 'border-green-400 bg-green-50 text-green-800'
-                          : 'border-red-400 bg-red-50 text-red-800'
+                          ? 'border-brand bg-mint text-brand-deep'
+                          : 'border-coral bg-coral-bg text-coral'
                       }
 
                       return (
-                        <div key={option.id} className={`px-3 py-2 rounded-lg border text-sm flex items-center justify-between gap-3 ${style}`}>
+                        <div key={option.id} className={`px-4 py-3 rounded-2xl border-[3px] text-[15px] font-semibold flex items-center justify-between gap-3 ${style}`}>
                           <span>
-                            <span className="font-semibold mr-1">{option.id}.</span>
+                            <span className="font-extrabold mr-1">{option.id}.</span>
                             {option.text}
                           </span>
-                          <div className="flex items-center gap-1.5 shrink-0 text-xs font-bold whitespace-nowrap">
+                          <div className="flex items-center gap-1.5 shrink-0 text-xs font-extrabold whitespace-nowrap">
                             {userVerdict && (
-                              <span className={statementCorrect ? 'text-green-700' : 'text-red-600'}>
-                                Twój: {userVerdict}
-                              </span>
+                              <span>Twój: {userVerdict}</span>
                             )}
                             {!statementCorrect && (
-                              <span className="text-green-700">→ ✓ {correctVerdict}</span>
+                              <span className="text-brand">→ ✓ {correctVerdict}</span>
                             )}
                           </div>
                         </div>
@@ -207,29 +220,29 @@ export default async function ResultsPage({ params }: { params: { sessionId: str
                       const userPicked = userAnswer.includes(option.id)
                       const isCorrectOption = correct.includes(option.id)
 
-                      let style = 'border-gray-200 text-gray-500'
+                      let style = 'border-line bg-white text-muted'
                       let badge: React.ReactNode = null
 
                       if (userPicked && isCorrectOption) {
-                        style = 'border-green-400 bg-green-50 text-green-800'
-                        badge = <span className="ml-2 text-green-600 font-medium text-xs">✓ poprawna · Twój wybór</span>
+                        style = 'border-brand bg-mint text-brand-deep'
+                        badge = <span className="text-brand font-extrabold text-xs whitespace-nowrap">✓ poprawna · Twój wybór</span>
                       } else if (userPicked && !isCorrectOption) {
-                        style = 'border-red-400 bg-red-50 text-red-800'
-                        badge = <span className="ml-2 text-red-500 font-medium text-xs">✗ Twój wybór (błędna)</span>
+                        style = 'border-coral bg-coral-bg text-coral'
+                        badge = <span className="text-coral font-extrabold text-xs whitespace-nowrap">✗ Twój wybór (błędna)</span>
                       } else if (!userPicked && isCorrectOption) {
-                        style = 'border-dashed border-green-400 bg-green-50/50 text-green-800'
+                        style = 'border-dashed border-amberx bg-white text-ink'
                         badge = (
-                          <span className="ml-2 font-semibold text-xs whitespace-nowrap">
-                            <span className="text-green-600">✓ poprawna</span>
-                            <span className="text-orange-500"> · nie wybrano</span>
+                          <span className="font-extrabold text-xs whitespace-nowrap">
+                            <span className="text-brand">✓ poprawna</span>
+                            <span className="text-amberx"> · nie wybrano</span>
                           </span>
                         )
                       }
 
                       return (
-                        <div key={option.id} className={`px-3 py-2 rounded-lg border text-sm flex items-center justify-between ${style}`}>
+                        <div key={option.id} className={`px-4 py-3 rounded-2xl border-[3px] text-[15px] font-semibold flex items-center justify-between gap-3 ${style}`}>
                           <span>
-                            <span className="font-semibold mr-1">{option.id}.</span>
+                            <span className="font-extrabold mr-1">{option.id}.</span>
                             {option.text}
                           </span>
                           {badge}
@@ -240,13 +253,13 @@ export default async function ResultsPage({ params }: { params: { sessionId: str
                 </div>
 
                 {!isCorrect && (
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm text-blue-800">
-                    <span className="font-semibold">Wyjaśnienie: </span>
+                  <div className="rounded-2xl border-[3px] border-dashed border-aqua bg-[#eaf9f8] p-4 text-[15px] text-ink">
+                    <span className="font-extrabold">Wyjaśnienie: </span>
                     {question.explanation}
                   </div>
                 )}
 
-                <div className="mt-3 pt-3 border-t border-gray-100 flex items-center justify-between flex-wrap gap-2">
+                <div className="mt-4 pt-3 border-t-[3px] border-dotted border-line flex items-center justify-between flex-wrap gap-2">
                   {/* Learn button — only for logged-in users on correctly answered questions */}
                   {user && isCorrect ? (
                     <LearnButton
@@ -256,32 +269,23 @@ export default async function ResultsPage({ params }: { params: { sessionId: str
                   ) : <div />}
                   <ReportQuestionButton questionId={question.id} sessionId={params.sessionId} />
                 </div>
-              </div>
+              </article>
             )
           })}
         </div>
 
         <FeedbackWidget sessionId={params.sessionId} alreadySubmitted={feedbackSubmitted} />
 
-        <div className="mt-8 flex gap-3">
-          <Link
-            href="/"
-            className="flex-1 text-center py-3 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50"
-          >
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <Link href="/" className="btn btn-ghost flex-1">
             Wybierz inny temat
           </Link>
           {topicSlug ? (
-            <Link
-              href={`/topics/${topicSlug}`}
-              className="flex-1 text-center py-3 rounded-lg bg-green-600 text-white font-semibold hover:bg-green-700"
-            >
+            <Link href={`/topics/${topicSlug}`} className="btn btn-sun flex-1">
               Spróbuj ponownie
             </Link>
           ) : (
-            <Link
-              href="/mock-exam"
-              className="flex-1 text-center py-3 rounded-lg bg-green-600 text-white font-semibold hover:bg-green-700"
-            >
+            <Link href="/mock-exam" className="btn btn-sun flex-1">
               Nowy sprawdzian
             </Link>
           )}

@@ -75,28 +75,28 @@ export default async function MaturaQuestionPage({
   const imageUrls = question.image_url.split('|').filter(Boolean)
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <div className="max-w-2xl mx-auto px-4 py-10">
+    <main className="bg-canvas min-h-[70vh]">
+      <div className="max-w-3xl mx-auto px-4 sm:px-8 py-8 sm:py-10">
 
         {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-sm text-gray-400 mb-6">
-          <Link href="/archiwum" className="hover:text-amber-600">Archiwum</Link>
+        <div className="flex flex-wrap items-center gap-2 text-sm font-bold text-muted mb-6">
+          <Link href="/archiwum" className="text-brand hover:underline">Archiwum</Link>
           <span>/</span>
-          <Link href={`/archiwum/${params.examId}`} className="hover:text-amber-600">
+          <Link href={`/archiwum/${params.examId}`} className="text-brand hover:underline">
             Matura {question.exam_year} {SESSION_LABEL[question.exam_session] ?? ''}
           </Link>
           <span>/</span>
-          <span className="text-gray-600 font-medium">Zadanie {question.zadanie_number}</span>
+          <span className="text-ink font-extrabold">Zadanie {question.zadanie_number}</span>
         </div>
 
         {/* Progress */}
-        <div className="flex items-center justify-between mb-4 text-sm text-gray-500">
+        <div className="flex items-center justify-between gap-3 mb-4 font-display font-semibold text-lg">
           <span>Zadanie {currentIdx + 1} z {allQuestions.length}</span>
           <div className="flex gap-1">
             {allQuestions.map((q, i) => (
               <Link key={q.id} href={`/archiwum/${params.examId}/${q.id}`}>
-                <div className={`h-2 rounded-full transition-all ${
-                  i === currentIdx ? 'bg-amber-500 w-4' : 'bg-gray-300 w-2 hover:bg-amber-300'
+                <div className={`h-3.5 rounded-full border-[3px] border-brand-deep transition-all ${
+                  i === currentIdx ? 'bg-sun w-6' : 'bg-white w-3.5 hover:bg-mint'
                 }`} />
               </Link>
             ))}
@@ -104,13 +104,13 @@ export default async function MaturaQuestionPage({
         </div>
 
         {/* Question images */}
-        <div className="mb-4 space-y-2">
+        <div className="mb-4 flex flex-col gap-2">
           {imageUrls.map((url, i) => (
             <img
               key={i}
               src={url}
               alt={`Zadanie ${question.zadanie_number} — strona ${i + 1}`}
-              className="w-full rounded-xl border border-gray-200 shadow-sm"
+              className="w-full rounded-2xl border-[3px] border-brand-deep"
             />
           ))}
         </div>
@@ -127,7 +127,7 @@ export default async function MaturaQuestionPage({
           {prevQuestion ? (
             <Link
               href={`/archiwum/${params.examId}/${prevQuestion.id}`}
-              className="px-4 py-2.5 text-sm border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50"
+              className="btn btn-ghost"
             >
               ← Zad. {prevQuestion.zadanie_number}
             </Link>
@@ -135,7 +135,7 @@ export default async function MaturaQuestionPage({
           {nextQuestion && (
             <Link
               href={`/archiwum/${params.examId}/${nextQuestion.id}`}
-              className="flex-1 text-center py-2.5 text-sm font-semibold bg-amber-500 hover:bg-amber-600 text-white rounded-lg"
+              className="btn btn-sun flex-1"
             >
               Zad. {nextQuestion.zadanie_number} →
             </Link>

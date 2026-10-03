@@ -25,12 +25,12 @@ function ScoreBadge({ score, max }: { score: number; max: number }) {
   const pct = max > 0 ? score / max : 0
   const color =
     pct === 1
-      ? 'bg-green-100 text-green-800 border-green-300'
+      ? 'bg-leaf text-brand-deep border-brand-deep'
       : pct >= 0.5
-      ? 'bg-yellow-100 text-yellow-800 border-yellow-300'
-      : 'bg-red-100 text-red-800 border-red-300'
+      ? 'bg-sun text-brand-deep border-brand-deep'
+      : 'bg-candy text-brand-deep border-brand-deep'
   return (
-    <span className={`inline-flex items-center font-bold text-base px-3 py-1 rounded-full border ${color}`}>
+    <span className={`inline-flex items-center font-mono font-semibold text-base px-3 py-1 rounded-full border-[3px] ${color}`}>
       {score}/{max} pkt
     </span>
   )
@@ -55,23 +55,23 @@ function SingleChoice({ question }: { question: Question; onReset: () => void })
 
   function getColor(opt: string) {
     if (!confirmed) return selected === opt
-      ? 'border-amber-500 bg-amber-50 text-amber-800 font-semibold cursor-pointer'
-      : 'border-gray-300 hover:border-amber-400 hover:bg-amber-50 cursor-pointer'
-    if (isCorrect && opt === correct) return 'border-green-500 bg-green-50 text-green-800 font-semibold'
-    if (!isCorrect && showAnswer && opt === correct) return 'border-green-500 bg-green-50 text-green-800 font-semibold'
-    if (opt === selected && !isCorrect) return 'border-red-400 bg-red-50 text-red-700'
-    return 'border-gray-200 text-gray-400'
+      ? 'border-brand-deep bg-[#fff4c2] text-ink font-extrabold cursor-pointer'
+      : 'border-line bg-white hover:border-brand cursor-pointer'
+    if (isCorrect && opt === correct) return 'border-brand bg-mint text-brand-deep font-extrabold'
+    if (!isCorrect && showAnswer && opt === correct) return 'border-brand bg-mint text-brand-deep font-extrabold'
+    if (opt === selected && !isCorrect) return 'border-coral bg-coral-bg text-coral font-bold'
+    return 'border-line bg-white text-muted'
   }
 
   return (
     <div className="space-y-3">
-      <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Wybierz odpowiedź</p>
+      <p className="text-xs font-extrabold text-muted uppercase tracking-wider">Wybierz odpowiedź</p>
       <div className="flex gap-2 flex-wrap">
         {options.map(opt => (
           <button
             key={opt}
             onClick={() => { if (!confirmed) setSelected(opt) }}
-            className={`w-12 h-12 rounded-xl border-2 text-sm font-bold transition-all ${getColor(opt)}`}
+            className={`w-12 h-12 rounded-2xl border-[3px] text-base font-black transition-colors ${getColor(opt)}`}
           >
             {opt}
           </button>
@@ -81,29 +81,29 @@ function SingleChoice({ question }: { question: Question; onReset: () => void })
         <button
           onClick={() => setConfirmed(true)}
           disabled={!selected}
-          className="w-full py-2.5 text-sm font-semibold bg-amber-500 text-white rounded-lg hover:bg-amber-600 disabled:bg-gray-200 disabled:text-gray-400 transition-all"
+          className="btn btn-sun w-full"
         >
           Sprawdź
         </button>
       ) : selected === correct ? (
-        <div className="rounded-lg px-4 py-3 text-sm font-medium bg-green-50 text-green-800">
+        <div className="rounded-2xl border-[3px] border-brand px-4 py-3 text-sm font-extrabold bg-mint text-brand-deep">
           ✓ Poprawnie! Odpowiedź: {correct}
         </div>
       ) : (
         <>
-          <div className="rounded-lg px-4 py-3 text-sm font-medium bg-red-50 text-red-800">
+          <div className="rounded-2xl border-[3px] border-coral px-4 py-3 text-sm font-extrabold bg-coral-bg text-coral">
             ✗ Niepoprawnie. Spróbuj jeszcze raz.
           </div>
           <div className="flex gap-2">
             <button
               onClick={() => { setSelected(null); setConfirmed(false) }}
-              className="flex-1 py-2.5 text-sm font-semibold border border-amber-300 text-amber-700 rounded-lg hover:bg-amber-50 transition-all"
+              className="btn btn-ghost btn-sm flex-1"
             >
               Spróbuj jeszcze raz
             </button>
             <button
               onClick={() => setShowAnswer(true)}
-              className="px-4 py-2.5 text-sm border border-gray-200 text-gray-500 rounded-lg hover:bg-gray-50 transition-all whitespace-nowrap"
+              className="btn btn-ghost btn-sm whitespace-nowrap"
             >
               Pokaż odpowiedź
             </button>
@@ -131,11 +131,11 @@ function MultipleChoice({ question, onReset }: { question: Question; onReset: ()
 
   function getColor(opt: string) {
     if (!checked) return selected.has(opt)
-      ? 'border-amber-500 bg-amber-50 font-semibold cursor-pointer'
-      : 'border-gray-300 hover:border-amber-400 cursor-pointer'
-    if (correct.has(opt)) return 'border-green-500 bg-green-50 text-green-800 font-semibold'
-    if (selected.has(opt)) return 'border-red-400 bg-red-50 text-red-700'
-    return 'border-gray-200 text-gray-400'
+      ? 'border-brand-deep bg-[#fff4c2] font-extrabold cursor-pointer'
+      : 'border-line bg-white hover:border-brand cursor-pointer'
+    if (correct.has(opt)) return 'border-brand bg-mint text-brand-deep font-extrabold'
+    if (selected.has(opt)) return 'border-coral bg-coral-bg text-coral font-bold'
+    return 'border-line bg-white text-muted'
   }
 
   const score = checked
@@ -148,13 +148,13 @@ function MultipleChoice({ question, onReset }: { question: Question; onReset: ()
 
   return (
     <div className="space-y-3">
-      <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Zaznacz wszystkie poprawne</p>
+      <p className="text-xs font-extrabold text-muted uppercase tracking-wider">Zaznacz wszystkie poprawne</p>
       <div className="flex gap-2 flex-wrap">
         {Array.from({ length: (question.correct_answer as { letters?: string[]; num_options?: number })?.num_options ?? 4 }, (_, i) => String.fromCharCode(65 + i)).map(opt => (
           <button
             key={opt}
             onClick={() => toggle(opt)}
-            className={`w-12 h-12 rounded-xl border-2 text-sm font-bold transition-all ${getColor(opt)}`}
+            className={`w-12 h-12 rounded-2xl border-[3px] text-base font-black transition-colors ${getColor(opt)}`}
           >
             {opt}
           </button>
@@ -164,19 +164,19 @@ function MultipleChoice({ question, onReset }: { question: Question; onReset: ()
         <button
           onClick={() => setChecked(true)}
           disabled={selected.size === 0}
-          className="w-full py-2.5 text-sm font-semibold bg-amber-500 text-white rounded-lg hover:bg-amber-600 disabled:bg-gray-200 disabled:text-gray-400"
+          className="btn btn-sun w-full"
         >
           Sprawdź
         </button>
       ) : (
         <>
-          <div className={`rounded-lg px-4 py-3 text-sm font-medium ${
-            score === question.max_points ? 'bg-green-50 text-green-800' : 'bg-yellow-50 text-yellow-800'
+          <div className={`rounded-2xl border-[3px] border-brand-deep px-4 py-3 text-sm font-bold ${
+            score === question.max_points ? 'bg-mint text-brand-deep' : 'bg-amberx-bg text-amberx'
           }`}>
             <ScoreBadge score={score} max={question.max_points} />
             <span className="ml-3">Poprawne: {Array.from(correct).join(', ')}</span>
           </div>
-          <button onClick={onReset} className="w-full py-2 text-sm border border-gray-200 rounded-lg text-gray-500 hover:bg-gray-50">
+          <button onClick={onReset} className="btn btn-ghost btn-sm w-full">
             Spróbuj jeszcze raz
           </button>
         </>
@@ -210,11 +210,11 @@ function TrueFalse({ question, onReset }: { question: Question; onReset: () => v
 
   return (
     <div className="space-y-3">
-      <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Oceń stwierdzenia</p>
+      <p className="text-xs font-extrabold text-muted uppercase tracking-wider">Oceń stwierdzenia</p>
       <div className="space-y-2">
         {Array.from({ length: count }).map((_, i) => (
           <div key={i} className="flex items-center gap-3">
-            <span className="text-sm text-gray-500 w-24 shrink-0">Stwierdzenie {i + 1}.</span>
+            <span className="text-sm font-bold text-muted w-28 shrink-0">Stwierdzenie {i + 1}.</span>
             <div className="flex gap-2">
               {(['P', 'F'] as const).map(val => {
                 const label = val === 'P' ? 'Prawda' : 'Fałsz'
@@ -226,14 +226,14 @@ function TrueFalse({ question, onReset }: { question: Question; onReset: () => v
                   <button
                     key={val}
                     onClick={() => setAnswer(i, val)}
-                    className={`px-3 py-1.5 text-xs font-semibold rounded-lg border-2 transition-all ${
+                    className={`px-4 py-2 text-sm font-extrabold rounded-xl border-[3px] transition-colors ${
                       isCorrect
-                        ? 'border-green-500 bg-green-50 text-green-800'
+                        ? 'border-brand bg-mint text-brand-deep font-bold'
                         : isWrong
-                        ? 'border-red-400 bg-red-50 text-red-700'
+                        ? 'border-coral bg-coral-bg text-coral font-bold'
                         : isSelected
-                        ? 'border-amber-500 bg-amber-50 text-amber-800'
-                        : 'border-gray-300 text-gray-600 hover:border-amber-400 cursor-pointer'
+                        ? 'border-brand-deep bg-[#fff4c2] text-ink font-extrabold'
+                        : 'border-line bg-white text-ink hover:border-brand cursor-pointer'
                     }`}
                   >
                     {label}
@@ -248,34 +248,34 @@ function TrueFalse({ question, onReset }: { question: Question; onReset: () => v
         <button
           onClick={() => setChecked(true)}
           disabled={answers.some(a => a === null)}
-          className="w-full py-2.5 text-sm font-semibold bg-amber-500 text-white rounded-lg hover:bg-amber-600 disabled:bg-gray-200 disabled:text-gray-400"
+          className="btn btn-sun w-full"
         >
           Sprawdź
         </button>
       ) : (
         <>
-          <div className={`rounded-lg px-4 py-3 text-sm ${
-            isPerfect ? 'bg-green-50 text-green-800' : 'bg-yellow-50 text-yellow-800'
+          <div className={`rounded-2xl border-[3px] border-brand-deep px-4 py-3 text-sm font-bold ${
+            isPerfect ? 'bg-mint text-brand-deep' : 'bg-amberx-bg text-amberx'
           }`}>
             <ScoreBadge score={scaledScore} max={question.max_points} />
             <span className="ml-3">{score}/{count} stwierdzeń poprawnie</span>
           </div>
           {isPerfect ? (
-            <button onClick={onReset} className="w-full py-2 text-sm border border-gray-200 rounded-lg text-gray-500 hover:bg-gray-50">
+            <button onClick={onReset} className="btn btn-ghost btn-sm w-full">
               Spróbuj jeszcze raz
             </button>
           ) : (
             <div className="flex gap-2">
               <button
                 onClick={() => { setAnswers(Array(count).fill(null)); setChecked(false); setShowAnswer(false) }}
-                className="flex-1 py-2.5 text-sm font-semibold border border-amber-300 text-amber-700 rounded-lg hover:bg-amber-50 transition-all"
+                className="btn btn-ghost btn-sm flex-1"
               >
                 Spróbuj jeszcze raz
               </button>
               {!showAnswer && (
                 <button
                   onClick={() => setShowAnswer(true)}
-                  className="px-4 py-2.5 text-sm border border-gray-200 text-gray-500 rounded-lg hover:bg-gray-50 transition-all whitespace-nowrap"
+                  className="btn btn-ghost btn-sm whitespace-nowrap"
                 >
                   Pokaż odpowiedź
                 </button>
@@ -318,7 +318,7 @@ function OpenQuestion({ question, onReset }: { question: Question; onReset: () =
 
   return (
     <div className="space-y-3">
-      <label className="text-xs font-semibold text-gray-400 uppercase tracking-wide block">
+      <label className="text-xs font-extrabold text-muted uppercase tracking-wider block">
         Twoja odpowiedź
       </label>
       <textarea
@@ -327,47 +327,47 @@ function OpenQuestion({ question, onReset }: { question: Question; onReset: () =
         rows={5}
         placeholder="Napisz odpowiedź..."
         disabled={!!result}
-        className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent resize-y disabled:bg-gray-50 disabled:text-gray-500"
+        className="field resize-y disabled:bg-canvas disabled:text-muted"
       />
       {!result && (
         loading ? (
-          <div className="flex items-center gap-4 bg-amber-50 border border-amber-200 rounded-xl px-5 py-4">
+          <div className="flex items-center gap-4 bg-[#fff1bf] border-[3px] border-amberx rounded-2xl px-5 py-4">
             <div className="flex gap-1.5 shrink-0">
-              <span className="w-2.5 h-2.5 bg-amber-400 rounded-full animate-bounce [animation-delay:-0.3s]" />
-              <span className="w-2.5 h-2.5 bg-amber-400 rounded-full animate-bounce [animation-delay:-0.15s]" />
-              <span className="w-2.5 h-2.5 bg-amber-400 rounded-full animate-bounce" />
+              <span className="w-2.5 h-2.5 bg-amberx rounded-full animate-bounce [animation-delay:-0.3s]" />
+              <span className="w-2.5 h-2.5 bg-amberx rounded-full animate-bounce [animation-delay:-0.15s]" />
+              <span className="w-2.5 h-2.5 bg-amberx rounded-full animate-bounce" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-amber-800">AI ocenia odpowiedź...</p>
-              <p className="text-xs text-amber-600 mt-0.5">Porównuję z kluczem odpowiedzi CKE</p>
+              <p className="text-sm font-extrabold text-amberx">AI ocenia odpowiedź...</p>
+              <p className="text-xs font-semibold text-muted mt-0.5">Porównuję z kluczem odpowiedzi CKE</p>
             </div>
           </div>
         ) : (
           <div className="flex items-center justify-between">
-            <span className="text-xs text-gray-400">{answer.trim().length} znaków</span>
+            <span className="text-xs font-bold text-muted">{answer.trim().length} znaków</span>
             <button
               onClick={handleEvaluate}
               disabled={answer.trim().length < 5}
-              className="px-4 py-2 bg-amber-500 text-white text-sm font-semibold rounded-lg hover:bg-amber-600 disabled:bg-gray-200 disabled:text-gray-400 transition-all"
+              className="btn btn-sun btn-sm"
             >
               Sprawdź odpowiedź
             </button>
           </div>
         )
       )}
-      {error && <p className="text-red-500 text-sm">{error}</p>}
+      {error && <p className="text-sm font-bold text-coral bg-coral-bg border-[3px] border-coral rounded-2xl px-4 py-2.5">{error}</p>}
 
       {result && (
         <div className="space-y-3">
-          <div className="bg-white rounded-xl border border-gray-200 p-4">
+          <div className="card-game !rounded-[24px] !shadow-hard p-4">
             <div className="flex items-center gap-3 mb-3">
               <ScoreBadge score={result.score} max={result.maxPoints} />
-              <p className="text-sm text-gray-600">{result.feedback}</p>
+              <p className="text-sm font-semibold">{result.feedback}</p>
             </div>
             <div className="space-y-2">
               {result.criteria.map((c, i) => (
-                <div key={i} className={`flex items-start gap-2 rounded-lg px-3 py-2 text-sm ${
-                  c.met ? 'bg-green-50 border border-green-200 text-green-900' : 'bg-red-50 border border-red-200 text-red-900'
+                <div key={i} className={`flex items-start gap-2 rounded-2xl px-3 py-2 text-sm ${
+                  c.met ? 'bg-mint border-[3px] border-brand text-brand-deep font-semibold' : 'bg-coral-bg border-[3px] border-coral text-coral font-semibold'
                 }`}>
                   <span className="shrink-0">{c.met ? '✓' : '✗'}</span>
                   <span>{c.text}</span>
@@ -377,16 +377,16 @@ function OpenQuestion({ question, onReset }: { question: Question; onReset: () =
           </div>
 
           {result.modelAnswer && (
-            <div className="bg-white rounded-xl border border-gray-200 p-4">
+            <div className="card-game !rounded-[24px] !shadow-hard p-4">
               <button
                 onClick={() => setShowModel(v => !v)}
-                className="w-full text-left flex items-center justify-between text-sm font-semibold text-gray-600 hover:text-gray-900"
+                className="w-full text-left flex items-center justify-between text-sm font-extrabold hover:text-brand"
               >
                 <span>Przykładowa odpowiedź z klucza CKE</span>
-                <span className="text-gray-400">{showModel ? '▲' : '▼'}</span>
+                <span className="text-muted">{showModel ? '▲' : '▼'}</span>
               </button>
               {showModel && (
-                <p className="mt-2 text-sm text-gray-700 leading-relaxed whitespace-pre-wrap border-t border-gray-100 pt-2">
+                <p className="mt-2 text-sm leading-relaxed whitespace-pre-wrap border-t-[3px] border-dotted border-line pt-2">
                   {result.modelAnswer}
                 </p>
               )}
@@ -395,7 +395,7 @@ function OpenQuestion({ question, onReset }: { question: Question; onReset: () =
 
           <button
             onClick={() => { setResult(null); setAnswer(''); setShowModel(false); onReset() }}
-            className="w-full py-2 text-sm border border-gray-200 rounded-lg text-gray-500 hover:bg-gray-50"
+            className="btn btn-ghost btn-sm w-full"
           >
             Spróbuj jeszcze raz
           </button>

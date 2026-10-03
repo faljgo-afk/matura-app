@@ -40,28 +40,28 @@ export default async function OpenQuestionsPage({ params }: { params: { slug: st
   const questions = await getOpenQuestions(topic.id)
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <div className="max-w-2xl mx-auto px-4 py-10">
+    <main className="bg-canvas min-h-[70vh]">
+      <div className="max-w-3xl mx-auto px-4 sm:px-8 py-8 sm:py-10 flex flex-col gap-6">
 
         <Link
           href={`/topics/${params.slug}`}
-          className="text-green-600 hover:text-green-800 text-sm mb-6 inline-block"
+          className="self-start text-brand font-extrabold hover:underline"
         >
           ← Powrót do tematu
         </Link>
 
-        <div className="mb-8">
-          <div className="inline-flex items-center gap-2 text-xs font-semibold text-violet-700 bg-violet-100 px-3 py-1 rounded-full mb-3">
+        <div>
+          <div className="pill bg-[#e3dcff] text-[#3b2a9e] mb-3">
             Pytania otwarte
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">{topic.name}</h1>
-          <p className="text-gray-500 mt-1 text-sm">
+          <h1 className="font-display font-bold text-4xl sm:text-5xl leading-tight">{topic.name}</h1>
+          <p className="text-muted text-lg mt-1">
             Pisz pełne odpowiedzi — AI oceni je według kryteriów CKE i pokaże co pominąłeś.
           </p>
         </div>
 
         {questions.length === 0 ? (
-          <div className="bg-white rounded-xl p-8 border border-gray-200 text-center text-gray-400">
+          <div className="card-game !rounded-[28px] p-8 text-center font-semibold text-muted">
             Brak pytań otwartych dla tego tematu. Zajrzyj później!
           </div>
         ) : (

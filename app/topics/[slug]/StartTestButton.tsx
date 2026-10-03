@@ -12,18 +12,15 @@ export default function StartTestButton({ topicId, isLoggedIn }: { topicId: stri
   if (!isLoggedIn) {
     return (
       <div className="text-center">
-        <p className="text-sm text-gray-500 mb-4">Zaloguj się, aby rozpocząć test i śledzić swoje postępy</p>
-        <div className="flex gap-3">
+        <p className="text-[15px] font-semibold text-muted mb-4">Zaloguj się, aby rozpocząć test i śledzić swoje postępy</p>
+        <div className="flex flex-col sm:flex-row gap-3">
           <Link
             href={`/login?next=${encodeURIComponent(pathname)}`}
-            className="flex-1 border border-gray-300 hover:bg-gray-50 text-gray-700 font-semibold py-4 rounded-xl text-lg transition-colors text-center"
+            className="btn btn-ghost flex-1"
           >
             Zaloguj się
           </Link>
-          <Link
-            href="/register"
-            className="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-4 rounded-xl text-lg transition-colors text-center"
-          >
+          <Link href="/register" className="btn btn-primary flex-1">
             Zarejestruj się
           </Link>
         </div>
@@ -53,9 +50,9 @@ export default function StartTestButton({ topicId, isLoggedIn }: { topicId: stri
     <button
       onClick={handleStart}
       disabled={loading}
-      className="w-full bg-green-600 hover:bg-green-700 disabled:bg-green-300 text-white font-semibold py-4 rounded-xl text-lg transition-colors"
+      className="btn btn-sun w-full !min-h-[60px] text-lg"
     >
-      {loading ? 'Przygotowuję test...' : 'Rozpocznij test'}
+      {loading ? 'Przygotowuję test...' : 'Rozpocznij test →'}
     </button>
   )
 }

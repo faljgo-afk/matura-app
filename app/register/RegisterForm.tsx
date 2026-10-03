@@ -44,11 +44,15 @@ export default function RegisterForm() {
 
   if (success) {
     return (
-      <div className="text-center py-4">
-        <div className="text-4xl mb-3">✉️</div>
-        <h2 className="font-semibold text-gray-800 mb-2">Sprawdź skrzynkę email</h2>
-        <p className="text-sm text-gray-500">
-          Wysłaliśmy link potwierdzający na <strong>{email}</strong>.
+      <div className="text-center py-4 flex flex-col items-center gap-3">
+        <span className="w-16 h-16 rounded-3xl bg-sun border-[3px] border-brand-deep flex items-center justify-center text-brand-deep">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="14" rx="3" /><path d="M3 8l9 6 9-6" />
+          </svg>
+        </span>
+        <h2 className="font-display font-semibold text-2xl">Sprawdź skrzynkę email</h2>
+        <p className="text-muted">
+          Wysłaliśmy link potwierdzający na <strong className="text-ink">{email}</strong>.
           Kliknij go, aby aktywować konto.
         </p>
       </div>
@@ -56,46 +60,52 @@ export default function RegisterForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-5">
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Imię</label>
+        <label htmlFor="reg-name" className="field-label">Imię</label>
         <input
+          id="reg-name"
           type="text"
+          autoComplete="given-name"
           value={name}
           onChange={e => setName(e.target.value)}
           required
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+          className="field"
           placeholder="Twoje imię"
         />
       </div>
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+        <label htmlFor="reg-email" className="field-label">Email</label>
         <input
+          id="reg-email"
           type="email"
+          autoComplete="email"
           value={email}
           onChange={e => setEmail(e.target.value)}
           required
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+          className="field"
           placeholder="twoj@email.com"
         />
       </div>
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Hasło</label>
+        <label htmlFor="reg-password" className="field-label">Hasło</label>
         <input
+          id="reg-password"
           type="password"
+          autoComplete="new-password"
           value={password}
           onChange={e => setPassword(e.target.value)}
           required
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+          className="field"
           placeholder="min. 6 znaków"
         />
       </div>
-      {error && <p className="text-red-500 text-sm">{error}</p>}
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full bg-green-600 hover:bg-green-700 disabled:bg-green-300 text-white font-semibold py-2.5 rounded-lg transition-colors"
-      >
+      {error && (
+        <p role="alert" className="text-sm font-bold text-coral bg-coral-bg border-[3px] border-coral rounded-2xl px-4 py-2.5">
+          {error}
+        </p>
+      )}
+      <button type="submit" disabled={loading} className="btn btn-sun w-full !min-h-[56px] text-lg">
         {loading ? 'Rejestracja...' : 'Zarejestruj się'}
       </button>
     </form>

@@ -1,23 +1,23 @@
+import AuthShell from '@/components/AuthShell'
 import LoginForm from './LoginForm'
 
 export default function LoginPage({ searchParams }: { searchParams: { next?: string } }) {
   const next = searchParams.next ?? '/dashboard'
 
   return (
-    <main className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-      <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-200 w-full max-w-md">
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Zaloguj się</h1>
-        <p className="text-gray-500 text-sm mb-6">
-          Zaloguj się, aby śledzić swoje postępy w nauce
-        </p>
-        <LoginForm next={next} />
-        <p className="text-center text-sm text-gray-500 mt-4">
+    <AuthShell
+      title="Zaloguj się"
+      subtitle="Zaloguj się, aby śledzić swoje postępy w nauce"
+      footer={
+        <>
           Nie masz konta?{' '}
-          <a href="/register" className="text-green-600 hover:underline font-medium">
+          <a href="/register" className="text-brand font-extrabold hover:underline">
             Zarejestruj się
           </a>
-        </p>
-      </div>
-    </main>
+        </>
+      }
+    >
+      <LoginForm next={next} />
+    </AuthShell>
   )
 }

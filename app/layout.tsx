@@ -1,9 +1,14 @@
 import type { Metadata } from 'next'
+import { Fredoka, Nunito, IBM_Plex_Mono } from 'next/font/google'
 import './globals.css'
 import { createClient } from '@/lib/supabase-server'
 import NavBar from '@/components/NavBar'
 import CookieConsent from '@/components/CookieConsent'
 import Logo from '@/components/Logo'
+
+const nunito = Nunito({ subsets: ['latin', 'latin-ext'], variable: '--font-nunito', display: 'swap' })
+const fredoka = Fredoka({ subsets: ['latin', 'latin-ext'], variable: '--font-fredoka', display: 'swap' })
+const plexMono = IBM_Plex_Mono({ subsets: ['latin', 'latin-ext'], weight: ['500', '600'], variable: '--font-plex-mono', display: 'swap' })
 
 export const metadata: Metadata = {
   title: 'Biologia na 100%',
@@ -15,25 +20,24 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const { data: { user } } = await supabase.auth.getUser()
 
   return (
-    <html lang="pl">
-      <body className="antialiased bg-gray-50">
+    <html lang="pl" className={`${nunito.variable} ${fredoka.variable} ${plexMono.variable}`}>
+      <body className="antialiased bg-canvas font-sans text-ink min-h-screen flex flex-col">
         <NavBar user={user} />
         {children}
         <CookieConsent />
-        <footer className="border-t border-gray-200 bg-white mt-auto">
-          <div className="w-full px-10 py-6 flex items-center justify-between">
+        <footer className="border-t-[3px] border-brand-deep bg-white mt-auto">
+          <div className="mx-auto max-w-[1200px] px-4 sm:px-8 py-6 flex flex-wrap items-center justify-between gap-4">
             <div className="flex flex-col gap-1.5">
-              <span className="flex items-center gap-1.5">
-                <Logo size={20} />
-                <span className="text-sm font-semibold text-gray-800">Biologia</span>{' '}
-                <span className="text-sm font-semibold text-green-600">na 100%</span>
-                <span className="text-xs bg-gray-100 text-gray-400 px-1.5 py-0.5 rounded">Beta</span>
+              <span className="flex items-center gap-2">
+                <Logo size={24} />
+                <span className="font-display font-bold text-base text-ink">Biologia <span className="text-brand">na 100%</span></span>
+                <span className="text-xs bg-canvas border-2 border-line text-muted px-1.5 py-0.5 rounded-md font-bold">Beta</span>
               </span>
-              <span className="text-xs text-gray-400">Ucz się biologii przez praktykę i testowanie wiedzy</span>
+              <span className="text-sm text-muted">Ucz się biologii przez praktykę i testowanie wiedzy</span>
             </div>
-            <div className="text-right">
-              <p className="text-xs text-gray-400 mb-1">Kontakt</p>
-              <a href="mailto:faljgo@gmail.com" className="text-sm text-gray-500 hover:text-green-600 transition-colors">faljgo@gmail.com</a>
+            <div className="sm:text-right">
+              <p className="text-xs font-extrabold uppercase tracking-wider text-muted mb-1">Kontakt</p>
+              <a href="mailto:faljgo@gmail.com" className="text-sm font-bold text-ink hover:text-brand transition-colors">faljgo@gmail.com</a>
             </div>
           </div>
         </footer>

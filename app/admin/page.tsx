@@ -38,7 +38,7 @@ async function getAdminData() {
 }
 
 function scoreColor(score: number) {
-  return score >= 75 ? 'text-green-600' : score >= 50 ? 'text-yellow-600' : 'text-red-500'
+  return score >= 75 ? 'text-brand' : score >= 50 ? 'text-amber-600' : 'text-red-500'
 }
 
 export default async function AdminPage() {
@@ -48,44 +48,46 @@ export default async function AdminPage() {
   if (!user || user.email !== ADMIN_EMAIL) redirect('/')
 
   const { users, sessionsByUser, learnedByUser } = await getAdminData()
+  const totalCompleted = Object.values(sessionsByUser).reduce((sum, list) => sum + (list?.length ?? 0), 0)
+  const totalLearned = Object.values(learnedByUser).reduce((sum, n) => sum + n, 0)
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <div className="max-w-6xl mx-auto px-4 py-10">
+    <main className="min-h-[70vh]">
+      <div className="max-w-6xl mx-auto px-4 sm:px-8 py-8 sm:py-10">
 
-        <div className="mb-8 flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">Panel Administratora</h1>
-            <p className="text-gray-500 text-sm mt-1">{users.length} zarejestrowanych użytkowników</p>
-          </div>
-          <div className="flex items-center gap-3">
-            <Link href="/admin/feedback" className="text-sm text-purple-600 hover:text-purple-800 font-medium border border-purple-200 px-3 py-1.5 rounded-lg hover:bg-purple-50 transition-colors">
-              💬 Feedback
-            </Link>
-            <Link href="/admin/reports" className="text-sm text-green-600 hover:text-green-800 font-medium border border-green-200 px-3 py-1.5 rounded-lg hover:bg-green-50 transition-colors">
-              📊 Raporty
-            </Link>
-            <span className="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">Admin</span>
-          </div>
+        <div className="mb-6">
+          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">Użytkownicy</h1>
+          <p className="text-slate-500 text-sm mt-1">Aktywność uczniów i wyniki testów</p>
         </div>
 
-        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-          <table className="w-full text-sm">
-            <thead className="bg-gray-50 border-b border-gray-200">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+          {[
+            { label: 'Zarejestrowani użytkownicy', value: users.length },
+            { label: 'Ukończone testy', value: totalCompleted },
+            { label: 'Wyuczone pytania', value: totalLearned },
+          ].map((k) => (
+            <div key={k.label} className="bg-white rounded-xl border border-slate-200 shadow-sm px-5 py-4">
+              <div className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500">{k.label}</div>
+              <div className="mt-1 text-3xl font-extrabold tabular-nums text-slate-900">{k.value}</div>
+            </div>
+          ))}
+        </div>
+
+        <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+          <table className="w-full text-sm tabular-nums">
+            <thead className="bg-slate-50 border-b border-slate-200">
               <tr>
-                <th className="text-left px-4 py-3 text-gray-600 font-medium">Email</th>
-                <th className="text-left px-4 py-3 text-gray-600 font-medium">Imię</th>
-                <th className="text-center px-4 py-3 text-gray-600 font-medium">Testów</th>
-                <th className="text-center px-4 py-3 text-gray-600 font-medium">Sprawdzianów</th>
-                <th className="text-center px-4 py-3 text-gray-600 font-medium">Śr. (tematy)</th>
-                <th className="text-center px-4 py-3 text-gray-600 font-medium">Śr. (sprawdziany)</th>
-                <th className="text-center px-4 py-3 text-gray-600 font-medium">Najlepszy</th>
-                <th className="text-center px-4 py-3 text-gray-600 font-medium">Wyuczone</th>
-                <th className="text-left px-4 py-3 text-gray-600 font-medium">Rejestracja</th>
-                <th className="px-4 py-3"></th>
+                <th className="text-left px-4 py-3 text-[11px] font-extrabold uppercase tracking-wider text-slate-500">Użytkownik</th>
+                <th className="text-center px-3 py-3 text-[11px] font-extrabold uppercase tracking-wider text-slate-500">Testów</th>
+                <th className="text-center px-3 py-3 text-[11px] font-extrabold uppercase tracking-wider text-slate-500">Sprawdz.</th>
+                <th className="text-center px-3 py-3 text-[11px] font-extrabold uppercase tracking-wider text-slate-500">Śr. tematy</th>
+                <th className="text-center px-3 py-3 text-[11px] font-extrabold uppercase tracking-wider text-slate-500">Śr. sprawdz.</th>
+                <th className="text-center px-3 py-3 text-[11px] font-extrabold uppercase tracking-wider text-slate-500">Najlepszy</th>
+                <th className="text-center px-3 py-3 text-[11px] font-extrabold uppercase tracking-wider text-slate-500">Wyuczone</th>
+                <th className="px-3 py-3"><span className="sr-only">Akcje</span></th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-slate-100">
               {users.map(u => {
                 const userSessions = sessionsByUser[u.id] ?? []
                 const topicTests = userSessions.filter(s => s.session_type === 'topic')
@@ -98,47 +100,40 @@ export default async function AdminPage() {
                 const bestScore = topicScores.length > 0 ? Math.max(...topicScores) : null
                 const learnedCount = learnedByUser[u.id] ?? 0
 
+                const score = (value: number | null) =>
+                  value !== null
+                    ? <span className={`font-semibold ${scoreColor(value)}`}>{value}%</span>
+                    : <span className="text-slate-300">—</span>
+
                 return (
-                  <tr key={u.id} className="hover:bg-gray-50">
-                    <td className="px-4 py-3 text-gray-800">
-                      {u.email}
-                      {u.email === ADMIN_EMAIL && (
-                        <span className="ml-2 text-xs bg-purple-100 text-purple-600 px-1.5 py-0.5 rounded">admin</span>
-                      )}
+                  <tr key={u.id} className="hover:bg-slate-50">
+                    <td className="px-4 py-3 min-w-0">
+                      <div className="flex items-center gap-2 text-slate-900 font-semibold">
+                        <span className="truncate">{u.email}</span>
+                        {u.email === ADMIN_EMAIL && (
+                          <span className="shrink-0 text-[10px] font-extrabold uppercase tracking-wider bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded">admin</span>
+                        )}
+                      </div>
+                      <div className="text-xs text-slate-500 mt-0.5">
+                        {u.user_metadata?.name ? `${u.user_metadata.name} · ` : ''}
+                        od {new Date(u.created_at).toLocaleDateString('pl-PL')}
+                      </div>
                     </td>
-                    <td className="px-4 py-3 text-gray-600">
-                      {u.user_metadata?.name || <span className="text-gray-300">—</span>}
-                    </td>
-                    <td className="px-4 py-3 text-center text-gray-600">{topicTests.length || '—'}</td>
-                    <td className="px-4 py-3 text-center text-gray-600">{mockTests.length || '—'}</td>
-                    <td className="px-4 py-3 text-center">
-                      {avgTopicScore !== null
-                        ? <span className={`font-semibold ${scoreColor(avgTopicScore)}`}>{avgTopicScore}%</span>
-                        : <span className="text-gray-300">—</span>}
-                    </td>
-                    <td className="px-4 py-3 text-center">
-                      {avgMockScore !== null
-                        ? <span className={`font-semibold ${scoreColor(avgMockScore)}`}>{avgMockScore}%</span>
-                        : <span className="text-gray-300">—</span>}
-                    </td>
-                    <td className="px-4 py-3 text-center">
-                      {bestScore !== null
-                        ? <span className={`font-semibold ${scoreColor(bestScore)}`}>{bestScore}%</span>
-                        : <span className="text-gray-300">—</span>}
-                    </td>
-                    <td className="px-4 py-3 text-center">
+                    <td className="px-3 py-3 text-center text-slate-700">{topicTests.length || '—'}</td>
+                    <td className="px-3 py-3 text-center text-slate-700">{mockTests.length || '—'}</td>
+                    <td className="px-3 py-3 text-center">{score(avgTopicScore)}</td>
+                    <td className="px-3 py-3 text-center">{score(avgMockScore)}</td>
+                    <td className="px-3 py-3 text-center">{score(bestScore)}</td>
+                    <td className="px-3 py-3 text-center">
                       {learnedCount > 0
-                        ? <span className="text-blue-600 font-medium">📌 {learnedCount}</span>
-                        : <span className="text-gray-300">—</span>}
+                        ? <span className="text-slate-700 font-semibold">{learnedCount}</span>
+                        : <span className="text-slate-300">—</span>}
                     </td>
-                    <td className="px-4 py-3 text-gray-400 text-xs">
-                      {new Date(u.created_at).toLocaleDateString('pl-PL')}
-                    </td>
-                    <td className="px-4 py-3 text-right">
+                    <td className="px-3 py-3 text-right">
                       {userSessions.length > 0 && (
                         <Link
                           href={`/admin/users/${u.id}`}
-                          className="text-xs text-green-600 hover:underline whitespace-nowrap"
+                          className="text-xs font-bold text-brand hover:underline whitespace-nowrap"
                         >
                           Szczegóły →
                         </Link>
@@ -151,7 +146,7 @@ export default async function AdminPage() {
           </table>
 
           {users.length === 0 && (
-            <div className="text-center py-10 text-gray-400">Brak użytkowników</div>
+            <div className="text-center py-10 text-slate-400">Brak użytkowników</div>
           )}
         </div>
 

@@ -39,46 +39,44 @@ export default async function ArchiwumPage() {
   const exams = await getExams()
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <div className="max-w-2xl mx-auto px-4 py-12">
+    <main className="bg-canvas min-h-[70vh]">
+      <div className="max-w-3xl mx-auto px-4 sm:px-8 py-8 sm:py-10 flex flex-col gap-8">
 
-        <Link href="/" className="text-green-600 hover:text-green-800 text-sm mb-8 inline-block">
+        <Link href="/" className="self-start text-brand font-extrabold hover:underline">
           ← Strona główna
         </Link>
 
-        <div className="mb-8">
-          <div className="inline-flex items-center text-xs font-semibold text-amber-700 bg-amber-100 px-3 py-1 rounded-full mb-3">
-            Archiwum matur
-          </div>
-          <h1 className="text-2xl font-bold text-gray-900">Prawdziwe zadania maturalne</h1>
-          <p className="text-gray-500 mt-1 text-sm">
+        <header>
+          <span className="pill bg-sun text-brand-deep border-[3px] border-brand-deep mb-3">Archiwum matur</span>
+          <h1 className="font-display font-bold text-4xl sm:text-5xl leading-tight">Prawdziwe zadania maturalne</h1>
+          <p className="text-muted text-lg mt-2">
             Zadania otwarte z arkuszy CKE. Napisz odpowiedź — AI oceni ją według oficjalnego klucza.
           </p>
-        </div>
+        </header>
 
         {exams.length === 0 ? (
-          <div className="bg-white rounded-xl p-8 border border-gray-200 text-center text-gray-400">
+          <div className="card-game !rounded-[28px] p-8 text-center font-semibold text-muted">
             Brak arkuszy w bazie. Zajrzyj później!
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="flex flex-col gap-4">
             {exams.map(exam => (
               <Link
                 key={exam.id}
                 href={`/archiwum/${exam.id}`}
-                className="flex items-center justify-between bg-white rounded-xl border border-gray-200 px-6 py-4 hover:border-amber-300 hover:shadow-sm transition-all group"
+                className="card-game card-link !rounded-[24px] !shadow-hard flex items-center justify-between gap-4 px-5 py-4 sm:px-6"
               >
-                <div>
-                  <div className="font-semibold text-gray-900 group-hover:text-amber-700 transition-colors">
+                <div className="min-w-0">
+                  <div className="font-display font-semibold text-xl leading-snug">
                     Matura {exam.year} — {SESSION_LABEL[exam.session] ?? exam.session}
                   </div>
-                  <div className="text-sm text-gray-400 mt-0.5">
+                  <div className="text-sm font-semibold text-muted mt-0.5">
                     Biologia · Poziom rozszerzony
                   </div>
                 </div>
-                <div className="text-right shrink-0 ml-4">
-                  <div className="text-lg font-semibold text-gray-700">{exam.question_count}</div>
-                  <div className="text-xs text-gray-400">zadań</div>
+                <div className="shrink-0 text-center rounded-2xl bg-[#fff1bf] border-[3px] border-brand-deep px-4 py-1.5">
+                  <div className="font-mono font-semibold text-2xl leading-none">{exam.question_count}</div>
+                  <div className="text-xs font-bold text-muted">zadań</div>
                 </div>
               </Link>
             ))}

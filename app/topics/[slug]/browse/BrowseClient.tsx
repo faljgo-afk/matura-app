@@ -55,13 +55,13 @@ export default function BrowseClient({
   return (
     <div>
       {/* Filter */}
-      <div className="flex gap-2 flex-wrap mb-6">
+      <div className="flex gap-2 flex-wrap mb-6" role="group" aria-label="Filtr podtematów">
         <button
           onClick={() => setFilter('all')}
-          className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+          className={`px-4 py-2 rounded-full text-sm font-extrabold border-[3px] transition-colors ${
             filter === 'all'
-              ? 'bg-green-600 text-white'
-              : 'bg-white border border-gray-200 text-gray-600 hover:border-green-400'
+              ? 'bg-sun text-brand-deep border-brand-deep'
+              : 'bg-white text-muted border-line hover:border-brand'
           }`}
         >
           Wszystkie ({questions.length})
@@ -73,10 +73,10 @@ export default function BrowseClient({
             <button
               key={s.id}
               onClick={() => setFilter(s.name)}
-              className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+              className={`px-4 py-2 rounded-full text-sm font-extrabold border-[3px] transition-colors ${
                 filter === s.name
-                  ? 'bg-green-600 text-white'
-                  : 'bg-white border border-gray-200 text-gray-600 hover:border-green-400'
+                  ? 'bg-sun text-brand-deep border-brand-deep'
+                  : 'bg-white text-muted border-line hover:border-brand'
               }`}
             >
               {s.name} ({count})
@@ -86,30 +86,30 @@ export default function BrowseClient({
       </div>
 
       {/* Questions */}
-      <div className="space-y-4">
+      <div className="flex flex-col gap-5">
         {filtered.map((q, i) => {
           const isRevealed = revealed.has(q.id)
           return (
-            <div key={q.id} className="bg-white rounded-xl border border-gray-200 p-5">
+            <article key={q.id} className="card-game !rounded-[28px] p-5 sm:p-6">
               {/* Header */}
               <div className="flex items-start justify-between gap-3 mb-3">
                 <div className="flex-1">
                   {q.subtopic_name && (
-                    <span className="text-xs text-gray-400 mb-1 block">{q.subtopic_name}</span>
+                    <span className="text-xs font-extrabold uppercase tracking-wider text-muted mb-1 block">{q.subtopic_name}</span>
                   )}
-                  <p className="font-medium text-gray-900">
-                    <span className="text-gray-400 mr-1">{i + 1}.</span>
+                  <p className="font-display font-semibold text-xl leading-snug">
+                    <span className="text-brand mr-1">{i + 1}.</span>
                     {q.question_text}
                   </p>
                 </div>
-                <span className={`shrink-0 text-xs font-semibold px-2 py-1 rounded-full ${
+                <span className={`pill shrink-0 ${
                   q.kind === 'open'
-                    ? 'bg-violet-100 text-violet-700'
+                    ? 'bg-[#e3dcff] text-[#3b2a9e]'
                     : q.question_type === 'true_false'
-                    ? 'bg-amber-100 text-amber-700'
+                    ? 'bg-amberx-bg text-amberx'
                     : q.question_type === 'multiple'
-                    ? 'bg-purple-100 text-purple-700'
-                    : 'bg-blue-100 text-blue-700'
+                    ? 'bg-[#ffd9e6] text-[#8a1d4a]'
+                    : 'bg-mint text-brand-deep'
                 }`}>
                   {q.kind === 'open' ? 'otwarte' : q.question_type === 'true_false' ? 'P/F' : q.question_type === 'multiple' ? 'wielokrotny' : 'jednokrotny'}
                 </span>
@@ -117,25 +117,25 @@ export default function BrowseClient({
 
               {/* Options for closed questions */}
               {q.kind === 'closed' && (
-                <div className="space-y-2 mb-3">
-                  {q.question_type === 'true_false' ? (
+                <div className="flex flex-col gap-2 mb-3">
+                  {q.question_type === 'true_false' && q.correct_answer.some(c => c.includes('-')) ? (
                     q.options.map(opt => {
                       const verdict = isRevealed
                         ? (q.correct_answer.find(c => c.startsWith(opt.id + '-'))?.split('-')[1] ?? null)
                         : null
                       return (
-                        <div key={opt.id} className={`flex items-center gap-3 px-3 py-2 rounded-lg border text-sm transition-colors ${
+                        <div key={opt.id} className={`flex items-center gap-3 px-4 py-3 rounded-2xl border-[3px] text-[15px] font-semibold transition-colors ${
                           isRevealed
                             ? verdict === 'P'
-                              ? 'border-green-400 bg-green-50 text-green-800'
-                              : 'border-red-300 bg-red-50 text-red-800'
-                            : 'border-gray-200 text-gray-700'
+                              ? 'border-brand bg-mint text-brand-deep'
+                              : 'border-coral bg-coral-bg text-coral'
+                            : 'border-line bg-white text-ink'
                         }`}>
-                          <span className="font-semibold shrink-0">{opt.id}.</span>
+                          <span className="font-extrabold shrink-0">{opt.id}.</span>
                           <span className="flex-1">{opt.text}</span>
                           {isRevealed && verdict && (
-                            <span className={`shrink-0 font-bold text-xs px-2 py-0.5 rounded ${
-                              verdict === 'P' ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'
+                            <span className={`shrink-0 font-black text-xs px-2.5 py-1 rounded-lg ${
+                              verdict === 'P' ? 'bg-brand text-white' : 'bg-coral text-white'
                             }`}>{verdict}</span>
                           )}
                         </div>
@@ -145,15 +145,15 @@ export default function BrowseClient({
                     q.options.map(opt => {
                       const isCorrect = q.correct_answer.includes(opt.id)
                       return (
-                        <div key={opt.id} className={`px-3 py-2 rounded-lg border text-sm transition-colors ${
+                        <div key={opt.id} className={`px-4 py-3 rounded-2xl border-[3px] text-[15px] transition-colors ${
                           isRevealed && isCorrect
-                            ? 'border-green-400 bg-green-50 text-green-800 font-medium'
-                            : 'border-gray-200 text-gray-700'
+                            ? 'border-brand bg-mint text-brand-deep font-extrabold'
+                            : 'border-line bg-white text-ink font-semibold'
                         }`}>
-                          <span className="font-semibold mr-1">{opt.id}.</span>
+                          <span className="font-extrabold mr-1">{opt.id}.</span>
                           {opt.text}
                           {isRevealed && isCorrect && (
-                            <span className="ml-2 text-green-600 text-xs">✓</span>
+                            <span className="ml-2 text-brand text-xs font-black">✓ poprawna</span>
                           )}
                         </div>
                       )
@@ -164,16 +164,16 @@ export default function BrowseClient({
 
               {/* Revealed answer */}
               {isRevealed && (
-                <div className="mt-3 space-y-2">
+                <div className="mt-3 flex flex-col gap-3">
                   {q.kind === 'open' && (
-                    <div className="bg-green-50 border border-green-200 rounded-lg p-3 text-sm text-green-900">
-                      <span className="font-semibold block mb-1">Wzorcowa odpowiedź:</span>
+                    <div className="bg-mint border-[3px] border-brand rounded-2xl p-4 text-[15px] text-brand-deep">
+                      <span className="font-extrabold block mb-1">Wzorcowa odpowiedź:</span>
                       {q.sample_answer}
                     </div>
                   )}
                   {(q.kind === 'closed' ? q.explanation : q.explanation) && (
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm text-blue-800">
-                      <span className="font-semibold">Wyjaśnienie: </span>
+                    <div className="rounded-2xl border-[3px] border-dashed border-aqua bg-[#eaf9f8] p-4 text-[15px] text-ink">
+                      <span className="font-extrabold">Wyjaśnienie: </span>
                       {q.kind === 'closed' ? q.explanation : q.explanation}
                     </div>
                   )}
@@ -183,20 +183,17 @@ export default function BrowseClient({
               {/* Toggle button */}
               <button
                 onClick={() => toggle(q.id)}
-                className={`mt-3 w-full py-2 rounded-lg text-sm font-medium transition-colors ${
-                  isRevealed
-                    ? 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                    : 'bg-green-600 text-white hover:bg-green-700'
-                }`}
+                aria-expanded={isRevealed}
+                className={`btn w-full mt-3 ${isRevealed ? 'btn-ghost' : 'btn-primary'}`}
               >
                 {isRevealed ? 'Ukryj odpowiedź' : 'Pokaż odpowiedź'}
               </button>
-            </div>
+            </article>
           )
         })}
 
         {filtered.length === 0 && (
-          <div className="text-center py-10 text-gray-400">
+          <div className="text-center py-10 font-semibold text-muted">
             Brak pytań dla wybranej podtemy.
           </div>
         )}

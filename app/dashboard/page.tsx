@@ -62,57 +62,48 @@ export default async function DashboardPage() {
   const totalLearned = learnedIds.size
   const totalQuestions = allQuestions.length
 
+
   return (
-    <main className="min-h-screen bg-gray-50">
-      <div className="max-w-4xl mx-auto px-4 py-10">
+    <main className="bg-canvas min-h-[70vh]">
+      <div className="max-w-[1000px] mx-auto px-4 sm:px-8 py-8 sm:py-10 flex flex-col gap-8">
 
         {/* Profile card */}
-        <div className="bg-white rounded-2xl border border-gray-200 p-6 mb-8 flex items-center gap-5">
-          <div className="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center shrink-0 select-none">
-            <span className="text-2xl font-bold text-green-600">
+        <section className="relative overflow-hidden rounded-[32px] border-4 border-brand-deep shadow-hard-lg mb-2 text-white bg-gradient-to-br from-[#0b5a33] to-[#12803f] p-6 sm:p-8 flex items-center gap-5">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-sun border-[3px] border-brand-deep flex items-center justify-center shrink-0 select-none">
+            <span className="font-display text-3xl sm:text-4xl font-bold text-brand-deep">
               {((user.user_metadata?.name || user.email || '?')[0]).toUpperCase()}
             </span>
           </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-xs text-gray-400 uppercase tracking-wide font-medium mb-1">Moje konto</p>
+          <div className="relative flex-1 min-w-0">
+            <p className="text-xs font-extrabold uppercase tracking-wider text-sun mb-1">Moje konto</p>
             <EditNameForm currentName={user.user_metadata?.name ?? ''} />
-            <p className="text-sm text-gray-400 truncate mt-0.5">{user.email}</p>
+            <p className="text-sm text-[#e9fbe0] truncate mt-0.5">{user.email}</p>
           </div>
-          <div className="text-right text-xs text-gray-400 shrink-0 hidden sm:block">
-            <p>Uczestnik od</p>
-            <p className="font-semibold text-gray-600 mt-0.5">
+          <div className="relative text-right text-sm shrink-0 hidden sm:block">
+            <p className="text-[#e9fbe0]">Uczestnik od</p>
+            <p className="font-extrabold mt-0.5">
               {new Date(user.created_at).toLocaleDateString('pl-PL', { year: 'numeric', month: 'long' })}
             </p>
           </div>
-        </div>
+        </section>
 
         {/* Summary cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-10">
-          <div className="bg-white rounded-xl p-5 border border-gray-200 text-center">
-            <div className="text-3xl font-bold text-green-600">{totalTests}</div>
-            <div className="text-sm text-gray-500 mt-1">Testów tematycznych</div>
-          </div>
-          <div className="bg-white rounded-xl p-5 border border-gray-200 text-center">
-            <div className="text-3xl font-bold text-green-600">
-              {avgTopicScore !== null ? `${avgTopicScore}%` : '—'}
+        <section aria-label="Podsumowanie" className="grid grid-cols-2 lg:grid-cols-5 gap-4">
+          {[
+            { value: String(totalTests), label: 'Testów tematycznych', tile: 'bg-leaf' },
+            { value: avgTopicScore !== null ? `${avgTopicScore}%` : '—', label: 'Średni wynik (tematy)', tile: 'bg-sun' },
+            { value: String(mockSessions.length), label: 'Sprawdzianów', tile: 'bg-aqua' },
+            { value: avgMockScore !== null ? `${avgMockScore}%` : '—', label: 'Średni wynik (sprawdziany)', tile: 'bg-candy' },
+            { value: `${totalLearned}/${totalQuestions}`, label: 'Pytań opanowanych', tile: 'bg-grape text-white' },
+          ].map((s) => (
+            <div key={s.label} className="card-game !rounded-[24px] p-4 flex flex-col gap-2 last:col-span-2 lg:last:col-span-1">
+              <span className={`self-start font-mono font-semibold text-2xl sm:text-3xl leading-none px-3 py-2 rounded-2xl border-[3px] border-brand-deep text-brand-deep ${s.tile}`}>
+                {s.value}
+              </span>
+              <span className="text-sm font-bold text-muted leading-snug">{s.label}</span>
             </div>
-            <div className="text-sm text-gray-500 mt-1">Średni wynik (tematy)</div>
-          </div>
-          <div className="bg-white rounded-xl p-5 border border-gray-200 text-center">
-            <div className="text-3xl font-bold text-green-600">{mockSessions.length}</div>
-            <div className="text-sm text-gray-500 mt-1">Sprawdzianów</div>
-          </div>
-          <div className="bg-white rounded-xl p-5 border border-gray-200 text-center">
-            <div className="text-3xl font-bold text-green-600">
-              {avgMockScore !== null ? `${avgMockScore}%` : '—'}
-            </div>
-            <div className="text-sm text-gray-500 mt-1">Średni wynik (sprawdziany)</div>
-          </div>
-          <div className="bg-white rounded-xl p-5 border border-gray-200 text-center">
-            <div className="text-3xl font-bold text-blue-600">{totalLearned}<span className="text-lg text-gray-400">/{totalQuestions}</span></div>
-            <div className="text-sm text-gray-500 mt-1">Pytań opanowanych</div>
-          </div>
-        </div>
+          ))}
+        </section>
 
         <DashboardTabs topicStats={topicStats} sessions={sessions} topics={topics} />
 
